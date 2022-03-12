@@ -13,8 +13,11 @@ import {MatSort} from "@angular/material/sort";
 export class UsersComponent implements AfterViewInit {
 
   @ViewChild('essPaginator') essPaginator!: MatPaginator;
+  @ViewChild('essTable', {read: MatSort}) essSort!: MatSort;
   @ViewChild('alsimPaginator') alsimPaginator!: MatPaginator;
+  @ViewChild('alsimTable', {read: MatSort}) alsimSort!: MatSort;
   @ViewChild('dynairixPaginator') dynairixPaginator!: MatPaginator;
+  @ViewChild('dynairixTable', {read: MatSort}) dynairixSort!: MatSort;
 
   displayedColumns: string[] = ['id', 'username', 'email', 'firstName', 'secondName'];
 
@@ -35,6 +38,7 @@ export class UsersComponent implements AfterViewInit {
     this.usersService.getEssUsers().subscribe(users => {
       this.essUsers = new MatTableDataSource<User>(users)
       this.essUsers.paginator = this.essPaginator
+      this.essUsers.sort = this.essSort;
     })
   }
 
@@ -42,6 +46,7 @@ export class UsersComponent implements AfterViewInit {
     this.usersService.getAlsimUsers().subscribe(users => {
       this.alsimUsers = new MatTableDataSource<User>(users)
       this.alsimUsers.paginator = this.alsimPaginator
+      this.alsimUsers.sort = this.alsimSort;
     })
   }
 
@@ -49,6 +54,7 @@ export class UsersComponent implements AfterViewInit {
     this.usersService.getDynairixUsers().subscribe(users => {
       this.dynairixUsers = new MatTableDataSource<User>(users)
       this.dynairixUsers.paginator = this.dynairixPaginator
+      this.dynairixUsers.sort = this.dynairixSort;
     })
   }
 }

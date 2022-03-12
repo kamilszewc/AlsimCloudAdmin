@@ -3,35 +3,35 @@
 <!-- ESS users -->
 <h2>ESS users</h2>
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="essUsers">
+  <table mat-table #essTable [dataSource]="essUsers" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
 
     <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
+    <ng-container matColumnDef="id" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef> Username </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
       <td mat-cell *matCellDef="let element"> {{element.username}} </td>
     </ng-container>
 
     <!-- Email Column -->
     <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
       <td mat-cell *matCellDef="let element"> {{element.email}} </td>
     </ng-container>
 
     <!-- FirstName Column -->
     <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef> First name </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> First name </th>
       <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
     </ng-container>
 
     <!-- SecondName Column -->
     <ng-container matColumnDef="secondName">
-      <th mat-header-cell *matHeaderCellDef> Second name </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Second name </th>
       <td mat-cell *matCellDef="let element"> {{element.secondName}} </td>
     </ng-container>
 
@@ -46,35 +46,35 @@
 <!-- Alsim Cloud users -->
 <h2>Alsim Cloud users</h2>
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="alsimUsers">
+  <table mat-table #alsimTable [dataSource]="alsimUsers" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
 
     <!-- Position Column -->
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef> Username </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
       <td mat-cell *matCellDef="let element"> {{element.username}} </td>
     </ng-container>
 
     <!-- Email Column -->
     <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
       <td mat-cell *matCellDef="let element"> {{element.email}} </td>
     </ng-container>
 
     <!-- FirstName Column -->
     <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef> First name </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> First name </th>
       <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
     </ng-container>
 
     <!-- SecondName Column -->
     <ng-container matColumnDef="secondName">
-      <th mat-header-cell *matHeaderCellDef> Second name </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Second name </th>
       <td mat-cell *matCellDef="let element"> {{element.secondName}} </td>
     </ng-container>
 
@@ -89,35 +89,35 @@
 <!-- Dynairix users -->
 <h2>Dynairix users</h2>
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dynairixUsers">
+  <table mat-table #dynairixTable [dataSource]="dynairixUsers" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
 
     <!-- Position Column -->
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef> Username </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
       <td mat-cell *matCellDef="let element"> {{element.username}} </td>
     </ng-container>
 
     <!-- Email Column -->
     <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
       <td mat-cell *matCellDef="let element"> {{element.email}} </td>
     </ng-container>
 
     <!-- FirstName Column -->
     <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef> First name </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> First name </th>
       <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
     </ng-container>
 
     <!-- SecondName Column -->
     <ng-container matColumnDef="secondName">
-      <th mat-header-cell *matHeaderCellDef> Second name </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Second name </th>
       <td mat-cell *matCellDef="let element"> {{element.secondName}} </td>
     </ng-container>
 

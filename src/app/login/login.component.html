@@ -1,0 +1,12 @@
+<form [formGroup]="loginForm">
+
+  <div class="header">Login to the admin account</div>
+
+  <mat-form-field>
+    <input matInput type="password" id="password" placeholder="Password" autocomplete="off" formControlName="password" required>
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-flat-button color="primary" type="submit" (click)="login()" [disabled]="!loginForm.valid">Login</button>
+  </div>
+</form>
