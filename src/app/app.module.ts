@@ -21,6 +21,7 @@ import { GroupsComponent } from './groups/groups.component';
 import {AuthInterceptor} from "./auth/auth.interceptor";
 
 const routes: Routes = [
+  { path: '', component: UsersComponent },
   { path: 'users', component: UsersComponent },
   { path: 'groups', component: GroupsComponent },
   { path: 'tasks', component: TasksComponent },
