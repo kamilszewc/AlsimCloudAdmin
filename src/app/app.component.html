@@ -1,3 +1,36 @@
-<h1>Alsim Cloud Admin</h1>
-<!--<app-login></app-login>-->
-<app-users></app-users>
+<div class="row">
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+  <div class="sidebar-sticky">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">
+          <span data-feather="user"></span>
+          Users <span class="sr-only"></span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <span data-feather="file"></span>
+          Tasks
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <span data-feather="shopping-cart"></span>
+          Schemas
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <span data-feather="users"></span>
+          Resources
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+  <app-users></app-users>
+</main>
+</div>
