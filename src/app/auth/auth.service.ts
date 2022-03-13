@@ -3,11 +3,22 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Message} from "../message";
 import {GlobalConstants} from "../common/global-constants";
 import {shareReplay, tap} from "rxjs";
+import jwtDecode from "jwt-decode";
+
+class Token {
+  role: string
+
+  constructor(role: string) {
+    this.role = role
+  }
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  expirationTime = 1800
 
   constructor(private http: HttpClient) { }
 
@@ -24,27 +35,37 @@ export class AuthService {
   }
 
   private setSession(token: string) {
+    let decodedToken: Token = jwtDecode(token);
+    console.log(decodedToken)
+
     localStorage.setItem('token', token)
-    console.log(token)
+    localStorage.setItem('role', decodedToken.role)
+    localStorage.setItem('expiration', (this.getNow() + this.expirationTime).toString())
   }
 
   logout() {
     localStorage.removeItem('token')
+    localStorage.removeItem('role')
+    localStorage.removeItem('expiration')
   }
 
   isLoggedIn() {
-    return !this.isLoggedOut()
+    if (localStorage.getItem('token') != null) {
+      let expirationTime = new Number(localStorage.getItem('expiration'));
+      if (this.getNow() < expirationTime) {
+        if (localStorage.getItem('role') === 'ROLE_ADMIN') {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   isLoggedOut() {
-    if (localStorage.getItem('token') == null) {
-      return true;
-    } else {
-      return false;
-    }
+    return !this.isLoggedIn()
   }
 
-  getExpiration() {
-
+  private getNow() {
+    return Math.floor(Date.now()/1000);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../auth/auth.service";
@@ -11,6 +11,7 @@ import {AuthService} from "../auth/auth.service";
 export class LoginComponent {
 
   loginForm: FormGroup;
+  @ViewChild('wrongCredentialAlert') wrongCredentialAlert!: ElementRef;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -30,9 +31,13 @@ export class LoginComponent {
         .subscribe(
           () => {
             console.log("User is logged in");
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('');
           }
         );
+
+      if (this.authService.isLoggedOut()) {
+        this.wrongCredentialAlert.nativeElement.hidden = false;
+      }
     }
   }
 }
