@@ -1,29 +1,41 @@
 <div class="row">
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
   <div class="sidebar-sticky">
-    <ul class="nav flex-column">
+    <ul class="nav flex-column" routerLinkActive="active">
       <li class="nav-item">
-        <a class="nav-link active" href="#">
+        <a class="nav-link" routerLink="users">
           <span data-feather="user"></span>
-          Users <span class="sr-only"></span>
+          Users
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" routerLink="groups">
+          <span data-feather="users"></span>
+          Groups
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="tasks">
           <span data-feather="file"></span>
           Tasks
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" routerLink="schemas">
           <span data-feather="shopping-cart"></span>
           Schemas
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" routerLink="resources">
           <span data-feather="users"></span>
           Resources
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="files">
+          <span data-feather="files"></span>
+          Files
         </a>
       </li>
     </ul>
@@ -31,6 +43,7 @@
 </nav>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-  <app-users></app-users>
+<!--  <app-users></app-users>-->
+  <router-outlet></router-outlet>
 </main>
 </div>
