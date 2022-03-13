@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {MatTable, MatTableModule} from "@angular/material/table";
 import {MatSort, MatSortModule} from "@angular/material/sort";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
@@ -18,6 +18,7 @@ import { ResourcesComponent } from './resources/resources.component';
 import { SchemasComponent } from './schemas/schemas.component';
 import { FilesComponent } from './files/files.component';
 import { GroupsComponent } from './groups/groups.component';
+import {AuthInterceptor} from "./auth/auth.interceptor";
 
 const routes: Routes = [
   { path: 'users', component: UsersComponent },
@@ -28,6 +29,10 @@ const routes: Routes = [
   { path: 'files', component: FilesComponent },
   { path: 'login', component: LoginComponent }
 ]
+
+const HttpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+];
 
 @NgModule({
   declarations: [
@@ -53,7 +58,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [
+    HttpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

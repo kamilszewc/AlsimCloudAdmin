@@ -15,22 +15,22 @@ export class UsersService {
   }
 
   getUser(id: Number) {
-    return this.http.get<User>(this.apiUrl + "/api/v1/user/info/" + id, {headers: GlobalConstants.headers});
+    return this.http.get<User>(this.apiUrl + "/api/v1/user/info/" + id);
   }
 
   getAllUsers() {
-    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers", {headers: GlobalConstants.headers});
+    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers");
   }
 
   getEssUsers() {
-    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?onlyEss=true", {headers: GlobalConstants.headers});
+    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?onlyEss=true");
   }
 
   getAlsimUsers() {
-    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?onlyAlsimCloud=true", {headers: GlobalConstants.headers});
+    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?onlyAlsimCloud=true");
   }
 
   getDynairixUsers() {
-    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?onlyDynairix=true", {headers: GlobalConstants.headers});
+    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?onlyDynairix=true");
   }
 }
