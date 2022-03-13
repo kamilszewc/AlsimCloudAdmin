@@ -19,15 +19,16 @@ import { SchemasComponent } from './schemas/schemas.component';
 import { FilesComponent } from './files/files.component';
 import { GroupsComponent } from './groups/groups.component';
 import {AuthInterceptor} from "./auth/auth.interceptor";
+import {LoginGuard} from "./login.guard";
 
 const routes: Routes = [
-  { path: '', component: UsersComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'groups', component: GroupsComponent },
-  { path: 'tasks', component: TasksComponent },
-  { path: 'resources', component: ResourcesComponent },
-  { path: 'schemas', component: SchemasComponent },
-  { path: 'files', component: FilesComponent },
+  { path: '', component: UsersComponent, canActivate: [LoginGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [LoginGuard] },
+  { path: 'groups', component: GroupsComponent, canActivate: [LoginGuard] },
+  { path: 'tasks', component: TasksComponent, canActivate: [LoginGuard]  },
+  { path: 'resources', component: ResourcesComponent, canActivate: [LoginGuard] },
+  { path: 'schemas', component: SchemasComponent, canActivate: [LoginGuard] },
+  { path: 'files', component: FilesComponent, canActivate: [LoginGuard] },
   { path: 'login', component: LoginComponent }
 ]
 

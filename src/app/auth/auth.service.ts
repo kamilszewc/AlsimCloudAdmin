@@ -33,9 +33,15 @@ export class AuthService {
   }
 
   isLoggedIn() {
+    return !this.isLoggedOut()
   }
 
   isLoggedOut() {
+    if (localStorage.getItem('token') == null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   getExpiration() {
