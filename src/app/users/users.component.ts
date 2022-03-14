@@ -4,6 +4,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../user";
 import {MatSort} from "@angular/material/sort";
+import {Route, Router} from "@angular/router";
 
 @Component({
   selector: 'app-users',
@@ -19,13 +20,14 @@ export class UsersComponent implements AfterViewInit {
   @ViewChild('dynairixPaginator') dynairixPaginator!: MatPaginator;
   @ViewChild('dynairixTable', {read: MatSort}) dynairixSort!: MatSort;
 
-  displayedColumns: string[] = ['id', 'username', 'email', 'firstName', 'secondName'];
+  displayedColumns: string[] = ['id', 'username', 'email', 'firstName', 'secondName', 'details'];
 
   essUsers = new MatTableDataSource<User>([]);
   alsimUsers = new MatTableDataSource<User>([]);
   dynairixUsers = new MatTableDataSource<User>([]);
 
-  constructor(private usersService: UsersService) {
+  constructor(private usersService: UsersService,
+              private router: Router) {
   }
 
   ngAfterViewInit(): void {
@@ -56,6 +58,10 @@ export class UsersComponent implements AfterViewInit {
       this.dynairixUsers.paginator = this.dynairixPaginator
       this.dynairixUsers.sort = this.dynairixSort;
     })
+  }
+
+  goTo(id: Number) {
+    this.router.navigate(['users', id])
   }
 }
 

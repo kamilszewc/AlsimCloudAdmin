@@ -11,7 +11,7 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/h
 import { LoginComponent } from './login/login.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
 import { TasksComponent } from './tasks/tasks.component';
 import { ResourcesComponent } from './resources/resources.component';
@@ -20,10 +20,13 @@ import { FilesComponent } from './files/files.component';
 import { GroupsComponent } from './groups/groups.component';
 import {AuthInterceptor} from "./auth/auth.interceptor";
 import {LoginGuard} from "./login.guard";
+import { UserComponent } from './user/user.component';
+import {KeyValuePipe} from "@angular/common";
 
 const routes: Routes = [
   { path: '', component: UsersComponent, canActivate: [LoginGuard] },
   { path: 'users', component: UsersComponent, canActivate: [LoginGuard] },
+  { path: 'users/:id', component: UserComponent, canActivate: [LoginGuard] },
   { path: 'groups', component: GroupsComponent, canActivate: [LoginGuard] },
   { path: 'tasks', component: TasksComponent, canActivate: [LoginGuard]  },
   { path: 'resources', component: ResourcesComponent, canActivate: [LoginGuard] },
@@ -45,7 +48,8 @@ const HttpInterceptorProviders = [
     ResourcesComponent,
     SchemasComponent,
     FilesComponent,
-    GroupsComponent
+    GroupsComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -57,11 +61,13 @@ const HttpInterceptorProviders = [
     MatFormFieldModule,
     MatButtonModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   exports: [RouterModule],
   providers: [
-    HttpInterceptorProviders
+    HttpInterceptorProviders,
+    KeyValuePipe
   ],
   bootstrap: [AppComponent]
 })

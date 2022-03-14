@@ -1,9 +1,28 @@
 export interface User {
-  id: number;
-  username: string;
-  email: string;
-  firstName: string;
-  secondName: string;
-  country: string;
-  ess: boolean;
+  id: number | null;
+  username: string | null;
+  email: string | null;
+  firstName: string | null;
+  secondName: string | null;
+  street: string | null;
+  city: string | null;
+  postCode: string | null;
+  companyName: string | null;
+  country: string | null;
+  taxId: string | null;
+  tokenBalance: string | null;
+  priority: number | null;
+  loggedFromAlsimCloud: boolean | null;
+  loggedFromDynairix: boolean | null;
+  userType: string | null;
+  consumerGroup: string | null;
+  enabled: boolean | null;
+  using2FA: boolean | null;
+  ess: boolean | null;
+  admin: boolean | null;
+  hash: string | null;
+  educational: boolean | null;
+  isCompany: boolean | null;
+  groupTokenBalance: string | null;
+  maxNumberOfRunningTasks: number | null;
 }

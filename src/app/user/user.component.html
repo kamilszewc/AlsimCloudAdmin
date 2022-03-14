@@ -1,0 +1,163 @@
+<h5>User {{user.id}} {{user.username}}</h5>
+
+<form class="row g-3" #userEditForm="ngForm" (ngSubmit)="editUser(userEditForm.value)">
+  <div class="col-md-6">
+    <label for="firstName" class="form-label">First name</label>
+    <input type="text" class="form-control" id="firstName" value="{{user.firstName}}" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-6">
+    <label for="secondName" class="form-label">Second name</label>
+    <input type="text" class="form-control" id="secondName" [value]="user.secondName" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-12">
+    <label for="inputAddress" class="form-label">Address</label>
+    <input type="text" class="form-control" id="inputAddress" [value]="user.street" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-6">
+    <label for="city" class="form-label">City</label>
+    <input type="text" class="form-control" id="city" [value]="user.city" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-4">
+    <label for="country" class="form-label">Country</label>
+    <select id="country" class="form-select" [disabled]="!isEditAllowed">
+      <option *ngFor="let country of countries.entries()" [value]="country[1]" [selected]="country[1] === user.country">{{country[0]}}</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label for="postCode" class="form-label">Post code</label>
+    <input type="text" class="form-control" id="postCode" [value]="user.postCode" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-6">
+    <label for="companyName" class="form-label">Company name</label>
+    <input type="text" class="form-control" id="companyName" [value]="user.companyName" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-6">
+    <label for="taxId" class="form-label">Tax id</label>
+    <input type="text" class="form-control" id="taxId" [value]="user.taxId" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-4">
+    <label for="maxNumberOfRunningTasks" class="form-label">Max number of running tasks</label>
+    <input type="number" min="0" class="form-control" id="maxNumberOfRunningTasks" [value]="user.maxNumberOfRunningTasks" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-4">
+    <label for="priority" class="form-label">Priority</label>
+    <input type="number" min="0" max="20" class="form-control" id="priority" [value]="user.priority" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-4">
+    <label for="userType" class="form-label">User type</label>
+    <select id="userType" class="form-select" [value]="user.userType" [disabled]="!isEditAllowed">
+      <option *ngFor="let userType of userTypes" [value]="userType" [selected]="userType === user.userType">{{userType}}</option>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="isEss" [checked]="user.ess" [disabled]="!isEditAllowed">
+      <label class="form-check-label" for="isEss">
+        Is ESS
+      </label>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="isAdmin" [checked]="user.admin" [disabled]="!isEditAllowed">
+      <label class="form-check-label" for="isAdmin">
+        Is admin
+      </label>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="isEducational" [checked]="user.educational" [disabled]="!isEditAllowed">
+      <label class="form-check-label" for="isEducational">
+        Is educational
+      </label>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="isAlsim" [checked]="user.loggedFromAlsimCloud" disabled="true">
+      <label class="form-check-label" for="isAlsim">
+        Logged as alsim cloud
+      </label>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="isDynairix" [checked]="user.loggedFromDynairix" disabled="true">
+      <label class="form-check-label" for="isDynairix">
+        Logged as Dynairix
+      </label>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="isUsing2FA" [checked]="user.using2FA" disabled="true">
+      <label class="form-check-label" for="isUsing2FA">
+        Is using 2FA
+      </label>
+    </div>
+  </div>
+
+  <div class="col-12" *ngIf="isEditAllowed == false">
+    <button type="submit" class="btn btn-primary" (click)="allowEdit()">Edit</button>
+  </div>
+  <div class="col-12" *ngIf="isEditAllowed == true">
+    <button type="submit" class="btn btn-warning">Submit</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+</form>
+
+<br/>
+
+<h5>Token balance</h5>
+
+<form class="row g-3">
+  <div class="col-md-4">
+    <label for="tokenBalance" class="form-label">Current token balance</label>
+    <input type="string" class="form-control" id="tokenBalance" value="{{user.tokenBalance}}" disabled>
+  </div>
+  <div class="col-md-4">
+    <label for="tokensToBeAddedRemoved" class="form-label">Tokens to add/remove</label>
+    <input type="number" min="0" class="form-control" id="tokensToBeAddedRemoved">
+  </div>
+  <div class="col-md-2">
+    <label class="form-label">&nbsp;</label>
+    <button type="submit" class="btn btn-primary form-control" disabled>Give</button>
+  </div>
+  <div class="col-md-2">
+    <label class="form-label">&nbsp;</label>
+    <button type="submit" class="btn btn-primary form-control" disabled>Take</button>
+  </div>
+</form>
+
+<form class="row g-3">
+  <div class="col-md-4">
+    <label for="groupTokenBalance" class="form-label">Current group token balance</label>
+    <input type="string" class="form-control" id="groupTokenBalance" value="{{user.groupTokenBalance}}" disabled="true">
+  </div>
+  <div class="col-md-4">
+    <label for="groupTokensToBeAddedRemoved" class="form-label">Tokens to add/remove</label>
+    <input type="number" min="0" class="form-control" id="groupTokensToBeAddedRemoved">
+  </div>
+  <div class="col-md-2">
+    <label class="form-label">&nbsp;</label>
+    <button type="submit" class="btn btn-primary form-control" disabled>Give</button>
+  </div>
+  <div class="col-md-2">
+    <label class="form-label">&nbsp;</label>
+    <button type="submit" class="btn btn-primary form-control" disabled>Take</button>
+  </div>
+</form>
+
+<br/>
+
+<h5>List of tasks</h5>
+
+<h5>List of historical tasks</h5>
+
+
