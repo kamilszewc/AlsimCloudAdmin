@@ -43,9 +43,6 @@ export class LoginComponent {
           }
         );
 
-      // if (this.authService.isLoggedOut()) {
-      //   this.wrongCredentialAlert.nativeElement.hidden = false;
-      // }
     }
   }
 }
