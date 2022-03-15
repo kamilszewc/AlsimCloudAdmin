@@ -4,6 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {GlobalConstants} from "../common/global-constants";
 import {count, map} from "rxjs";
 import {KeyValue, KeyValuePipe} from "@angular/common";
+import {Task} from "../task";
+import {HistoricalTask} from "../historicalTask";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,11 @@ export class UserService {
   }
 
   getUserTasks(id: Number) {
+    return this.http.get<Task[]>(this.apiUrl + "/api/v1/task/getTasksOfUser/" + id);
+  }
+
+  getUserHistoricalTasks(id: Number) {
+    return this.http.get<HistoricalTask[]>(this.apiUrl + "/api/v1/task/getHistoricalTasksOfUser/" + id);
   }
 
   getCountries() {

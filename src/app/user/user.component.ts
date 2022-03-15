@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {User} from "../user";
 import {UserService} from "./user.service";
+import {Task} from "../task";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {HistoricalTask} from "../historicalTask";
 
 @Component({
   selector: 'app-user',
@@ -15,6 +20,16 @@ export class UserComponent implements OnInit {
   isEditAllowed = false;
   countries!: Map<string, string>;
   userTypes!: string[];
+
+  displayedTasksColumns: string[] = ['id', 'name', 'status', 'progress', 'schema', 'resource', 'details'];
+  displayedHistoricalTasksColumns: string[] = ['id', 'name', 'numberOfCpus', 'numberOfGpus', 'ramMemory', 'schemaId', 'resourceId', 'createDateTime'];
+  userTasks = new MatTableDataSource<Task>([]);
+  userHistoricalTasks = new MatTableDataSource<HistoricalTask>([]);
+
+  @ViewChild('userTasksPaginator') userTasksPaginator!: MatPaginator;
+  @ViewChild('userTasksTable', {read: MatSort}) userTasksSort!: MatSort;
+  @ViewChild('userHistoricalTasksPaginator') userHistoricalTasksPaginator!: MatPaginator;
+  @ViewChild('userHistoricalTasksTable', {read: MatSort}) userHistoricalTasksSort!: MatSort;
 
   constructor(private route: ActivatedRoute,
               private userService: UserService) {
@@ -33,6 +48,18 @@ export class UserComponent implements OnInit {
     this.userService.getUserTypes().subscribe(userTypes => {
       this.userTypes = userTypes;
     })
+
+    this.userService.getUserTasks(this.id).subscribe(userTasks => {
+      this.userTasks = new MatTableDataSource<Task>(userTasks);
+      this.userTasks.sort = this.userTasksSort;
+      this.userTasks.paginator = this.userTasksPaginator;
+    })
+
+    this.userService.getUserHistoricalTasks(this.id).subscribe(userHistoricalTasks => {
+      this.userHistoricalTasks = new MatTableDataSource<HistoricalTask>(userHistoricalTasks);
+      this.userHistoricalTasks.sort = this.userHistoricalTasksSort;
+      this.userHistoricalTasks.paginator = this.userHistoricalTasksPaginator;
+    })
   }
 
   allowEdit() {
@@ -46,5 +73,9 @@ export class UserComponent implements OnInit {
 
   reload() {
     window.location.reload();
+  }
+
+  goToTask(id: number) {
+
   }
 }
