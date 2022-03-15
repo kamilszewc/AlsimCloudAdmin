@@ -7,6 +7,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {HistoricalTask} from "../historicalTask";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-user',
@@ -30,6 +31,8 @@ export class UserComponent implements OnInit {
   @ViewChild('userTasksTable', {read: MatSort}) userTasksSort!: MatSort;
   @ViewChild('userHistoricalTasksPaginator') userHistoricalTasksPaginator!: MatPaginator;
   @ViewChild('userHistoricalTasksTable', {read: MatSort}) userHistoricalTasksSort!: MatSort;
+
+  @ViewChild('userForm') userForm! : NgForm;
 
   constructor(private route: ActivatedRoute,
               private userService: UserService) {
@@ -66,9 +69,9 @@ export class UserComponent implements OnInit {
     this.isEditAllowed = true;
   }
 
-  editUser(data: any) {
+  editUser() {
     this.isEditAllowed = false;
-    console.info(data)
+    console.info(this.userForm.value)
   }
 
   reload() {
