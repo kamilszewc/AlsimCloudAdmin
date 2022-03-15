@@ -15,10 +15,10 @@ import {HistoricalTask} from "../historicalTask";
 })
 export class UserComponent implements OnInit {
 
-  id!: number
-  user!: User
+  id: number | undefined
+  user: User | undefined;
   isEditAllowed = false;
-  countries!: Map<string, string>;
+  countries: Map<string, string> | undefined;
   userTypes!: string[];
 
   displayedTasksColumns: string[] = ['id', 'name', 'status', 'progress', 'schema', 'resource', 'details'];
