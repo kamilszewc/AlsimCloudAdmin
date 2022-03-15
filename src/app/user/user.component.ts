@@ -70,8 +70,12 @@ export class UserComponent implements OnInit {
   }
 
   editUser() {
-    this.isEditAllowed = false;
     console.info(this.userForm.value)
+
+    this.userService.editUser(this.id!, this.userForm.value)
+      .subscribe(response => console.log(response));
+
+    //window.location.reload();
   }
 
   reload() {

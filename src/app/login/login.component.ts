@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../auth/auth.service";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,13 @@ export class LoginComponent {
     if (val.password) {
       //this.authService.login(val.password)
       this.authService.login(val.password)
+        .pipe(
+          finalize(() => {
+            if (this.authService.isLoggedOut()) {
+              this.wrongCredentialAlert.nativeElement.hidden = false;
+            }
+          })
+        )
         .subscribe(
           () => {
             console.log("User is logged in");
@@ -35,9 +43,9 @@ export class LoginComponent {
           }
         );
 
-      if (this.authService.isLoggedOut()) {
-        this.wrongCredentialAlert.nativeElement.hidden = false;
-      }
+      // if (this.authService.isLoggedOut()) {
+      //   this.wrongCredentialAlert.nativeElement.hidden = false;
+      // }
     }
   }
 }

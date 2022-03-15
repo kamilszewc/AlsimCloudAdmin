@@ -43,4 +43,8 @@ export class UserService {
   getUserTypes() {
     return this.http.get<string[]>(this.apiUrl + "/api/v1/user/getUserTypes")
   }
+
+  public editUser(id: Number, user: User) {
+    return this.http.post<any>(this.apiUrl + "/api/v1/user/edit/" + id, user);
+  }
 }

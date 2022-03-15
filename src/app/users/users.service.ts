@@ -33,4 +33,6 @@ export class UsersService {
   getDynairixUsers() {
     return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?onlyDynairix=true");
   }
+
+
 }
