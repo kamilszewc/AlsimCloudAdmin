@@ -1,3 +1,6 @@
+import {Schema} from "./schema";
+import {Resource} from "./resource";
+
 export interface Task {
   id: number | null;
   name: string | null;
@@ -10,4 +13,6 @@ export interface Task {
   zone: number | null;
   errorCode: number | null;
   message: string | null;
+  schema: Schema | null;
+  resource: Resource | null;
 }

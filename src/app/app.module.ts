@@ -22,15 +22,23 @@ import {AuthInterceptor} from "./auth/auth.interceptor";
 import {LoginGuard} from "./login.guard";
 import { UserComponent } from './user/user.component';
 import {KeyValuePipe} from "@angular/common";
+import { GroupComponent } from './group/group.component';
+import { TaskComponent } from './task/task.component';
+import { ResourceComponent } from './resource/resource.component';
+import { SchemaComponent } from './schema/schema.component';
 
 const routes: Routes = [
   { path: '', component: UsersComponent, canActivate: [LoginGuard] },
   { path: 'users', component: UsersComponent, canActivate: [LoginGuard] },
   { path: 'users/:id', component: UserComponent, canActivate: [LoginGuard] },
   { path: 'groups', component: GroupsComponent, canActivate: [LoginGuard] },
-  { path: 'tasks', component: TasksComponent, canActivate: [LoginGuard]  },
+  { path: 'group/:id', component: GroupComponent, canActivate: [LoginGuard] },
+  { path: 'tasks', component: TasksComponent, canActivate: [LoginGuard] },
+  { path: 'task/:id', component: GroupComponent, canActivate: [LoginGuard] },
   { path: 'resources', component: ResourcesComponent, canActivate: [LoginGuard] },
+  { path: 'resource/:id', component: ResourceComponent, canActivate: [LoginGuard] },
   { path: 'schemas', component: SchemasComponent, canActivate: [LoginGuard] },
+  { path: 'schema/:id', component: SchemaComponent, canActivate: [LoginGuard] },
   { path: 'files', component: FilesComponent, canActivate: [LoginGuard] },
   { path: 'login', component: LoginComponent }
 ]
@@ -49,7 +57,11 @@ const HttpInterceptorProviders = [
     SchemasComponent,
     FilesComponent,
     GroupsComponent,
-    UserComponent
+    UserComponent,
+    GroupComponent,
+    TaskComponent,
+    ResourceComponent,
+    SchemaComponent
   ],
   imports: [
     BrowserModule,

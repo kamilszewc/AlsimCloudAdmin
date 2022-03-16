@@ -188,13 +188,13 @@
     <!-- Schema Column -->
     <ng-container matColumnDef="schema">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Schema </th>
-      <td mat-cell *matCellDef="let element"> {{element.progress}} </td>
+      <td mat-cell *matCellDef="let element"> <a [routerLink]="'/schema/' + element.schema.id">{{element.schema.name}}</a> </td>
     </ng-container>
 
     <!-- Resource Column -->
     <ng-container matColumnDef="resource">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Resource </th>
-      <td mat-cell *matCellDef="let element"> {{element.progress}} </td>
+      <td mat-cell *matCellDef="let element"> <a [routerLink]="'/resource/' + element.resource?.id" >{{element.resource?.name}}</a> </td>
     </ng-container>
 
     <!-- Details Column -->

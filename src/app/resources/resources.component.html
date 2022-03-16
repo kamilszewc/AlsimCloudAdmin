@@ -1,1 +1,62 @@
-<p>Resources component will be added soon</p>
+<!-- Resources -->
+<h3>Resources</h3>
+<div class="mat-elevation-z8">
+  <table mat-table #resourcesTable [dataSource]="resources" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element?.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element?.name}} </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+      <td mat-cell *matCellDef="let element"> {{element?.description}} </td>
+    </ng-container>
+
+    <!-- Suspended Column -->
+    <ng-container matColumnDef="suspended">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Suspended </th>
+      <td mat-cell *matCellDef="let element"> {{element?.suspended}} </td>
+    </ng-container>
+
+    <!-- CpuUsage Column -->
+    <ng-container matColumnDef="cpuUsage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> CPU usage </th>
+      <td mat-cell *matCellDef="let element"> /{{element?.numberOfCpus}} </td>
+    </ng-container>
+
+    <!-- GpuUsage Column -->
+    <ng-container matColumnDef="gpuUsage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> GPU usage </th>
+      <td mat-cell *matCellDef="let element"> /{{element?.numberOfGpus}} </td>
+    </ng-container>
+
+    <!-- RamUsage Column -->
+    <ng-container matColumnDef="ramUsage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> RAM usage </th>
+      <td mat-cell *matCellDef="let element"> /{{bytesToMb(element?.ramMemory)}} MB</td>
+    </ng-container>
+
+    <!-- Details Column -->
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <button type="button" class="btn btn-primary btn-sm" (click)="goTo(element.id)">Details</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator #resourcesPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
+</div>
