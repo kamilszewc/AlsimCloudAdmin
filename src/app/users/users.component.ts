@@ -19,12 +19,15 @@ export class UsersComponent implements AfterViewInit {
   @ViewChild('alsimTable', {read: MatSort}) alsimSort!: MatSort;
   @ViewChild('dynairixPaginator') dynairixPaginator!: MatPaginator;
   @ViewChild('dynairixTable', {read: MatSort}) dynairixSort!: MatSort;
+  @ViewChild('allPaginator') allPaginator!: MatPaginator;
+  @ViewChild('allTable', {read: MatSort}) allSort!: MatSort;
 
   displayedColumns: string[] = ['id', 'username', 'email', 'firstName', 'secondName', 'details'];
 
   essUsers = new MatTableDataSource<User>([]);
   alsimUsers = new MatTableDataSource<User>([]);
   dynairixUsers = new MatTableDataSource<User>([]);
+  allUsers = new MatTableDataSource<User>([]);
 
   constructor(private usersService: UsersService,
               private router: Router) {
@@ -34,6 +37,7 @@ export class UsersComponent implements AfterViewInit {
     this.getEssUsers()
     this.getAlsimUsers()
     this.getDynairixUsers()
+    this.getAllUsers()
   }
 
   getEssUsers() {
@@ -57,6 +61,14 @@ export class UsersComponent implements AfterViewInit {
       this.dynairixUsers = new MatTableDataSource<User>(users)
       this.dynairixUsers.paginator = this.dynairixPaginator
       this.dynairixUsers.sort = this.dynairixSort;
+    })
+  }
+
+  getAllUsers() {
+    this.usersService.getAllUsers().subscribe(users => {
+      this.allUsers = new MatTableDataSource<User>(users)
+      this.allUsers.paginator = this.allPaginator
+      this.allUsers.sort = this.allSort;
     })
   }
 

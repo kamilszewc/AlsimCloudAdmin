@@ -33,8 +33,11 @@ export class UserComponent implements OnInit {
   @ViewChild('userHistoricalTasksTable', {read: MatSort}) userHistoricalTasksSort!: MatSort;
 
   @ViewChild('userForm') userForm! : NgForm;
+  @ViewChild('userTokensRechargeForm') userTokensRechargeForm! : NgForm;
+  @ViewChild('groupTokensRechargeForm') groupTokensRechargeForm! : NgForm;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private userService: UserService) {
   }
 
@@ -73,9 +76,29 @@ export class UserComponent implements OnInit {
     console.info(this.userForm.value)
 
     this.userService.editUser(this.id!, this.userForm.value)
-      .subscribe(response => console.log(response));
+      .subscribe(user => this.user = user);
 
     //window.location.reload();
+  }
+
+  giveUserTokens() {
+    this.userService.addUserTokens(this.id!, this.userTokensRechargeForm.value.tokensToBeAddedRemoved)
+      .subscribe(user => this.user = user);
+  }
+
+  takeUserTokens() {
+    this.userService.delUserTokens(this.id!, this.userTokensRechargeForm.value.tokensToBeAddedRemoved)
+      .subscribe(user => this.user = user);
+  }
+
+  giveGroupTokens() {
+    this.userService.addGroupTokens(this.id!, this.groupTokensRechargeForm.value.tokensToBeAddedRemoved)
+      .subscribe(user => this.user = user);
+  }
+
+  takeGroupTokens() {
+    this.userService.delGroupTokens(this.id!, this.groupTokensRechargeForm.value.tokensToBeAddedRemoved)
+      .subscribe(user => this.user = user);
   }
 
   reload() {
@@ -83,6 +106,6 @@ export class UserComponent implements OnInit {
   }
 
   goToTask(id: number) {
-
+    this.router.navigate(['task', id])
   }
 }

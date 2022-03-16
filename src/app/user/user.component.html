@@ -22,7 +22,7 @@
   <div class="col-md-4">
     <label for="country" class="form-label">Country</label>
     <select id="country" class="form-select" [disabled]="!isEditAllowed" name="country" [(ngModel)]="user!.country">
-      <option *ngFor="let country of countries?.entries()" [value]="country[1]" [selected]="country[1] === user?.country">{{country[0]}}</option>
+      <option *ngFor="let country of countries?.entries()" [selected]="country[1] == user?.country">{{country[0]}}</option>
     </select>
   </div>
   <div class="col-md-2">
@@ -56,7 +56,7 @@
 
   <div class="col-md-2">
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="isEss" name="ess" [(ngModel)]="user!.ess" [checked]="user?.ess" [disabled]="!isEditAllowed">
+      <input class="form-check-input" type="checkbox" id="isEss" name="isEss" [(ngModel)]="user!.isEss" [checked]="user?.isEss" disabled>
       <label class="form-check-label" for="isEss">
         Is ESS
       </label>
@@ -64,7 +64,7 @@
   </div>
   <div class="col-md-2">
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="isAdmin" name="admin" [(ngModel)]="user!.admin" [checked]="user?.admin" [disabled]="!isEditAllowed">
+      <input class="form-check-input" type="checkbox" id="isAdmin" name="isAdmin" [(ngModel)]="user!.isAdmin" [checked]="user?.isAdmin" [disabled]="!isEditAllowed">
       <label class="form-check-label" for="isAdmin">
         Is admin
       </label>
@@ -72,7 +72,7 @@
   </div>
   <div class="col-md-2">
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="isEducational" name="educational" [(ngModel)]="user!.educational" [checked]="user?.educational" [disabled]="!isEditAllowed">
+      <input class="form-check-input" type="checkbox" id="isEducational" name="isEducational" [(ngModel)]="user!.isEducational" [checked]="user?.isEducational" [disabled]="!isEditAllowed">
       <label class="form-check-label" for="isEducational">
         Is educational
       </label>
@@ -116,41 +116,41 @@
 
 <h5>Token balance</h5>
 
-<form class="row g-3">
+<form class="row g-3" #userTokensRechargeForm="ngForm">
   <div class="col-md-4">
-    <label for="tokenBalance" class="form-label">Current token balance</label>
-    <input type="string" class="form-control" id="tokenBalance" value="{{user?.tokenBalance}}" disabled>
+    <label for="tokenBalance" class="form-label">Current eCubes balance</label>
+    <input type="string" class="form-control" id="tokenBalance"  value="{{user?.tokenBalance}}" disabled>
   </div>
   <div class="col-md-4">
-    <label for="tokensToBeAddedRemoved" class="form-label">Tokens to add/remove</label>
-    <input type="number" min="0" class="form-control" id="tokensToBeAddedRemoved">
+    <label for="tokensToBeAddedRemoved" class="form-label">eCubes to add/remove</label>
+    <input type="number" min="0" class="form-control" id="tokensToBeAddedRemoved" name="tokensToBeAddedRemoved" ngModel>
   </div>
   <div class="col-md-2">
     <label class="form-label">&nbsp;</label>
-    <button type="submit" class="btn btn-primary form-control" disabled>Give</button>
+    <button type="submit" class="btn btn-primary form-control" (click)="giveUserTokens()">Give</button>
   </div>
   <div class="col-md-2">
     <label class="form-label">&nbsp;</label>
-    <button type="submit" class="btn btn-primary form-control" disabled>Take</button>
+    <button type="submit" class="btn btn-primary form-control" (click)="takeUserTokens()">Take</button>
   </div>
 </form>
 
-<form class="row g-3">
+<form class="row g-3" #groupTokensRechargeForm="ngForm">
   <div class="col-md-4">
     <label for="groupTokenBalance" class="form-label">Current group token balance</label>
     <input type="string" class="form-control" id="groupTokenBalance" value="{{user?.groupTokenBalance}}" disabled="true">
   </div>
   <div class="col-md-4">
     <label for="groupTokensToBeAddedRemoved" class="form-label">Tokens to add/remove</label>
-    <input type="number" min="0" class="form-control" id="groupTokensToBeAddedRemoved">
+    <input type="number" min="0" class="form-control" id="groupTokensToBeAddedRemoved" name="tokensToBeAddedRemoved" ngModel>
   </div>
   <div class="col-md-2">
     <label class="form-label">&nbsp;</label>
-    <button type="submit" class="btn btn-primary form-control" disabled>Give</button>
+    <button type="submit" class="btn btn-primary form-control" (click)="giveGroupTokens()">Give</button>
   </div>
   <div class="col-md-2">
     <label class="form-label">&nbsp;</label>
-    <button type="submit" class="btn btn-primary form-control" disabled>Take</button>
+    <button type="submit" class="btn btn-primary form-control" (click)="takeGroupTokens()">Take</button>
   </div>
 </form>
 
@@ -201,7 +201,7 @@
     <ng-container matColumnDef="details">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
       <td mat-cell *matCellDef="let element">
-        <button type="button" class="btn btn-primary btn-sm" (click)="goToTask(element.id)" disabled>Details</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="goToTask(element.id)">Details</button>
       </td>
     </ng-container>
 
@@ -222,43 +222,43 @@
     <!-- Id Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      <td mat-cell *matCellDef="let element"> {{element?.id}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <td mat-cell *matCellDef="let element"> {{element?.name}} </td>
     </ng-container>
 
     <!-- Number of CPUs Column -->
     <ng-container matColumnDef="numberOfCpus">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Number of CPUs </th>
-      <td mat-cell *matCellDef="let element"> {{element.numberOfCpus}} </td>
+      <td mat-cell *matCellDef="let element"> {{element?.numberOfCpus}} </td>
     </ng-container>
 
     <!-- Number of GPUs Column -->
     <ng-container matColumnDef="numberOfGpus">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Number of GPUs </th>
-      <td mat-cell *matCellDef="let element"> {{element.numberOfGpus}} </td>
+      <td mat-cell *matCellDef="let element"> {{element?.numberOfGpus}} </td>
     </ng-container>
 
     <!-- Ram memory Column -->
     <ng-container matColumnDef="ramMemory">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> RAM memory </th>
-      <td mat-cell *matCellDef="let element"> {{element.ramMemory}} </td>
+      <td mat-cell *matCellDef="let element"> {{element?.ramMemory}} </td>
     </ng-container>
 
     <!-- Schema id Column -->
     <ng-container matColumnDef="schemaId">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Schema id </th>
-      <td mat-cell *matCellDef="let element"> {{element.schemaId}} </td>
+      <td mat-cell *matCellDef="let element"> <a [routerLink]="'/schema/' + element?.schemaId">{{element?.schemaId}}</a></td>
     </ng-container>
 
     <!-- Resource id Column -->
     <ng-container matColumnDef="resourceId">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Resource id </th>
-      <td mat-cell *matCellDef="let element"> {{element.resourceId}} </td>
+      <td mat-cell *matCellDef="let element"> <a [routerLink]="'/resource/' + element?.resourceId">{{element?.resourceId}}</a> </td>
     </ng-container>
 
     <!-- Create time id Column -->

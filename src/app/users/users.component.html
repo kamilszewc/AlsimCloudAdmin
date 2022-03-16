@@ -49,6 +49,8 @@
   <mat-paginator #essPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
 </div>
 
+<br/>
+
 <!-- Alsim Cloud users -->
 <h3>Alsim Cloud users</h3>
 <div class="mat-elevation-z8">
@@ -100,6 +102,8 @@
   <mat-paginator #alsimPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
 </div>
 
+<br/>
+
 <!-- Dynairix users -->
 <h3>Dynairix users</h3>
 <div class="mat-elevation-z8">
@@ -149,4 +153,57 @@
   </table>
 
   <mat-paginator #dynairixPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
+</div>
+
+<br/>
+
+<!-- All users -->
+<h3>All users</h3>
+<div class="mat-elevation-z8">
+  <table mat-table #allTable [dataSource]="allUsers" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
+      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <!-- FirstName Column -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> First name </th>
+      <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+    </ng-container>
+
+    <!-- SecondName Column -->
+    <ng-container matColumnDef="secondName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Second name </th>
+      <td mat-cell *matCellDef="let element"> {{element.secondName}} </td>
+    </ng-container>
+
+    <!-- Details Column -->
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <button type="button" class="btn btn-primary btn-sm" (click)="goTo(element.id)">Details</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator #allPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
 </div>

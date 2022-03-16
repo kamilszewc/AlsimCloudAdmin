@@ -16,12 +16,13 @@ export interface User {
   loggedFromDynairix: boolean | null;
   userType: string | null;
   consumerGroup: string | null;
-  enabled: boolean | null;
+  isEnabled: boolean | null;
+  isBlocked: boolean | null;
   using2FA: boolean | null;
-  ess: boolean | null;
-  admin: boolean | null;
+  isEss: boolean | null;
+  isAdmin: boolean | null;
   hash: string | null;
-  educational: boolean | null;
+  isEducational: boolean | null;
   isCompany: boolean | null;
   groupTokenBalance: string | null;
   maxNumberOfRunningTasks: number | null;

@@ -9,4 +9,7 @@ export interface Resource {
   zone: number | null;
   type: string | null;
   suspended: boolean | null;
+  numberOfCpusInUse: number | null;
+  numberOfGpusInUse: number | null;
+  ramMemoryInUse: number | null;
 }

@@ -47,4 +47,20 @@ export class UserService {
   public editUser(id: Number, user: User) {
     return this.http.post<any>(this.apiUrl + "/api/v1/user/edit/" + id, user);
   }
+
+  addUserTokens(id: number, value: number) {
+    return this.http.post<any>(this.apiUrl + "/api/v1/user/tokens/addUserTokens/" + id + "/" + value, null);
+  }
+
+  delUserTokens(id: number, value: number) {
+    return this.http.post<any>(this.apiUrl + "/api/v1/user/tokens/delUserTokens/" + id + "/" + value, null);
+  }
+
+  addGroupTokens(id: number, value: number) {
+    return this.http.post<any>(this.apiUrl + "/api/v1/user/tokens/addGroupTokens/" + id + "/" + value, null);
+  }
+
+  delGroupTokens(id: number, value: number) {
+    return this.http.post<any>(this.apiUrl + "/api/v1/user/tokens/delGroupTokens/" + id + "/" + value, null);
+  }
 }

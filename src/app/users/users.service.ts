@@ -27,11 +27,11 @@ export class UsersService {
   }
 
   getAlsimUsers() {
-    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?onlyAlsimCloud=true");
+    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?onlyAlsimCloud=true&onlyClient=true");
   }
 
   getDynairixUsers() {
-    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?onlyDynairix=true");
+    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?onlyDynairix=true&onlyClient=true");
   }
 
 
