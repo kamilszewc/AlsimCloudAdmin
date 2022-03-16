@@ -1,1 +1,50 @@
-<p>Groups component will be added soon</p>
+<!-- Consumer groups -->
+<h3>Consumer groups</h3>
+<div class="mat-elevation-z8">
+  <table mat-table #groupsTable [dataSource]="groups" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
+
+    <!-- Id Column -->
+    <ng-container matColumnDef="id" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Group </th>
+      <td mat-cell *matCellDef="let element"> {{element?.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element?.name}} </td>
+    </ng-container>
+
+    <!-- TokenBalance Column -->
+    <ng-container matColumnDef="tokenBalance">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> eCubes </th>
+      <td mat-cell *matCellDef="let element"> {{element?.tokenBalance}} </td>
+    </ng-container>
+
+    <!-- Priority Column -->
+    <ng-container matColumnDef="priority">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority </th>
+      <td mat-cell *matCellDef="let element"> {{element?.priority}} </td>
+    </ng-container>
+
+    <!-- MaxNumberOfRunningTasks Column -->
+    <ng-container matColumnDef="maxNumberOfRunningTasks">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Max number of running tasks </th>
+      <td mat-cell *matCellDef="let element"> {{element?.maxNumberOfRunningTasks}} </td>
+    </ng-container>
+
+    <!-- Details Column -->
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <button type="button" class="btn btn-primary btn-sm" (click)="goTo(element.id)">Details</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator #groupsPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
+</div>

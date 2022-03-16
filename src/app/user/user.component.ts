@@ -108,4 +108,10 @@ export class UserComponent implements OnInit {
   goToTask(id: number) {
     this.router.navigate(['task', id])
   }
+
+  onCountryChange(value: string) {
+    console.info(value)
+    this.user!.country = value;
+    this.user!.username = "Dfdsffs"
+  }
 }

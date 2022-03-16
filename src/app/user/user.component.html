@@ -21,8 +21,8 @@
   </div>
   <div class="col-md-4">
     <label for="country" class="form-label">Country</label>
-    <select id="country" class="form-select" [disabled]="!isEditAllowed" name="country" [(ngModel)]="user!.country">
-      <option *ngFor="let country of countries?.entries()" [selected]="country[1] == user?.country">{{country[0]}}</option>
+    <select id="country" class="form-select" [disabled]="!isEditAllowed" [(ngModel)]="user!.country" name="country">
+      <option *ngFor="let country of countries?.keys()" [value]="country">{{countries?.get(country)}}</option>
     </select>
   </div>
   <div class="col-md-2">

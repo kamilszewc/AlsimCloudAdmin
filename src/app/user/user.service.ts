@@ -32,10 +32,11 @@ export class UserService {
   }
 
   getCountries() {
+    //return this.http.get<Map<string, string>>(this.apiUrl + "/api/v1/user/getCountriesList")
     return this.http.get<any>(this.apiUrl + "/api/v1/user/getCountries")
       .pipe(
         map(data => {
-          return new Map(this.keyValue.transform<string, string>(data).map(element => [element.key, element.value]));
+          return new Map(this.keyValue.transform<string, string>(data).map(element => [element.value, element.key]));
         })
       )
   }
