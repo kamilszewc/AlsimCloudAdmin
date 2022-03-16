@@ -15,6 +15,6 @@ export class ResourcesService {
   }
 
   getResources() {
-    return this.http.get<Resource[]>(this.apiUrl + "/api/v1/resource/info");
+    return this.http.get<Resource[]>(this.apiUrl + "/api/v1/resource/getAllResources");
   }
 }
