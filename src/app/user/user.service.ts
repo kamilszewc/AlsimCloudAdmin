@@ -19,7 +19,7 @@ export class UserService {
     this.apiUrl = GlobalConstants.apiUrl;
   }
 
-  getUser(id: Number) {
+  getUser(id: number) {
     return this.http.get<User>(this.apiUrl + "/api/v1/user/info/" + id);
   }
 

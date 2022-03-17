@@ -1,5 +1,6 @@
 import {Schema} from "./schema";
 import {Resource} from "./resource";
+import {User} from "./user";
 
 export interface Task {
   id: number | null;
@@ -15,4 +16,11 @@ export interface Task {
   message: string | null;
   schema: Schema | null;
   resource: Resource | null;
+  user: User | null;
+  consumedTokens: number | null;
+  tokenSource: string | null;
+  paid: boolean | null;
+  createDateTime: string | null;
+  updateDateTime: string | null;
+  taskEndTime: string | null;
 }

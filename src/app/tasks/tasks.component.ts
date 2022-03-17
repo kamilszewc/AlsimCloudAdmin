@@ -16,7 +16,7 @@ export class TasksComponent implements OnInit {
   @ViewChild('allTasksTable', {read: MatSort}) allTasksSort!: MatSort;
   allTasks = new MatTableDataSource<Task>([]);
 
-  displayedColumns: string[] = ['id', 'name', 'details'];
+  displayedColumns: string[] = ['id', 'name', 'status', 'progress', 'user', 'schema', 'resource', 'details'];
 
   constructor(private tasksService: TasksService,
               private router: Router) { }

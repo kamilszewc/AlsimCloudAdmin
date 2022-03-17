@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: 'groups', component: GroupsComponent, canActivate: [LoginGuard] },
   { path: 'group/:id', component: GroupComponent, canActivate: [LoginGuard] },
   { path: 'tasks', component: TasksComponent, canActivate: [LoginGuard] },
-  { path: 'task/:id', component: GroupComponent, canActivate: [LoginGuard] },
+  { path: 'task/:id', component: TaskComponent, canActivate: [LoginGuard] },
   { path: 'resources', component: ResourcesComponent, canActivate: [LoginGuard] },
   { path: 'resource/:id', component: ResourceComponent, canActivate: [LoginGuard] },
   { path: 'schemas', component: SchemasComponent, canActivate: [LoginGuard] },
