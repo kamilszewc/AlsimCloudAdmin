@@ -1,1 +1,75 @@
-<p>resource works!</p>
+<h5>Resource {{resource?.id}}</h5>
+
+<form class="row g-3" #resourceForm="ngForm" >
+  <div class="col-md-6">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="resource!.name" [value]="resource?.name" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-6">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="resource!.description" [value]="resource?.description" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-12">
+    <label for="url" class="form-label">Url</label>
+    <input type="text" class="form-control" id="url" name="url" [(ngModel)]="resource!.url" [value]="resource?.url" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-4">
+    <label for="numberOfCpus" class="form-label">Number of CPUs</label>
+    <input type="number" min="0" class="form-control" id="numberOfCpus" name="numberOfCpus" [(ngModel)]="resource!.numberOfCpus" [value]="resource?.numberOfCpus" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-4">
+    <label for="numberOfGpus" class="form-label">Number of GPUs</label>
+    <input type="number" min="0" class="form-control" id="numberOfGpus" name="numberOfGpus" [(ngModel)]="resource!.numberOfGpus" [value]="resource?.numberOfGpus" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-4">
+    <label for="ramMemory" class="form-label">RAM memory (B)</label>
+    <input type="number" min="0" class="form-control" id="ramMemory" name="ramMemory" [(ngModel)]="resource!.ramMemory" [value]="resource?.ramMemory" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-4">
+    <label for="numberOfCpusInUse" class="form-label">Number of CPUs in use</label>
+    <input type="number" min="0" class="form-control" id="numberOfCpusInUse" name="numberOfCpusInUse" [(ngModel)]="resource!.numberOfCpusInUse" [value]="resource?.numberOfCpusInUse" disabled>
+  </div>
+  <div class="col-md-4">
+    <label for="numberOfGpusInUse" class="form-label">Number of GPUs in use</label>
+    <input type="number" min="0" class="form-control" id="numberOfGpusInUse" name="numberOfGpusInUse" [(ngModel)]="resource!.numberOfGpusInUse" [value]="resource?.numberOfGpusInUse" disabled>
+  </div>
+  <div class="col-md-4">
+    <label for="ramMemoryInUse" class="form-label">RAM memory in use (B)</label>
+    <input type="number" min="0" class="form-control" id="ramMemoryInUse" name="ramMemoryInUse" [(ngModel)]="resource!.ramMemoryInUse" [value]="resource?.ramMemoryInUse" disabled>
+  </div>
+
+  <div class="col-md-4">
+    <label for="status" class="form-label">Status</label>
+    <input type="text" min="0" class="form-control" id="status" name="status" [(ngModel)]="resource!.status" [value]="resource?.status" disabled>
+  </div>
+  <div class="col-md-4">
+    <label for="type" class="form-label">Type</label>
+    <input type="text" min="0" class="form-control" id="type" name="type" [(ngModel)]="resource!.type" [value]="resource?.type" disabled>
+  </div>
+  <div class="col-md-4">
+    <label for="zone" class="form-label">Zone</label>
+    <input type="number" min="0" class="form-control" id="zone" name="zone" [(ngModel)]="resource!.zone" [value]="resource?.zone" disabled>
+  </div>
+
+  <div class="col-md-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="suspended" [checked]="resource?.suspended" [disabled]="!isEditAllowed">
+      <label class="form-check-label" for="suspended">
+        Is suspended
+      </label>
+    </div>
+  </div>
+
+
+  <div class="col-2" *ngIf="isEditAllowed == false">
+    <button type="submit" class="btn btn-primary" (click)="allowEdit()">Edit</button>
+  </div>
+  <div class="col-2" *ngIf="isEditAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="editResource()">Submit</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+
+</form>

@@ -59,7 +59,18 @@
     <input type="number" min="0" class="form-control" id="taskEndTime" name="taskEndTime" [(ngModel)]="task!.taskEndTime" [value]="task?.taskEndTime" disabled>
   </div>
 
-  <div class="col-md-2">
+
+
+  <div class="col-2" *ngIf="isEditAllowed == false">
+    <button type="submit" class="btn btn-primary" (click)="allowEdit()">Edit</button>
+  </div>
+  <div class="col-2" *ngIf="isEditAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="editTask()">Submit</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+  <div class="col-8">
+  </div>
+  <div class="col-2">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" id="isPaid" name="isPaid" [(ngModel)]="task!.paid" [checked]="task?.paid" disabled>
       <label class="form-check-label" for="isPaid">
@@ -67,18 +78,38 @@
       </label>
     </div>
   </div>
-
-  <div class="col-12" *ngIf="isEditAllowed == false">
-    <button type="submit" class="btn btn-primary" (click)="allowEdit()">Edit</button>
-  </div>
-  <div class="col-12" *ngIf="isEditAllowed == true">
-    <button type="submit" class="btn btn-warning" (click)="editTask()">Submit</button>&nbsp;
-    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
-  </div>
 </form>
 
 <br/>
 
-<div class="col-3">
-  <b>Schema: </b>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Schema <span style="color:grey;">{{task?.schema?.name}}</span></h5>
+        <p class="card-text">{{task?.schema?.description}}</p>
+        <a href="#" class="btn btn-primary" [routerLink]="'/schema/' + task?.schema?.id">Go to schema details</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">User <span style="color:grey;">{{task?.user?.username}}</span></h5>
+        <p class="card-text">{{task?.user?.firstName}} {{task?.user?.secondName}}</p>
+        <a href="#" class="btn btn-primary" [routerLink]="'/users/' + task?.user?.id">Go to user details</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card" *ngIf="task?.resource != null">
+      <div class="card-body">
+        <h5 class="card-title">Resource <span style="color:grey;">{{task?.resource?.name}}</span></h5>
+        <p class="card-text">{{task?.resource?.description}}</p>
+        <a href="#" class="btn btn-primary" [routerLink]="'/resource/' + task?.resource?.id">Go to resource details</a>
+      </div>
+    </div>
+  </div>
 </div>
+
+<br/>

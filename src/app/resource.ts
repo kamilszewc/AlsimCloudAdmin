@@ -12,4 +12,5 @@ export interface Resource {
   numberOfCpusInUse: number | null;
   numberOfGpusInUse: number | null;
   ramMemoryInUse: number | null;
+  status: string | null;
 }
