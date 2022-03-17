@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import {ResourcesService} from "../resources/resources.service";
-import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {GlobalConstants} from "../common/global-constants";
-import {QueueEntry} from "../queueEntry";
+import {Schema} from "../schema";
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +14,12 @@ export class SchemaService {
     this.apiUrl = GlobalConstants.apiUrl;
   }
 
-  getSchemaTasks() {
-    return this.http.get<Task[]>(this.apiUrl + "");
+  getSchema(id: number) {
+    return this.http.get<Schema>(this.apiUrl + "/api/v1/schema/info/" + id);
   }
 
-
+  getPaymentMethods() {
+    return this.http.get<string[]>(this.apiUrl + "/api/v1/schema/getPaymentMethods")
+  }
 
 }

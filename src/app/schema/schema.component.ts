@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
+import {SchemaService} from "./schema.service";
+import {User} from "../user";
+import {Schema} from "../schema";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-schema',
@@ -8,9 +12,38 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SchemaComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  id: number | undefined;
+  schema: Schema | undefined;
+  isEditAllowed = false;
+  paymentMethods: string[] | undefined;
+
+  @ViewChild('schemaForm') schemaForm! : NgForm;
+
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private schemaService: SchemaService) { }
 
   ngOnInit(): void {
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.schemaService.getSchema(this.id).subscribe(schema => {
+      this.schema = schema;
+    })
+
+    this.schemaService.getPaymentMethods().subscribe(paymentMethods => {
+      this.paymentMethods = paymentMethods;
+    })
   }
+
+  allowEdit() {
+    this.isEditAllowed = true;
+  }
+
+  editSchema() {
+  }
+
+  reload() {
+    window.location.reload();
+  }
+
 
 }

@@ -1,1 +1,81 @@
-<p>schema works!</p>
+<h5>Schema {{schema?.id}}</h5>
+
+<form class="row g-3" #schemaForm="ngForm" >
+  <div class="col-md-6">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="schema!.name" [value]="schema?.name" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-3">
+    <label for="ownerGitlabId" class="form-label">Owner's gitlab id</label>
+    <input type="number" class="form-control" id="ownerGitlabId" name="ownerGitlabId" [(ngModel)]="schema!.ownerGitlabId" [value]="schema?.ownerGitlabId" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-3">
+    <label for="paymentMethod" class="form-label">Payment method</label>
+    <select id="paymentMethod" class="form-select" [disabled]="!isEditAllowed" [(ngModel)]="schema!.paymentMethod" name="paymentMethod">
+      <option *ngFor="let method of paymentMethods" [value]="method">{{method}}</option>
+    </select>
+  </div>
+
+
+  <div class="col-md-12">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="schema!.description" [value]="schema?.description" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-6">
+    <label for="solverGroup" class="form-label">Solver group</label>
+    <input type="text" class="form-control" id="solverGroup" name="solverGroup" [(ngModel)]="schema!.solverGroup" [value]="schema?.solverGroup" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-6">
+    <label for="latestSolverVersion" class="form-label">Latest solver version</label>
+    <input type="text" class="form-control" id="latestSolverVersion" name="latestSolverVersion" [(ngModel)]="schema!.latestSolverVersion" [value]="schema?.latestSolverVersion" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-12">
+    <label for="commandTemplate" class="form-label">Command template</label>
+    <input type="text" class="form-control" id="commandTemplate" name="commandTemplate" [(ngModel)]="schema!.commandTemplate" [value]="schema?.commandTemplate" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-12">
+    <label for="validationKeys" class="form-label">Validation keys</label>
+    <input type="text" class="form-control" id="validationKeys" name="validationKeys" [(ngModel)]="schema!.validationKeys" [value]="schema?.validationKeys" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-12">
+    <label for="assessmentKeys" class="form-label">Assessment keys</label>
+    <input type="text" class="form-control" id="assessmentKeys" name="assessmentKeys" [(ngModel)]="schema!.assessmentKeys" [value]="schema?.assessmentKeys" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-4">
+    <label for="minNumberOfCpus" class="form-label">Minimum number of CPUs</label>
+    <input type="number" min="0" class="form-control" id="minNumberOfCpus" name="minNumberOfCpus" [(ngModel)]="schema!.minNumberOfCpus" [value]="schema?.minNumberOfCpus" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-4">
+    <label for="minNumberOfGpus" class="form-label">Minimum number of GPUs</label>
+    <input type="number" min="0" class="form-control" id="minNumberOfGpus" name="minNumberOfGpus" [(ngModel)]="schema!.minNumberOfGpus" [value]="schema?.minNumberOfGpus" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-4">
+    <label for="minRamMemory" class="form-label">Minimum RAM memory (B)</label>
+    <input type="number" min="0" class="form-control" id="minRamMemory" name="minRamMemory" [(ngModel)]="schema!.minRamMemory" [value]="schema?.minRamMemory" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="usesMlModel" [checked]="schema?.usesMlModel" [disabled]="!isEditAllowed">
+      <label class="form-check-label" for="usesMlModel">
+        Is using ML model
+      </label>
+    </div>
+  </div>
+
+
+  <div class="col-2" *ngIf="isEditAllowed == false">
+    <button type="submit" class="btn btn-primary" (click)="allowEdit()">Edit</button>
+  </div>
+  <div class="col-2" *ngIf="isEditAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="editSchema()">Submit</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+
+</form>
+

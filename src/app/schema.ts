@@ -18,4 +18,5 @@ export interface Schema {
   usesMlModel: boolean | null;
   icon: File | null;
   banner: File | null;
+  commandTemplate: string | null;
 }
