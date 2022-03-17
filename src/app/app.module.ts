@@ -26,6 +26,7 @@ import { GroupComponent } from './group/group.component';
 import { TaskComponent } from './task/task.component';
 import { ResourceComponent } from './resource/resource.component';
 import { SchemaComponent } from './schema/schema.component';
+import { QueueComponent } from './queue/queue.component';
 
 const routes: Routes = [
   { path: '', component: UsersComponent, canActivate: [LoginGuard] },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'resource/:id', component: ResourceComponent, canActivate: [LoginGuard] },
   { path: 'schemas', component: SchemasComponent, canActivate: [LoginGuard] },
   { path: 'schema/:id', component: SchemaComponent, canActivate: [LoginGuard] },
+  { path: 'queue', component: QueueComponent, canActivate: [LoginGuard] },
   { path: 'files', component: FilesComponent, canActivate: [LoginGuard] },
   { path: 'login', component: LoginComponent }
 ]
@@ -61,7 +63,8 @@ const HttpInterceptorProviders = [
     GroupComponent,
     TaskComponent,
     ResourceComponent,
-    SchemaComponent
+    SchemaComponent,
+    QueueComponent
   ],
   imports: [
     BrowserModule,

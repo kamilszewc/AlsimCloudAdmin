@@ -78,7 +78,7 @@ export class UserComponent implements OnInit {
     this.userService.editUser(this.id!, this.userForm.value)
       .subscribe(user => this.user = user);
 
-    //window.location.reload();
+    window.location.reload();
   }
 
   giveUserTokens() {
