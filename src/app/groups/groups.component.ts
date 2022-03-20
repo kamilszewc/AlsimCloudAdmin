@@ -2,11 +2,10 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {ActivatedRoute, Router} from "@angular/router";
-import {UserService} from "../user/user.service";
 import {GroupsService} from "./groups.service";
 import {MatTableDataSource} from "@angular/material/table";
-import {User} from "../user";
 import {Group} from "../group";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-groups',
@@ -22,8 +21,19 @@ export class GroupsComponent implements AfterViewInit {
 
   groups = new MatTableDataSource<Group>([]);
 
+  newGroup: Group;
+  @ViewChild('newGroupForm') newGroupForm! : NgForm;
+
   constructor(private router: Router,
-              private groupsService: GroupsService) { }
+              private groupsService: GroupsService) {
+    this.newGroup = new class implements Group {
+      id = null;
+      maxNumberOfRunningTasks =  10;
+      name = null;
+      priority = 0;
+      tokenBalance =  0;
+    }
+  }
 
   ngAfterViewInit(): void {
     this.getGroups()
@@ -39,6 +49,10 @@ export class GroupsComponent implements AfterViewInit {
 
   goTo(id: Number) {
     this.router.navigate(['group', id])
+  }
+
+  addNewGroup() {
+    console.log(this.newGroupForm.value)
   }
 
 }

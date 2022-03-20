@@ -6,6 +6,8 @@ import {count, map} from "rxjs";
 import {KeyValue, KeyValuePipe} from "@angular/common";
 import {Task} from "../task";
 import {HistoricalTask} from "../historicalTask";
+import {Message} from "../message";
+import {Group} from "../group";
 
 @Injectable({
   providedIn: 'root'
@@ -41,12 +43,16 @@ export class UserService {
       )
   }
 
+  getAllGroups() {
+    return this.http.get<Group[]>(this.apiUrl + "/api/v1/group/getAllGroups");
+  }
+
   getUserTypes() {
     return this.http.get<string[]>(this.apiUrl + "/api/v1/user/getUserTypes")
   }
 
   public editUser(id: Number, user: User) {
-    return this.http.post<any>(this.apiUrl + "/api/v1/user/edit/" + id, user);
+    return this.http.post<User>(this.apiUrl + "/api/v1/user/edit/" + id, user);
   }
 
   addUserTokens(id: number, value: number) {
@@ -63,5 +69,10 @@ export class UserService {
 
   delGroupTokens(id: number, value: number) {
     return this.http.post<any>(this.apiUrl + "/api/v1/user/tokens/delGroupTokens/" + id + "/" + value, null);
+  }
+
+  deleteUser(id: number) {
+    // TODO
+    return this.http.delete<Message>(this.apiUrl + "");//"/api/v1/user/removeUser/" + id);
   }
 }

@@ -17,4 +17,9 @@ export class GroupsService {
   getAllGroups() {
     return this.http.get<Group[]>(this.apiUrl + "/api/v1/group/getAllGroups");
   }
+
+  addNewGroup() {
+    // TODO
+    return this.http.post<Group>(this.apiUrl + "/api/v1/group/new", null);
+  }
 }

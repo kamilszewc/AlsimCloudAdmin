@@ -1,6 +1,6 @@
 <h5>User {{user?.id}} {{user?.username}}</h5>
 
-<form class="row g-3" #userForm="ngForm" >
+<form class="row g-3 was-validated" #userForm="ngForm">
   <div class="col-md-6">
     <label for="firstName" class="form-label">First name</label>
     <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="user!.firstName" [value]="user?.firstName" [disabled]="!isEditAllowed">
@@ -39,18 +39,25 @@
     <input type="text" class="form-control" id="taxId" name="taxId" [(ngModel)]="user!.taxId" [value]="user?.taxId" [disabled]="!isEditAllowed">
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-3">
     <label for="maxNumberOfRunningTasks" class="form-label">Max number of running tasks</label>
     <input type="number" min="0" class="form-control" id="maxNumberOfRunningTasks" name="maxNumberOfRunningTasks" [(ngModel)]="user!.maxNumberOfRunningTasks" [value]="user?.maxNumberOfRunningTasks" [disabled]="!isEditAllowed">
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <label for="priority" class="form-label">Priority</label>
     <input type="number" min="0" max="20" class="form-control" id="priority" name="priority" [(ngModel)]="user!.priority" [value]="user?.priority" [disabled]="!isEditAllowed">
+    <div class="invalid-feedback">The value must be between 0 and 20</div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <label for="userType" class="form-label">User type</label>
     <select id="userType" class="form-select" [value]="user?.userType" name="userType" [(ngModel)]="user!.userType" [disabled]="!isEditAllowed">
       <option *ngFor="let userType of userTypes" [value]="userType" [selected]="userType === user?.userType">{{userType}}</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <label for="consumerGroup" class="form-label">Group</label>
+    <select id="consumerGroup" class="form-select" [value]="user?.consumerGroup" name="consumerGroup" [(ngModel)]="user!.consumerGroup" [disabled]="!isEditAllowed">
+      <option *ngFor="let group of groups" [value]="group" [selected]="group === user?.consumerGroup">{{group}}</option>
     </select>
   </div>
 
@@ -114,7 +121,7 @@
 
 <br/>
 
-<h5>Token balance</h5>
+<h5>eCubes balance</h5>
 
 <form class="row g-3" #userTokensRechargeForm="ngForm">
   <div class="col-md-4">
@@ -141,7 +148,7 @@
     <input type="string" class="form-control" id="groupTokenBalance" value="{{user?.groupTokenBalance}}" disabled="true">
   </div>
   <div class="col-md-4">
-    <label for="groupTokensToBeAddedRemoved" class="form-label">Tokens to add/remove</label>
+    <label for="groupTokensToBeAddedRemoved" class="form-label">eCubes to add/remove</label>
     <input type="number" min="0" class="form-control" id="groupTokensToBeAddedRemoved" name="tokensToBeAddedRemoved" ngModel>
   </div>
   <div class="col-md-2">
@@ -274,4 +281,18 @@
 
   <mat-paginator #userHistoricalTasksPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
 </div>
+
+<br/>
+
+<form class="row g-3">
+  <div class="col-12" *ngIf="isRemovalAllowed == false">
+    <button type="submit" class="btn btn-primary" (click)="allowRemoval()">Delete user</button>
+  </div>
+  <div class="col-12" *ngIf="isRemovalAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="deleteUser()">Click here to confirm user delete</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+</form>
+
+<br/>
 

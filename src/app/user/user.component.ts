@@ -8,6 +8,8 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {HistoricalTask} from "../historicalTask";
 import {NgForm} from "@angular/forms";
+import {catchError} from "rxjs";
+import {Group} from "../group";
 
 @Component({
   selector: 'app-user',
@@ -19,8 +21,10 @@ export class UserComponent implements OnInit {
   id: number | undefined
   user: User | undefined;
   isEditAllowed = false;
+  isRemovalAllowed = false;
   countries: Map<string, string> | undefined;
   userTypes!: string[];
+  groups!: string[];
 
   displayedTasksColumns: string[] = ['id', 'name', 'status', 'progress', 'schema', 'resource', 'details'];
   displayedHistoricalTasksColumns: string[] = ['id', 'name', 'numberOfCpus', 'numberOfGpus', 'ramMemory', 'schemaId', 'resourceId', 'createDateTime'];
@@ -51,6 +55,10 @@ export class UserComponent implements OnInit {
       this.countries = countries;
     });
 
+    this.userService.getAllGroups().subscribe(groups => {
+      this.groups = groups.map<string>(group => group.name!)
+    })
+
     this.userService.getUserTypes().subscribe(userTypes => {
       this.userTypes = userTypes;
     })
@@ -72,13 +80,23 @@ export class UserComponent implements OnInit {
     this.isEditAllowed = true;
   }
 
+  blockEdit() {
+    this.isEditAllowed = false;
+  }
+
   editUser() {
     console.info(this.userForm.value)
 
     this.userService.editUser(this.id!, this.userForm.value)
-      .subscribe(user => this.user = user);
-
-    window.location.reload();
+      .subscribe(
+        (user) => {
+          this.user = user
+          this.blockEdit();
+        },
+        (error) => {
+          console.info(error.error.message)
+        }
+      );
   }
 
   giveUserTokens() {
@@ -101,6 +119,17 @@ export class UserComponent implements OnInit {
       .subscribe(user => this.user = user);
   }
 
+  allowRemoval() {
+    this.isRemovalAllowed = true;
+  }
+
+  deleteUser() {
+    this.userService.deleteUser(this.id!)
+      .subscribe(message => {})
+
+    this.router.navigate(['users'])
+  }
+
   reload() {
     window.location.reload();
   }
@@ -114,4 +143,5 @@ export class UserComponent implements OnInit {
     this.user!.country = value;
     this.user!.username = "Dfdsffs"
   }
+
 }

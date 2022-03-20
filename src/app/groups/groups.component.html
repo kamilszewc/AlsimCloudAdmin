@@ -48,3 +48,30 @@
 
   <mat-paginator #groupsPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
 </div>
+
+<br/>
+
+<h3>Add new group</h3>
+<form class="row g-3 was-validated" #newGroupForm="ngForm">
+  <div class="col-md-6">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" minlength="4" class="form-control" id="name" name="name" [(ngModel)]="newGroup!.name" [value]="newGroup?.name" required>
+  </div>
+  <div class="col-md-6">
+    <label for="tokensBalance" class="form-label">eCubes</label>
+    <input type="number" class="form-control" id="tokensBalance" name="tokensBalance" [(ngModel)]="newGroup!.tokenBalance" [value]="newGroup?.tokenBalance">
+  </div>
+
+  <div class="col-6">
+    <label for="priority" class="form-label">Priority</label>
+    <input type="number" min="0" max="20" class="form-control" id="priority" name="priority" [(ngModel)]="newGroup!.priority" [value]="newGroup?.priority">
+  </div>
+  <div class="col-6">
+    <label for="maxNumberOfRunningTasks" class="form-label">Max number of running tasks</label>
+    <input type="number" class="form-control" id="maxNumberOfRunningTasks" name="maxNumberOfRunningTasks" [(ngModel)]="newGroup!.maxNumberOfRunningTasks" [value]="newGroup?.maxNumberOfRunningTasks">
+  </div>
+
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary" (click)="addNewGroup()">Add group</button>
+  </div>
+</form>
