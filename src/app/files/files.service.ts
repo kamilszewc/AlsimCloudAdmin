@@ -14,6 +14,10 @@ export class FilesService {
   }
 
   getAllFilesOfType(type: string) {
-    return this.http.get<File[]>(this.apiUrl + "/api/v1/files/sopmethi/" + type);
+    return this.http.get<File[]>(this.apiUrl + "/api/v1/files/listFiles/" + type);
+  }
+
+  deleteFile(id: number) {
+    return this.http.delete(this.apiUrl + "/api/v1/files/deleteFile/" + id);
   }
 }

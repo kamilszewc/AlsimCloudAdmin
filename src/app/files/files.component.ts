@@ -4,6 +4,7 @@ import {FilesService} from "./files.service";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
+import {GlobalConstants} from "../common/global-constants";
 
 @Component({
   selector: 'app-files',
@@ -16,18 +17,32 @@ export class FilesComponent implements OnInit {
   @ViewChild('downloadFilesTable', {read: MatSort}) downloadFilesSort!: MatSort;
   downloadFiles = new MatTableDataSource<File>([]);
 
-  @ViewChild('iconFilesPaginator') iconFilesPaginator!: MatPaginator;
-  @ViewChild('iconFilesTable', {read: MatSort}) iconFilesSort!: MatSort;
-  iconFiles = new MatTableDataSource<File>([]);
+  @ViewChild('schemaIconFilesPaginator') schemaIconFilesPaginator!: MatPaginator;
+  @ViewChild('schemaIconFilesTable', {read: MatSort}) schemaIconFilesSort!: MatSort;
+  schemaIconFiles = new MatTableDataSource<File>([]);
 
-  displayedColumns: string[] = ['id', 'name', 'url'];
+  @ViewChild('schemaCategoryIconFilesPaginator') schemaCategoryIconFilesPaginator!: MatPaginator;
+  @ViewChild('schemaCategoryIconFilesTable', {read: MatSort}) schemaCategoryIconFilesSort!: MatSort;
+  schemaCategoryIconFiles = new MatTableDataSource<File>([]);
+
+  @ViewChild('imageFilesPaginator') imageFilesPaginator!: MatPaginator;
+  @ViewChild('imageFilesTable', {read: MatSort}) imageFilesSort!: MatSort;
+  imageFiles = new MatTableDataSource<File>([]);
+
+  displayedColumns: string[] = ['id', 'name', 'download', 'details', 'remove'];
+
+  apiUrl: string;
 
   constructor(private router: Router,
-              private filesService: FilesService) { }
+              private filesService: FilesService) {
+    this.apiUrl = GlobalConstants.apiUrl;
+  }
 
   ngOnInit(): void {
     this.getDownloadFiles()
-    this.getIconFiles()
+    this.getSchemaIconFiles()
+    this.getSchemaCategoryIconFiles()
+    this.getImageFiles()
   }
 
   getDownloadFiles() {
@@ -39,17 +54,38 @@ export class FilesComponent implements OnInit {
       })
   }
 
-  getIconFiles() {
-    this.filesService.getAllFilesOfType("ICON")
+  getSchemaIconFiles() {
+    this.filesService.getAllFilesOfType("SCHEMA_ICON")
       .subscribe(files => {
-        this.iconFiles = new MatTableDataSource<File>(files)
-        this.iconFiles.sort = this.iconFilesSort;
-        this.iconFiles.paginator = this.iconFilesPaginator;
+        this.schemaIconFiles = new MatTableDataSource<File>(files)
+        this.schemaIconFiles.sort = this.schemaIconFilesSort;
+        this.schemaIconFiles.paginator = this.schemaIconFilesPaginator;
+      })
+  }
+
+  getSchemaCategoryIconFiles() {
+    this.filesService.getAllFilesOfType("SCHEMA_CATEGORY_ICON")
+      .subscribe(files => {
+        this.schemaCategoryIconFiles = new MatTableDataSource<File>(files)
+        this.schemaCategoryIconFiles.sort = this.schemaCategoryIconFilesSort;
+        this.schemaCategoryIconFiles.paginator = this.schemaCategoryIconFilesPaginator;
+      })
+  }
+
+  getImageFiles() {
+    this.filesService.getAllFilesOfType("IMAGE")
+      .subscribe(files => {
+        this.imageFiles = new MatTableDataSource<File>(files)
+        this.imageFiles.sort = this.imageFilesSort;
+        this.imageFiles.paginator = this.imageFilesPaginator;
       })
   }
 
   deleteFile(id: number) {
-    // TODO
+    this.filesService.deleteFile(id).subscribe();
   }
 
+  goTo(id: number) {
+    this.router.navigate(['file', id])
+  }
 }
