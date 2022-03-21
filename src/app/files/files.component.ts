@@ -31,6 +31,8 @@ export class FilesComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'download', 'details', 'remove'];
 
+  fileTypes = ['IMAGE', 'DOWNLOAD', 'SCHEMA_ICON', 'SCHEMA_CATEGORY_ICON']
+
   apiUrl: string;
 
   constructor(private router: Router,
