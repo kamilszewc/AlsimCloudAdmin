@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {GlobalConstants} from "../common/global-constants";
-import {Group} from "../group";
 
 @Injectable({
   providedIn: 'root'
 })
-export class GroupService {
+export class FilesService {
 
-  apiUrl: string;
+  apiUrl: string
 
   constructor(private http: HttpClient) {
     this.apiUrl = GlobalConstants.apiUrl;
   }
 
-  getGroup(id: number) {
-    return this.http.get<Group>(this.apiUrl + "/api/v1/group/info/" + id);
+  getAllFilesOfType(type: string) {
+    return this.http.get<File[]>(this.apiUrl + "/api/v1/files/sopmethi/" + type);
   }
 }

@@ -27,6 +27,7 @@ import { TaskComponent } from './task/task.component';
 import { ResourceComponent } from './resource/resource.component';
 import { SchemaComponent } from './schema/schema.component';
 import { QueueComponent } from './queue/queue.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 const routes: Routes = [
   { path: '', component: UsersComponent, canActivate: [LoginGuard] },
@@ -66,19 +67,20 @@ const HttpInterceptorProviders = [
     SchemaComponent,
     QueueComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatSortModule,
-    HttpClientModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot(routes),
-    FormsModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatSortModule,
+        HttpClientModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        RouterModule.forRoot(routes),
+        FormsModule,
+        MatProgressSpinnerModule
+    ],
   exports: [RouterModule],
   providers: [
     HttpInterceptorProviders,

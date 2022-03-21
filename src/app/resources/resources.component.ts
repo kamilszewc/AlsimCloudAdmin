@@ -17,6 +17,7 @@ export class ResourcesComponent implements OnInit {
   @ViewChild('resourcesPaginator') resourcesPaginator!: MatPaginator;
   @ViewChild('resourcesTable', {read: MatSort}) resourcesSort!: MatSort;
   resources = new MatTableDataSource<Resource>([]);
+  isLoading = true;
 
   displayedColumns: string[] = ['id', 'name', 'description', 'suspended', 'cpuUsage', 'gpuUsage', 'ramUsage', 'details'];
 
@@ -33,6 +34,7 @@ export class ResourcesComponent implements OnInit {
         this.resources = new MatTableDataSource<Resource>(resources)
         this.resources.sort = this.resourcesSort;
         this.resources.paginator = this.resourcesPaginator;
+        this.isLoading = false;
       })
   }
 

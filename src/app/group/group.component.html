@@ -1,1 +1,28 @@
-<p>group works!</p>
+<h3>Group {{group?.id}}</h3>
+<form class="row g-3 was-validated" #groupForm="ngForm">
+  <div class="col-md-6">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" minlength="4" class="form-control" id="name" name="name" [(ngModel)]="group!.name" [value]="group?.name" required>
+  </div>
+  <div class="col-md-6">
+    <label for="tokensBalance" class="form-label">eCubes</label>
+    <input type="number" class="form-control" id="tokensBalance" name="tokensBalance" [(ngModel)]="group!.tokenBalance" [value]="group?.tokenBalance">
+  </div>
+
+  <div class="col-6">
+    <label for="priority" class="form-label">Priority</label>
+    <input type="number" min="0" max="20" class="form-control" id="priority" name="priority" [(ngModel)]="group!.priority" [value]="group?.priority">
+  </div>
+  <div class="col-6">
+    <label for="maxNumberOfRunningTasks" class="form-label">Max number of running tasks</label>
+    <input type="number" class="form-control" id="maxNumberOfRunningTasks" name="maxNumberOfRunningTasks" [(ngModel)]="group!.maxNumberOfRunningTasks" [value]="group?.maxNumberOfRunningTasks">
+  </div>
+
+  <div class="col-12" *ngIf="isEditAllowed == false">
+    <button type="submit" class="btn btn-primary" (click)="allowEdit()">Edit</button>
+  </div>
+  <div class="col-12" *ngIf="isEditAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="editGroup()">Submit</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+</form>
