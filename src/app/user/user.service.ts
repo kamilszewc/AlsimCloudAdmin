@@ -72,7 +72,6 @@ export class UserService {
   }
 
   deleteUser(id: number) {
-    // TODO
-    return this.http.delete<Message>(this.apiUrl + "");//"/api/v1/user/removeUser/" + id);
+    return this.http.delete<Message>(this.apiUrl + "/api/v1/user/remove/" + id);
   }
 }

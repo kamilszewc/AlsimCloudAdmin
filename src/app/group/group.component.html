@@ -25,4 +25,12 @@
     <button type="submit" class="btn btn-warning" (click)="editGroup()">Submit</button>&nbsp;
     <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
   </div>
+
+  <div class="col-12" *ngIf="isRemovalAllowed == false">
+    <button type="submit" class="btn btn-primary" (click)="allowRemoval()">Delete</button>
+  </div>
+  <div class="col-12" *ngIf="isRemovalAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="removeGroup()">Confirm delete</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
 </form>

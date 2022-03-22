@@ -125,9 +125,10 @@ export class UserComponent implements OnInit {
 
   deleteUser() {
     this.userService.deleteUser(this.id!)
-      .subscribe(message => {})
+      .subscribe(message => {
 
-    this.router.navigate(['users'])
+        this.router.navigate(['users'])
+      })
   }
 
   reload() {

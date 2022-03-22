@@ -52,7 +52,10 @@ export class GroupsComponent implements AfterViewInit {
   }
 
   addNewGroup() {
-    console.log(this.newGroupForm.value)
+    this.groupsService.addNewGroup(this.newGroup)
+      .subscribe(group => {
+        window.location.reload();
+      })
   }
 
 }
