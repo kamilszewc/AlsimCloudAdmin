@@ -1,20 +1,19 @@
-<!-- File upload -->
-<h3>File upload</h3>
+<!-- Myfile upload -->
+<h3>Myfile upload</h3>
 <form class="row g-3" #uploadForm="ngForm" >
 
   <div class="col-md-4">
-    <label for="formFile" class="form-label">Default file input example</label>
-    <input class="form-control" type="file" id="formFile">
+    <label for="filePath" class="form-label">Choose a file</label>
+    <input class="form-control" type="file" id="filePath" name="filePath" (change)="onFileChange($event)">
   </div>
-
   <div class="col-md-5">
     <label for="description" class="form-label">Description</label>
-    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="fileToUpload.description" [value]="fileToUpload?.description" >
+    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="fileToUpload!.description!" [value]="fileToUpload?.description!" >
   </div>
   <div class="col-md-3">
     <label for="type" class="form-label">Type</label>
     <select id="type" class="form-select" [(ngModel)]="fileToUpload!.type" name="type">
-      <option *ngFor="let fileType of fileTypes!" [value]="fileType">{{fileType}}</option>
+      <option *ngFor="let fileType of fileTypes" [value]="fileType">{{fileType}}</option>
     </select>
   </div>
 
@@ -46,7 +45,7 @@
     <ng-container matColumnDef="download">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
       <td mat-cell *matCellDef="let element">
-        <a type="button" class="btn btn-sm" [href]="apiUrl + element?.url">Download</a>
+        <a type="button" class="btn btn-sm" [href]="apiUrl + element?.url + '?token=' + token">Download</a>
       </td>
     </ng-container>
 

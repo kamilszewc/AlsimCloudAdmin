@@ -1,5 +1,5 @@
 
-export interface File {
+export interface Myfile {
   id: number | null;
   name: string | null;
   description: string | null;

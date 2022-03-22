@@ -1,7 +1,7 @@
-import { File } from './file'
+import { Myfile } from './myfile'
 
 export interface SchemaCategory {
   id: number | null;
   name: string | null;
-  iconFile: File | null
+  iconFile: Myfile | null
 }

@@ -1,5 +1,5 @@
 import {SchemaCategory} from "./schemaCategory";
-import {File} from "./file";
+import {Myfile} from "./myfile";
 
 export interface Schema {
   id: number | null;
@@ -16,7 +16,7 @@ export interface Schema {
   latestSolverVersion: string | null;
   assessmentKeys: string | null;
   usesMlModel: boolean | null;
-  icon: File | null;
-  banner: File | null;
+  icon: Myfile | null;
+  banner: Myfile | null;
   commandTemplate: string | null;
 }
