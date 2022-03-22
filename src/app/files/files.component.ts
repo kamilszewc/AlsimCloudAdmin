@@ -1,10 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {FilesService} from "./files.service";
+import {File} from "../file"
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {GlobalConstants} from "../common/global-constants";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-files',
@@ -31,7 +33,10 @@ export class FilesComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'download', 'details', 'remove'];
 
-  fileTypes = ['IMAGE', 'DOWNLOAD', 'SCHEMA_ICON', 'SCHEMA_CATEGORY_ICON']
+  fileTypes: string[] = ['IMAGE', 'DOWNLOAD', 'SCHEMA_ICON', 'SCHEMA_CATEGORY_ICON']
+
+  fileToUpload!: File;
+  @ViewChild('uploadForm') uploadForm! : NgForm;
 
   apiUrl: string;
 
@@ -89,5 +94,8 @@ export class FilesComponent implements OnInit {
 
   goTo(id: number) {
     this.router.navigate(['file', id])
+  }
+
+  uploadFile() {
   }
 }

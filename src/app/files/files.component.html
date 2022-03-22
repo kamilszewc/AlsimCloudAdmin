@@ -1,3 +1,30 @@
+<!-- File upload -->
+<h3>File upload</h3>
+<form class="row g-3" #uploadForm="ngForm" >
+
+  <div class="col-md-4">
+    <label for="formFile" class="form-label">Default file input example</label>
+    <input class="form-control" type="file" id="formFile">
+  </div>
+
+  <div class="col-md-5">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="fileToUpload.description" [value]="fileToUpload?.description" >
+  </div>
+  <div class="col-md-3">
+    <label for="type" class="form-label">Type</label>
+    <select id="type" class="form-select" [(ngModel)]="fileToUpload!.type" name="type">
+      <option *ngFor="let fileType of fileTypes!" [value]="fileType">{{fileType}}</option>
+    </select>
+  </div>
+
+  <div class="col-2">
+    <button type="submit" class="btn btn-primary" (click)="uploadFile()">Upload file</button>
+  </div>
+</form>
+
+<br/>
+
 <!-- Download files -->
 <h3>Download files</h3>
 <div class="mat-elevation-z8">
