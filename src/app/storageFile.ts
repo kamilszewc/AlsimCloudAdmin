@@ -1,4 +1,5 @@
 
 export interface StorageFile {
-  name: string | null;
+  id: string | null;
+  filename: string | null;
 }

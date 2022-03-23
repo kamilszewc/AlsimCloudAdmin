@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {GlobalConstants} from "../common/global-constants";
 import {Message} from "../message";
 import {StorageFile} from "../storageFile";
@@ -20,14 +20,35 @@ export class StorageService {
   }
 
   getInputFiles(token: string) {
-    return this.http.get<StorageFile[]>(this.apiUrl + "/api/v1/storage/");
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.http.get<StorageFile[]>(this.apiUrl + "/api/v1/storage/group/filenamesAndDescriptionsList?fileType=INPUT", httpOptions);
   }
 
   getOutputFiles(token: string) {
-    return this.http.get<StorageFile[]>(this.apiUrl + "/api/v1/storage/");
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.http.get<StorageFile[]>(this.apiUrl + "/api/v1/storage/group/filenamesAndDescriptionsList?fileType=OUTPUT", httpOptions);
   }
 
   getLogFiles(token: string) {
-    return this.http.get<StorageFile[]>(this.apiUrl + "/api/v1/storage/");
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.http.get<StorageFile[]>(this.apiUrl + "/api/v1/storage/group/filenamesAndDescriptionsList?fileType=LOG", httpOptions);
   }
 }

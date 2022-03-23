@@ -30,7 +30,7 @@ export class StorageComponent implements OnInit {
   @ViewChild('logFilesTable', {read: MatSort}) logFilesSort!: MatSort;
   logFiles = new MatTableDataSource<StorageFile>([]);
 
-  displayedColumns: string[] = ['name', 'details'];
+  displayedColumns: string[] = ['filename', 'details'];
 
   token!: string;
 
@@ -51,10 +51,25 @@ export class StorageComponent implements OnInit {
       console.log(this.token)
 
       // Get input files
+      this.storageService.getInputFiles(this.token).subscribe(files => {
+        this.inputFiles = new MatTableDataSource<StorageFile>(files);
+        this.inputFiles.paginator = this.inputFilesPaginator;
+        this.inputFiles.sort = this.inputFilesSort;
+      })
 
       // Get output files
+      this.storageService.getOutputFiles(this.token).subscribe(files => {
+        this.outputFiles = new MatTableDataSource<StorageFile>(files);
+        this.outputFiles.paginator = this.outputFilesPaginator;
+        this.outputFiles.sort = this.outputFilesSort;
+      })
 
       // Get log files
+      this.storageService.getLogFiles(this.token).subscribe(files => {
+        this.logFiles = new MatTableDataSource<StorageFile>(files);
+        this.logFiles.paginator = this.logFilesPaginator;
+        this.logFiles.sort = this.logFilesSort;
+      })
     })
   }
 
