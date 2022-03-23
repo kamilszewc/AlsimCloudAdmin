@@ -22,4 +22,8 @@ export class SchemaService {
     return this.http.get<string[]>(this.apiUrl + "/api/v1/schema/getPaymentMethods")
   }
 
+  editSchema(id: number, schema: Schema) {
+    return this.http.post<Schema>(this.apiUrl + "/api/v1/schema/edit/" + id, schema);
+  }
+
 }

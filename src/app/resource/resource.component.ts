@@ -17,6 +17,7 @@ export class ResourceComponent implements OnInit {
   id: number | undefined;
   resource: Resource | undefined;
   isEditAllowed = false;
+  isRemovalAllowed = false;
 
   @ViewChild('resourceForm') resourceForm! : NgForm;
 
@@ -35,11 +36,18 @@ export class ResourceComponent implements OnInit {
     this.isEditAllowed = true;
   }
 
+  allowRemoval() {
+    this.isRemovalAllowed = true;
+  }
+
+  deleteResource() {
+
+  }
+
   reload() {
     window.location.reload();
   }
 
   editResource() {
-
   }
 }

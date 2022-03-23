@@ -55,6 +55,11 @@
   </div>
 
   <div class="col-md-12">
+    <label for="secret" class="form-label">Secret</label>
+    <input type="text" class="form-control" id="secret" name="secret" [(ngModel)]="resource!.secret" [value]="resource?.secret" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-12">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" id="suspended" [checked]="resource?.suspended" [disabled]="!isEditAllowed">
       <label class="form-check-label" for="suspended">
@@ -71,5 +76,19 @@
     <button type="submit" class="btn btn-warning" (click)="editResource()">Submit</button>&nbsp;
     <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
   </div>
-
 </form>
+
+
+<br/>
+
+<form class="row g-3">
+  <div class="col-12" *ngIf="isRemovalAllowed == false">
+    <button type="submit" class="btn btn-primary" (click)="allowRemoval()">Delete resource</button>
+  </div>
+  <div class="col-12" *ngIf="isRemovalAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="deleteResource()">Click here to confirm resource delete</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+</form>
+
+<br/>

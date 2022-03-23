@@ -68,3 +68,60 @@
 
   <mat-paginator #resourcesPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
 </div>
+
+<br/>
+
+<h3>New resource</h3>
+
+<form class="row g-3" #newResourceForm="ngForm" >
+  <div class="col-md-6">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="newResource!.name" [value]="newResource?.name">
+  </div>
+  <div class="col-md-6">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="newResource!.description" [value]="newResource?.description">
+  </div>
+
+  <div class="col-md-12">
+    <label for="url" class="form-label">Url</label>
+    <input type="text" class="form-control" id="url" name="url" [(ngModel)]="newResource!.url" [value]="newResource?.url">
+  </div>
+
+  <div class="col-md-4">
+    <label for="numberOfCpus" class="form-label">Number of CPUs</label>
+    <input type="number" min="0" class="form-control" id="numberOfCpus" name="numberOfCpus" [(ngModel)]="newResource!.numberOfCpus" [value]="newResource?.numberOfCpus">
+  </div>
+  <div class="col-md-4">
+    <label for="numberOfGpus" class="form-label">Number of GPUs</label>
+    <input type="number" min="0" class="form-control" id="numberOfGpus" name="numberOfGpus" [(ngModel)]="newResource!.numberOfGpus" [value]="newResource?.numberOfGpus">
+  </div>
+  <div class="col-md-4">
+    <label for="ramMemory" class="form-label">RAM memory (B)</label>
+    <input type="number" min="0" class="form-control" id="ramMemory" name="ramMemory" [(ngModel)]="newResource!.ramMemory" [value]="newResource?.ramMemory">
+  </div>
+
+  <div class="col-md-4">
+    <label for="numberOfCpusInUse" class="form-label">Number of CPUs in use</label>
+    <input type="number" min="0" class="form-control" id="numberOfCpusInUse" name="numberOfCpusInUse" [(ngModel)]="newResource!.numberOfCpusInUse" [value]="newResource?.numberOfCpusInUse">
+  </div>
+  <div class="col-md-4">
+    <label for="numberOfGpusInUse" class="form-label">Number of GPUs in use</label>
+    <input type="number" min="0" class="form-control" id="numberOfGpusInUse" name="numberOfGpusInUse" [(ngModel)]="newResource!.numberOfGpusInUse" [value]="newResource?.numberOfGpusInUse">
+  </div>
+  <div class="col-md-4">
+    <label for="ramMemoryInUse" class="form-label">RAM memory in use (B)</label>
+    <input type="number" min="0" class="form-control" id="ramMemoryInUse" name="ramMemoryInUse" [(ngModel)]="newResource!.ramMemoryInUse" [value]="newResource?.ramMemoryInUse">
+  </div>
+
+  <div class="col-md-12">
+    <label for="secret" class="form-label">Secret</label>
+    <input type="text" class="form-control" id="secret" name="secret" [(ngModel)]="newResource!.secret" [value]="newResource?.secret">
+  </div>
+
+  <div class="col-2">
+    <button type="submit" class="btn btn-primary" (click)="addNewResource()">Add new resource</button>
+  </div>
+</form>
+
+<br/>

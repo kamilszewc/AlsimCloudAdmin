@@ -15,6 +15,7 @@ export class SchemaComponent implements OnInit {
   id: number | undefined;
   schema: Schema | undefined;
   isEditAllowed = false;
+  isRemovalAllowed = false;
   paymentMethods: string[] | undefined;
 
   @ViewChild('schemaForm') schemaForm! : NgForm;
@@ -38,12 +39,27 @@ export class SchemaComponent implements OnInit {
     this.isEditAllowed = true;
   }
 
+  allowRemoval() {
+    this.isRemovalAllowed = true;
+  }
+
+  blockEdit() {
+    this.isEditAllowed = false;
+  }
+
   editSchema() {
+    this.schemaService.editSchema(this.id!, this.schema!).subscribe(schema => {
+      this.schema = schema;
+      this.blockEdit();
+    })
   }
 
   reload() {
     window.location.reload();
   }
 
+  deleteSchema() {
+
+  }
 
 }

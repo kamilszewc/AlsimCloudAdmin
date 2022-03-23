@@ -17,4 +17,12 @@ export class SchemasService {
   getSchemas() {
     return this.http.get<Schema[]>(this.apiUrl + "/api/v1/schema/getAllSchemas");
   }
+
+  getPaymentMethods() {
+    return this.http.get<string[]>(this.apiUrl + "/api/v1/schema/getPaymentMethods")
+  }
+
+  addNewSchema(schema: Schema) {
+    return this.http.post<Schema>(this.apiUrl + "/api/v1/schema/new", schema);
+  }
 }

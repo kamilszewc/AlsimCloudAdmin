@@ -1,0 +1,106 @@
+<h3>Find files by task id</h3>
+
+<form class="row g-3" #findFilesByTaskIdForm="ngForm" >
+  <div class="col-md-6">
+    <label for="taskId" class="form-label">Task id</label>
+    <input type="number" class="form-control" id="taskId" name="taskId" [(ngModel)]="taskId" [value]="taskId">
+  </div>
+
+  <div class="col-md-2">
+    <label for="submit" class="form-label">&nbsp;</label>
+    <button type="submit" class="btn btn-primary form-control" id="submit" (click)="findFiles()">Find files</button>
+  </div>
+</form>
+
+<br/>
+
+<!-- Input files -->
+<h3>Input files</h3>
+<div class="mat-elevation-z8">
+  <table mat-table #inputFilesTable [dataSource]="inputFiles" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
+
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element?.name}} </td>
+    </ng-container>
+
+
+    <!-- Details Column -->
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <button type="button" class="btn btn-primary btn-sm" (click)="goTo()">Details</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator #inputFilesPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
+</div>
+
+<br/>
+
+<!-- Output files -->
+<h3>Output files</h3>
+<div class="mat-elevation-z8">
+  <table mat-table #outputFilesTable [dataSource]="outputFiles" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element?.name}} </td>
+    </ng-container>
+
+
+    <!-- Details Column -->
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <button type="button" class="btn btn-primary btn-sm" (click)="goTo()">Details</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator #outputFilesPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
+</div>
+
+<br/>
+
+<!-- Log files -->
+<h3>Log files</h3>
+<div class="mat-elevation-z8">
+  <table mat-table #logFilesTable [dataSource]="logFiles" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element?.name}} </td>
+    </ng-container>
+
+
+    <!-- Details Column -->
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <button type="button" class="btn btn-primary btn-sm" (click)="goTo()">Details</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator #logFilesPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
+</div>
+
+<br/>
