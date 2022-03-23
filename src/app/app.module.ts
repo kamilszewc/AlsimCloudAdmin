@@ -30,6 +30,7 @@ import { QueueComponent } from './queue/queue.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { FileComponent } from './file/file.component';
 import { StorageComponent } from './storage/storage.component';
+import { SchemaCategoriesComponent } from './schema-categories/schema-categories.component';
 
 const routes: Routes = [
   { path: '', component: UsersComponent, canActivate: [LoginGuard] },
@@ -47,6 +48,7 @@ const routes: Routes = [
   { path: 'files', component: FilesComponent, canActivate: [LoginGuard] },
   { path: 'file/:id', component: FileComponent, canActivate: [LoginGuard] },
   { path: 'storage', component: StorageComponent, canActivate: [LoginGuard] },
+  { path: 'storage/:id', component: StorageComponent, canActivate: [LoginGuard] },
   { path: 'login', component: LoginComponent }
 ]
 
@@ -71,7 +73,8 @@ const HttpInterceptorProviders = [
     SchemaComponent,
     QueueComponent,
     FileComponent,
-    StorageComponent
+    StorageComponent,
+    SchemaCategoriesComponent
   ],
     imports: [
         BrowserModule,

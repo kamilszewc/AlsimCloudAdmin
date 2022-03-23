@@ -16,7 +16,7 @@ export class TasksComponent implements OnInit {
   @ViewChild('allTasksTable', {read: MatSort}) allTasksSort!: MatSort;
   allTasks = new MatTableDataSource<Task>([]);
 
-  displayedColumns: string[] = ['id', 'name', 'status', 'progress', 'user', 'schema', 'resource', 'details'];
+  displayedColumns: string[] = ['id', 'name', 'status', 'progress', 'user', 'schema', 'resource', 'files', 'details'];
 
   constructor(private tasksService: TasksService,
               private router: Router) { }
@@ -36,6 +36,10 @@ export class TasksComponent implements OnInit {
 
   goTo(id: number) {
     this.router.navigate(['task', id]);
+  }
+
+  goToFiles(id: number) {
+    this.router.navigate(['storage', id]);
   }
 
 }

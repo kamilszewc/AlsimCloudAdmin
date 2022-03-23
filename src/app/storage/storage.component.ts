@@ -5,7 +5,7 @@ import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../user";
 import {StorageFile} from "../storageFile";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {StorageService} from "./storage.service";
 
 @Component({
@@ -35,16 +35,22 @@ export class StorageComponent implements OnInit {
   token!: string;
 
   constructor(private router: Router,
-              private storageService: StorageService) { }
+              private storageService: StorageService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    if (Number(this.route.snapshot.paramMap.has('id'))) {
+      this.taskId = Number(this.route.snapshot.paramMap.get('id'))
+      this.findFiles();
+    }
+  }
+
+  findFilesFromForm() {
+    this.taskId = this.findFilesByTaskIdForm.value.taskId;
+    this.findFiles();
   }
 
   findFiles() {
-    this.taskId = this.findFilesByTaskIdForm.value.taskId;
-
-    console.log(this.taskId)
-
     this.storageService.generateStorageManagerToken(this.taskId).subscribe(message => {
       // Get token
       this.token = message.message;

@@ -9,7 +9,7 @@ export interface Schema {
   schemaCategory: SchemaCategory | null;
   validationKeys: string | null;
   solverGroup: string | null;
-  ownerGitlabId: number | null;
+  ownersGitlabId: number | null;
   minNumberOfCpus: number | null;
   minNumberOfGpus: number | null;
   minRamMemory: number | null;

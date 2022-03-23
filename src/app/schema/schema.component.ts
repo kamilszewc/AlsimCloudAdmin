@@ -13,7 +13,7 @@ import {NgForm} from "@angular/forms";
 export class SchemaComponent implements OnInit {
 
   id: number | undefined;
-  schema: Schema | undefined;
+  schema!: Schema;
   isEditAllowed = false;
   isRemovalAllowed = false;
   paymentMethods: string[] | undefined;
@@ -59,7 +59,9 @@ export class SchemaComponent implements OnInit {
   }
 
   deleteSchema() {
-
+    this.schemaService.removeSchema(this.id!).subscribe(message => {
+      this.router.navigate(['schemas'])
+    })
   }
 
 }

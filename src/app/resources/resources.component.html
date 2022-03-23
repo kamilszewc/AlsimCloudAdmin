@@ -101,22 +101,9 @@
     <input type="number" min="0" class="form-control" id="ramMemory" name="ramMemory" [(ngModel)]="newResource!.ramMemory" [value]="newResource?.ramMemory">
   </div>
 
-  <div class="col-md-4">
-    <label for="numberOfCpusInUse" class="form-label">Number of CPUs in use</label>
-    <input type="number" min="0" class="form-control" id="numberOfCpusInUse" name="numberOfCpusInUse" [(ngModel)]="newResource!.numberOfCpusInUse" [value]="newResource?.numberOfCpusInUse">
-  </div>
-  <div class="col-md-4">
-    <label for="numberOfGpusInUse" class="form-label">Number of GPUs in use</label>
-    <input type="number" min="0" class="form-control" id="numberOfGpusInUse" name="numberOfGpusInUse" [(ngModel)]="newResource!.numberOfGpusInUse" [value]="newResource?.numberOfGpusInUse">
-  </div>
-  <div class="col-md-4">
-    <label for="ramMemoryInUse" class="form-label">RAM memory in use (B)</label>
-    <input type="number" min="0" class="form-control" id="ramMemoryInUse" name="ramMemoryInUse" [(ngModel)]="newResource!.ramMemoryInUse" [value]="newResource?.ramMemoryInUse">
-  </div>
-
   <div class="col-md-12">
-    <label for="secret" class="form-label">Secret</label>
-    <input type="text" class="form-control" id="secret" name="secret" [(ngModel)]="newResource!.secret" [value]="newResource?.secret">
+    <label for="jwtSecret" class="form-label">Secret</label>
+    <input type="text" class="form-control" id="jwtSecret" name="jwtSecret" [(ngModel)]="newResource!.jwtSecret" [value]="newResource?.jwtSecret">
   </div>
 
   <div class="col-2">

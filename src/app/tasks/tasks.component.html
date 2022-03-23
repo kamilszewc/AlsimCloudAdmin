@@ -45,6 +45,14 @@
       <td mat-cell *matCellDef="let element"> <a [routerLink]="'/resource/' + element?.resource?.id">{{element?.resource?.name}}</a> </td>
     </ng-container>
 
+    <!-- Files Column -->
+    <ng-container matColumnDef="files">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <button type="button" class="btn btn-primary btn-sm" (click)="goToFiles(element.id)">Files</button>
+      </td>
+    </ng-container>
+
     <!-- Details Column -->
     <ng-container matColumnDef="details">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>

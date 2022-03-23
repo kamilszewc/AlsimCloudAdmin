@@ -17,4 +17,8 @@ export class ResourcesService {
   getResources() {
     return this.http.get<Resource[]>(this.apiUrl + "/api/v1/resource/getAllResources");
   }
+
+  addNewEssResource(resource: Resource) {
+    return this.http.post<Resource>(this.apiUrl + "/api/v1/resource/new/ess", resource);
+  }
 }

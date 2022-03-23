@@ -55,8 +55,8 @@
   </div>
 
   <div class="col-md-12">
-    <label for="secret" class="form-label">Secret</label>
-    <input type="text" class="form-control" id="secret" name="secret" [(ngModel)]="resource!.secret" [value]="resource?.secret" [disabled]="!isEditAllowed">
+    <label for="jwtSecret" class="form-label">Secret</label>
+    <input type="text" class="form-control" id="jwtSecret" name="jwtSecret" [(ngModel)]="resource!.jwtSecret" [value]="resource?.jwtSecret" [disabled]="!isEditAllowed">
   </div>
 
   <div class="col-md-12">

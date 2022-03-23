@@ -37,7 +37,7 @@ export class ResourcesComponent implements OnInit {
     type: string | null = null;
     url: string | null = "";
     zone: number | null = 0;
-    secret: string | null = "";
+    jwtSecret: string | null = "";
   }
 
   constructor(private resourcesService: ResourcesService,
@@ -58,7 +58,10 @@ export class ResourcesComponent implements OnInit {
   }
 
   addNewResource() {
-
+    this.resourcesService.addNewEssResource(this.newResource).subscribe(resource => {
+      window.location.reload();
+      }
+    )
   }
 
   goTo(id: number) {

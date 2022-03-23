@@ -36,7 +36,7 @@ export class SchemasComponent implements OnInit {
     minNumberOfGpus: number | null = 0;
     minRamMemory: number | null = 0;
     name: string | null = "";
-    ownerGitlabId: number | null = null;
+    ownersGitlabId: number | null = null;
     paymentMethod: string | null = 'CONTACT';
     schemaCategory: SchemaCategory | null = null;
     solverGroup: string | null = "";

@@ -41,7 +41,9 @@ export class ResourceComponent implements OnInit {
   }
 
   deleteResource() {
-
+    this.resourceService.deleteResource(this.id!).subscribe(message => {
+      this.router.navigate(['resources']);
+    })
   }
 
   reload() {
@@ -49,5 +51,9 @@ export class ResourceComponent implements OnInit {
   }
 
   editResource() {
+    this.resourceService.editResources(this.id!, this.resource!).subscribe(resource => {
+      this.resource = resource;
+      }
+    )
   }
 }

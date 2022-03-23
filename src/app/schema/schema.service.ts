@@ -26,4 +26,8 @@ export class SchemaService {
     return this.http.post<Schema>(this.apiUrl + "/api/v1/schema/edit/" + id, schema);
   }
 
+  removeSchema(id: number) {
+    return this.http.delete(this.apiUrl + "/api/v1/schema/remove/" + id);
+  }
+
 }
