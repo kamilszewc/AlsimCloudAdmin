@@ -27,9 +27,9 @@ export class AuthService {
       authorization: 'Basic ' + btoa("admin" + ':' + password)
     });
 
-    return this.http.get<Message>(GlobalConstants.apiUrl + '/api/v1/token/generate', {headers: headers})
+    return this.http.get<Message<string>>(GlobalConstants.apiUrl + '/api/v1/token/generate', {headers: headers})
       .pipe(shareReplay())
-      .pipe(tap((message: Message) => {
+      .pipe(tap((message: Message<string>) => {
         this.setSession(message.message)
       }))
   }

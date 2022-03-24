@@ -24,15 +24,15 @@ export class EducationalDomainsService {
   }
 
   removeDomain(domainName: string) {
-    return this.httpClient.delete<Message>(this.apiUrl + "/api/v1/educationalDomain/" + domainName);
+    return this.httpClient.delete<Message<string>>(this.apiUrl + "/api/v1/educationalDomain/" + domainName);
   }
 
   addDomain(domainName: string | null) {
-    return this.httpClient.post<Message>(this.apiUrl + "/api/v1/educationalDomain/" + domainName, null);
+    return this.httpClient.post<Message<string>>(this.apiUrl + "/api/v1/educationalDomain/" + domainName, null);
   }
 
   checkDomain(domainName: string) {
-    return this.httpClient.get<Message>(this.apiUrl + "/api/v1/educationalDomain/" + domainName);
+    return this.httpClient.get<Message<boolean>>(this.apiUrl + "/api/v1/educationalDomain/" + domainName);
   }
 
   getCountries() {

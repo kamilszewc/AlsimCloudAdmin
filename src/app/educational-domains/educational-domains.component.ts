@@ -28,6 +28,15 @@ export class EducationalDomainsComponent implements OnInit {
   }
   countries: Map<string, string> | undefined;
 
+  @ViewChild('checkEducationalDomain') checkEducationalDomainForm!: NgForm;
+  domainToCheck =  new class implements EducationalDomain {
+    country: string | null = null;
+    domain: string | null = '';
+    id: number | null = null;
+    name: string | null = null;
+  }
+  isEducational: boolean | null = null;
+
   constructor(private educationalDomainsService: EducationalDomainsService,
               private router: Router) { }
 
@@ -47,20 +56,21 @@ export class EducationalDomainsComponent implements OnInit {
     })
   }
 
-  removeDomain(domainName: string) {
-    this.educationalDomainsService.removeDomain(domainName).subscribe(message => {
+  removeDomain(domainName: string | null) {
+    this.educationalDomainsService.removeDomain(domainName!).subscribe(message => {
       window.location.reload();
     })
   }
 
-  addDomain() {
-    this.educationalDomainsService.addDomain(this.domain!.domain).subscribe(domain => {
+  addDomain(domainName: string | null) {
+    this.educationalDomainsService.addDomain(domainName!).subscribe(domain => {
       window.location.reload();
     })
   }
 
-  checkDomain(domainName: string) {
-    this.educationalDomainsService.checkDomain(domainName).subscribe(message => {
+  checkDomain() {
+    this.educationalDomainsService.checkDomain(this.domainToCheck?.domain!).subscribe(message => {
+      this.isEducational = message.message;
     })
   }
 

@@ -21,7 +21,7 @@ export class ResourceService {
   }
 
   deleteResource(id: number) {
-    return this.http.delete<Message>(this.apiUrl + "/api/v1/resource/remove/" + id)
+    return this.http.delete<Message<string>>(this.apiUrl + "/api/v1/resource/remove/" + id)
   }
 
   editResources(id: number, resource: Resource) {

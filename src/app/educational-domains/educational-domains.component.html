@@ -1,3 +1,29 @@
+<!-- Check educational domain -->
+<h3>Check educational domain</h3>
+<form class="row g-3" #checkEducationalDomain="ngForm" >
+  <div class="col-md-8">
+    <label for="check-domain" class="form-label">Domain name</label>
+    <input type="text" class="form-control" id="check-domain" name="domain" (ngModelChange)="isEducational = null" [(ngModel)]="domainToCheck!.domain" [value]="domainToCheck?.domain">
+  </div>
+  <div class="col-md-4">
+    <label for="submit-check-domain" class="form-label">&nbsp;</label>
+    <button type="submit" class="btn btn-primary form-control" id="submit-check-domain" (click)="checkDomain()">Check if educational domain</button>
+  </div>
+
+  <div class="col-md-8" *ngIf="isEducational == true">
+    <p>Domain {{domainToCheck.domain}} <b>is educational</b> &nbsp; <a class="btn btn-sm btn-primary" (click)="removeDomain(domainToCheck!.domain)">Click here to remove</a></p>
+  </div>
+  <div class="col-md-8" *ngIf="isEducational == false">
+    <p>Domain {{domainToCheck.domain}} <b>is NOT educational</b> &nbsp; <a class="btn btn-sm btn-primary" (click)="addDomain(domainToCheck!.domain)">Click here to add</a></p>
+  </div>
+
+
+</form>
+
+<br/>
+
+
+
 <!-- Educational domains -->
 <h3>Educational domains</h3>
 <div class="mat-elevation-z8">
@@ -45,9 +71,8 @@
 
 <br/>
 
-<!-- New schema -->
+<!-- New educational domain -->
 <h3>Add educational domain</h3>
-
 <form class="row g-3" #newEducationalDomain="ngForm" >
   <div class="col-md-4">
     <label for="domain" class="form-label">Domain name</label>
@@ -65,7 +90,7 @@
   </div>
 
   <div class="col-6">
-    <button type="submit" class="btn btn-primary" (click)="addDomain()">Add new educational domain</button>
+    <button type="submit" class="btn btn-primary" (click)="addDomain(domain!.domain)">Add new educational domain</button>
   </div>
 
 </form>

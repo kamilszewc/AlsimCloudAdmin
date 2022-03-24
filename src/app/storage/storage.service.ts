@@ -16,7 +16,7 @@ export class StorageService {
   }
 
   generateStorageManagerToken(taskId: number) {
-    return this.http.get<Message>(this.apiUrl + "/api/v1/token/generateStorageManagerToken/" + taskId);
+    return this.http.get<Message<string>>(this.apiUrl + "/api/v1/token/generateStorageManagerToken/" + taskId);
   }
 
   getInputFiles(token: string) {

@@ -20,7 +20,7 @@ export class GroupService {
   }
 
   removeGroup(id: number) {
-    return this.http.delete<Message>(this.apiUrl + "/api/v1/group/remove/" + id)
+    return this.http.delete<Message<string>>(this.apiUrl + "/api/v1/group/remove/" + id)
   }
 
   editGroup(id: number, group: Group) {
