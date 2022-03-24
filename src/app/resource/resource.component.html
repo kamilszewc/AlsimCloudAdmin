@@ -61,8 +61,8 @@
 
   <div class="col-md-12">
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="suspended" [checked]="resource?.suspended" [disabled]="!isEditAllowed">
-      <label class="form-check-label" for="suspended">
+      <input class="form-check-input" type="checkbox" id="isSuspended" name="isSuspended" [(ngModel)]="resource!.isSuspended" [disabled]="!isEditAllowed">
+      <label class="form-check-label" for="isSuspended">
         Is suspended
       </label>
     </div>

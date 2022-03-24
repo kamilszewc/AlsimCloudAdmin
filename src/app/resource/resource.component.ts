@@ -53,6 +53,7 @@ export class ResourceComponent implements OnInit {
   editResource() {
     this.resourceService.editResources(this.id!, this.resource!).subscribe(resource => {
       this.resource = resource;
+      window.location.reload()
       }
     )
   }

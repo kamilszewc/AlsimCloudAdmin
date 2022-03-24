@@ -8,7 +8,7 @@ export interface Resource {
   url: string | null;
   zone: number | null;
   type: string | null;
-  suspended: boolean | null;
+  isSuspended: boolean | null;
   numberOfCpusInUse: number | null;
   numberOfGpusInUse: number | null;
   ramMemoryInUse: number | null;

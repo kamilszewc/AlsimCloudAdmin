@@ -33,7 +33,7 @@ export class ResourcesComponent implements OnInit {
     ramMemory: number | null = 0;
     ramMemoryInUse: number | null = null;
     status: string | null = null;
-    suspended: boolean | null = true;
+    isSuspended: boolean | null = true;
     type: string | null = null;
     url: string | null = "";
     zone: number | null = 0;
