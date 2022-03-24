@@ -71,28 +71,28 @@
 
 <br/>
 
-<!-- New educational domain -->
-<h3>Add educational domain</h3>
-<form class="row g-3" #newEducationalDomain="ngForm" >
-  <div class="col-md-4">
-    <label for="domain" class="form-label">Domain name</label>
-    <input type="text" class="form-control" id="domain" name="domain" [(ngModel)]="domain!.domain" [value]="domain?.domain">
-  </div>
-  <div class="col-md-4">
-    <label for="name" class="form-label">Name</label>
-    <input type="number" class="form-control" id="name" name="name" [(ngModel)]="domain!.name" [value]="domain?.name">
-  </div>
-  <div class="col-md-4">
-    <label for="country" class="form-label">Country</label>
-    <select id="country" class="form-select" [(ngModel)]="domain!.country" name="country">
-      <option *ngFor="let country of countries?.keys()" [value]="country">{{countries?.get(country)}}</option>
-    </select>
-  </div>
+<!--&lt;!&ndash; New educational domain &ndash;&gt;-->
+<!--<h3>Add educational domain</h3>-->
+<!--<form class="row g-3" #newEducationalDomain="ngForm" >-->
+<!--  <div class="col-md-4">-->
+<!--    <label for="domain" class="form-label">Domain name</label>-->
+<!--    <input type="text" class="form-control" id="domain" name="domain" [(ngModel)]="domain!.domain" [value]="domain?.domain">-->
+<!--  </div>-->
+<!--  <div class="col-md-4">-->
+<!--    <label for="name" class="form-label">Name</label>-->
+<!--    <input type="number" class="form-control" id="name" name="name" [(ngModel)]="domain!.name" [value]="domain?.name">-->
+<!--  </div>-->
+<!--  <div class="col-md-4">-->
+<!--    <label for="country" class="form-label">Country</label>-->
+<!--    <select id="country" class="form-select" [(ngModel)]="domain!.country" name="country">-->
+<!--      <option *ngFor="let country of countries?.keys()" [value]="country">{{countries?.get(country)}}</option>-->
+<!--    </select>-->
+<!--  </div>-->
 
-  <div class="col-6">
-    <button type="submit" class="btn btn-primary" (click)="addDomain(domain!.domain)">Add new educational domain</button>
-  </div>
+<!--  <div class="col-6">-->
+<!--    <button type="submit" class="btn btn-primary" (click)="addDomain(domain!.domain)">Add new educational domain</button>-->
+<!--  </div>-->
 
-</form>
+<!--</form>-->
 
 <br/>

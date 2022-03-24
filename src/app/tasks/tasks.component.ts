@@ -18,6 +18,8 @@ export class TasksComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'status', 'progress', 'user', 'schema', 'resource', 'files', 'details'];
 
+  isLoading = true;
+
   constructor(private tasksService: TasksService,
               private router: Router) { }
 
@@ -31,6 +33,7 @@ export class TasksComponent implements OnInit {
         this.allTasks = new MatTableDataSource<Task>(allTasks)
         this.allTasks.sort = this.allTasksSort;
         this.allTasks.paginator = this.allTasksPaginator;
+        this.isLoading = false;
       })
   }
 

@@ -1,5 +1,6 @@
+import {environment} from "../../environments/environment";
 
 export class GlobalConstants {
   //public static apiUrl = "https://alsimcloud.com"
-  public static apiUrl = "http://192.168.0.140:8082"
+  public static apiUrl = environment.apiUrl
 }

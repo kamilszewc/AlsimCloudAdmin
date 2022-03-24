@@ -1,4 +1,5 @@
+
 export const environment = {
   production: true,
-  apiUrl: 'https://alsimcloud.com'
+  apiUrl: 'https://dev.alsimcloud.com'
 };

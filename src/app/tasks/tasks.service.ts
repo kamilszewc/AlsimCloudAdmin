@@ -14,7 +14,7 @@ export class TasksService {
   }
 
   getAllTasks() {
-    return this.http.get<Task[]>(this.apiUrl + "/api/v1/task/findTasks?userId=5")
+    return this.http.get<Task[]>(this.apiUrl + "/api/v1/task/findTasks")
   }
 
 }
