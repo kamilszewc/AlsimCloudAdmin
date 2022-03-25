@@ -18,15 +18,27 @@ class Token {
 })
 export class AuthService {
 
-  expirationTime = 1800
+  expirationTime = 10
 
   constructor(private http: HttpClient) { }
 
-  login(password: string) {
+  basicLogin(password: string) {
     let headers = new HttpHeaders({
       authorization: 'Basic ' + btoa("admin" + ':' + password)
     });
 
+    return this.generateToken(headers)
+  }
+
+  tokenLogin(token: string) {
+    let headers = new HttpHeaders({
+      authorization: 'Bearer ' + token
+    });
+
+    return this.generateToken(headers)
+  }
+
+  generateToken(headers: HttpHeaders) {
     return this.http.get<Message<string>>(GlobalConstants.apiUrl + '/api/v1/token/generate', {headers: headers})
       .pipe(shareReplay())
       .pipe(tap((message: Message<string>) => {

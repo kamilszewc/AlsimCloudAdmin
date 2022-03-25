@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../auth/auth.service";
-import {finalize} from "rxjs";
+import {finalize, interval} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -27,8 +27,8 @@ export class LoginComponent {
     const val = this.loginForm.value;
 
     if (val.password) {
-      //this.authService.login(val.password)
-      this.authService.login(val.password)
+
+      this.authService.basicLogin(val.password)
         .pipe(
           finalize(() => {
             if (this.authService.isLoggedOut()) {

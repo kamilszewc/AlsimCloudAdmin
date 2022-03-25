@@ -1,78 +1,131 @@
-<!-- All tasks -->
-<h3>All tasks</h3>
-<div class="mat-elevation-z8">
-  <table mat-table #allTasksTable [dataSource]="allTasks" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
+<h3>Find tasks</h3>
 
-    <!-- Id Column -->
-    <ng-container matColumnDef="id" >
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element?.id}} </td>
-    </ng-container>
+<form class="row g-3" #findTasksByUserIdForm="ngForm" >
+  <div class="col-md-2">
+    <label for="userId" class="form-label">User id</label>
+    <input type="number" min="1" class="form-control" id="userId" name="userId" [(ngModel)]="userId" [value]="userId">
+  </div>
+  <div class="col-md-2">
+    <label for="submitFindTasksByUserId" class="form-label">&nbsp;</label>
+    <button type="submit" class="btn btn-primary form-control" id="submitFindTasksByUserId" (click)="findTasksByUserId()">Find</button>
+  </div>
+</form>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element?.name}} </td>
-    </ng-container>
+<form class="row g-3" #findTasksByGroupIdForm="ngForm" >
+  <div class="col-md-2">
+    <label for="groupId" class="form-label">Group id</label>
+    <input type="number" min="1" class="form-control" id="groupId" name="groupId" [(ngModel)]="groupId" [value]="groupId">
+  </div>
+  <div class="col-md-2">
+    <label for="submitFindTasksByGroupId" class="form-label">&nbsp;</label>
+    <button type="submit" class="btn btn-primary form-control" id="submitFindTasksByGroupId" (click)="findTasksByGroupId()">Find</button>
+  </div>
+</form>
 
-    <!-- Status Column -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-      <td mat-cell *matCellDef="let element"> {{element?.status}} </td>
-    </ng-container>
+<form class="row g-3" #findTasksBySchemaIdForm="ngForm" >
+  <div class="col-md-2">
+    <label for="schemaId" class="form-label">Schema id</label>
+    <input type="number" min="1" class="form-control" id="schemaId" name="schemaId" [(ngModel)]="schemaId" [value]="schemaId">
+  </div>
+  <div class="col-md-2">
+    <label for="submitFindTasksBySchemaId" class="form-label">&nbsp;</label>
+    <button type="submit" class="btn btn-primary form-control" id="submitFindTasksBySchemaId" (click)="findTasksBySchemaId()">Find</button>
+  </div>
+</form>
 
-    <!-- Progress Column -->
-    <ng-container matColumnDef="progress">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
-      <td mat-cell *matCellDef="let element"> {{element?.progress}} </td>
-    </ng-container>
-
-    <!-- User Column -->
-    <ng-container matColumnDef="user">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> User </th>
-      <td mat-cell *matCellDef="let element"> <a [routerLink]="'/users/' + element?.user.id">{{element?.user.username}}</a> </td>
-    </ng-container>
-
-    <!-- Schema name -->
-    <ng-container matColumnDef="schema">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Schema </th>
-      <td mat-cell *matCellDef="let element"> <a [routerLink]="'/schema/' + element?.schema.id">{{element?.schema.name}}</a> </td>
-    </ng-container>
-
-    <!-- Resource name -->
-    <ng-container matColumnDef="resource">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Resource </th>
-      <td mat-cell *matCellDef="let element"> <a [routerLink]="'/resource/' + element?.resource?.id">{{element?.resource?.name}}</a> </td>
-    </ng-container>
-
-    <!-- Files Column -->
-    <ng-container matColumnDef="files">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-      <td mat-cell *matCellDef="let element">
-        <button type="button" class="btn btn-primary btn-sm" (click)="goToFiles(element.id)">Files</button>
-      </td>
-    </ng-container>
-
-    <!-- Details Column -->
-    <ng-container matColumnDef="details">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-      <td mat-cell *matCellDef="let element">
-        <button type="button" class="btn btn-primary btn-sm" (click)="goTo(element.id)">Details</button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-  </table>
-
-  <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white; margin-top: 20px">
-    <mat-progress-spinner
-      color="primary"
-      mode="indeterminate"
-      diameter="50">
-    </mat-progress-spinner>
+<form class="row g-3" #findTasksByStatusForm="ngForm" >
+  <div class="col-md-2">
+    <label for="status" class="form-label">Status</label>
+    <select id="status" class="form-select" [(ngModel)]="status" name="status">
+      <option *ngFor="let method of statuses" [value]="method">{{method}}</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label for="submitFindTasksByStatus" class="form-label">&nbsp;</label>
+    <button type="submit" class="btn btn-primary form-control" id="submitFindTasksByStatus" (click)="findTasksByStatus()">Find</button>
   </div>
 
-  <mat-paginator #allTasksPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
+</form>
+
+<br/>
+
+<!-- All tasks -->
+<div *ngIf="isTableVisible">
+  <h3>Task for {{condition}}</h3>
+  <div class="mat-elevation-z8">
+    <table mat-table #allTasksTable [dataSource]="allTasks" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
+
+      <!-- Id Column -->
+      <ng-container matColumnDef="id" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element?.id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element?.name}} </td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let element"> {{element?.status}} </td>
+      </ng-container>
+
+      <!-- Progress Column -->
+      <ng-container matColumnDef="progress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
+        <td mat-cell *matCellDef="let element"> {{element?.progress}} </td>
+      </ng-container>
+
+      <!-- User Column -->
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> User </th>
+        <td mat-cell *matCellDef="let element"> <a [routerLink]="'/users/' + element?.user.id">{{element?.user.username}}</a> </td>
+      </ng-container>
+
+      <!-- Schema name -->
+      <ng-container matColumnDef="schema">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Schema </th>
+        <td mat-cell *matCellDef="let element"> <a [routerLink]="'/schema/' + element?.schema.id">{{element?.schema.name}}</a> </td>
+      </ng-container>
+
+      <!-- Resource name -->
+      <ng-container matColumnDef="resource">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Resource </th>
+        <td mat-cell *matCellDef="let element"> <a [routerLink]="'/resource/' + element?.resource?.id">{{element?.resource?.name}}</a> </td>
+      </ng-container>
+
+      <!-- Files Column -->
+      <ng-container matColumnDef="files">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let element">
+          <button type="button" class="btn btn-primary btn-sm" (click)="goToFiles(element.id)">Files</button>
+        </td>
+      </ng-container>
+
+      <!-- Details Column -->
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let element">
+          <button type="button" class="btn btn-primary btn-sm" (click)="goTo(element.id)">Details</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white; margin-top: 20px">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate"
+        diameter="50">
+      </mat-progress-spinner>
+    </div>
+
+    <mat-paginator #allTasksPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
+  </div>
 </div>
