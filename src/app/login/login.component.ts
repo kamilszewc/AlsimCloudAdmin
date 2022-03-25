@@ -39,9 +39,29 @@ export class LoginComponent {
         .subscribe(
           () => {
             console.log("User is logged in");
+
+            this.authService.regenerateToken();
+
             this.router.navigateByUrl('');
           }
         );
+
+
+
+      // this.authService.basicLogin(val.password)
+      //   .pipe(
+      //     finalize(() => {
+      //       if (this.authService.isLoggedOut()) {
+      //         this.wrongCredentialAlert.nativeElement.hidden = false;
+      //       }
+      //     })
+      //   )
+      //   .subscribe(
+      //     () => {
+      //       console.log("User is logged in");
+      //       this.router.navigateByUrl('');
+      //     }
+      //   );
 
     }
   }
