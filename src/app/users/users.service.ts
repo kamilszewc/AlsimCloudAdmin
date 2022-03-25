@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {GlobalConstants} from "../../../../AlsimCloudAdmin/src/app/common/global-constants";
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from "../user";
+import {GlobalConstants} from "../common/global-constants";
 
 @Injectable({
   providedIn: 'root'

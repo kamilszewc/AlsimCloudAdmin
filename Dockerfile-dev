@@ -1,0 +1,25 @@
+# Stage 1: compile and build
+FROM node:latest as build
+
+# Set directory
+WORKDIR /app
+
+# Copy source code to /app
+COPY ./ /app/
+
+# Install all dependencies
+RUN npm install
+
+## Build the app
+RUN npm run build -- --configuration=development
+
+## Stage 2: serve the app with nginx
+FROM nginx:latest
+
+# Copy stuff to nginx
+COPY --from=build /app/dist/alsim-cloud-admin /usr/share/nginx/html
+
+# Expose ports 80 and 443
+EXPOSE 80
+EXPOSE 443
+

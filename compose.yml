@@ -1,0 +1,7 @@
+version: "3.8"
+
+services:
+  alsim-cloud-admin:
+    image: alsimcloudadmin:1.0
+    ports:
+      - "80:80"
