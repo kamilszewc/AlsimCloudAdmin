@@ -102,6 +102,20 @@
     </div>
   </div>
   <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Files</h5>
+        <p class="card-text">Go to files</p>
+        <a href="#" class="btn btn-primary" [routerLink]="'/storage/' + task?.resource?.id">Go to storage</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br/>
+
+<div class="row">
+  <div class="col-sm-4">
     <div class="card" *ngIf="task?.resource != null">
       <div class="card-body">
         <h5 class="card-title">Resource <span style="color:grey;">{{task?.resource?.name}}</span></h5>

@@ -44,4 +44,8 @@ export class TaskComponent implements OnInit {
   reload() {
     window.location.reload();
   }
+
+  goToFiles(id: number) {
+    this.router.navigate(['storage', id]);
+  }
 }

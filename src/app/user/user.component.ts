@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
   userTypes!: string[];
   groups!: string[];
 
-  displayedTasksColumns: string[] = ['id', 'name', 'status', 'progress', 'schema', 'resource', 'details'];
+  displayedTasksColumns: string[] = ['id', 'name', 'status', 'progress', 'schema', 'resource', 'files', 'details'];
   displayedHistoricalTasksColumns: string[] = ['id', 'name', 'numberOfCpus', 'numberOfGpus', 'ramMemory', 'schemaId', 'resourceId', 'createDateTime'];
   userTasks = new MatTableDataSource<Task>([]);
   userHistoricalTasks = new MatTableDataSource<HistoricalTask>([]);
@@ -147,6 +147,10 @@ export class UserComponent implements OnInit {
     console.info(value)
     this.user!.country = value;
     this.user!.username = "Dfdsffs"
+  }
+
+  goToFiles(id: number) {
+    this.router.navigate(['storage', id]);
   }
 
 }
