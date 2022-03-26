@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, NgForm, Validator, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../auth/auth.service";
 import {finalize, interval} from "rxjs";
@@ -11,21 +11,25 @@ import {finalize, interval} from "rxjs";
 })
 export class LoginComponent {
 
-  loginForm: FormGroup;
+  @ViewChild('loginForm') loginForm!: NgForm;
+  loginComponents = new class {
+    username: string = "";
+    password: string = "";
+  }
   @ViewChild('wrongCredentialAlert') wrongCredentialAlert!: ElementRef;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private router: Router) {
 
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    })
+    // this.loginForm = this.formBuilder.group({
+    //   username: ['', Validators.required],
+    //   password: ['', Validators.required]
+    // })
   }
 
   login() {
-    const val = this.loginForm.value;
+    const val = this.loginComponents;
 
     console.log(val)
 
