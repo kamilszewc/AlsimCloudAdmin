@@ -44,10 +44,19 @@
     <input type="number" min="0" class="form-control" id="maxNumberOfRunningTasks" name="maxNumberOfRunningTasks" [(ngModel)]="user!.maxNumberOfRunningTasks" [value]="user?.maxNumberOfRunningTasks" [disabled]="!isEditAllowed">
   </div>
   <div class="col-md-3">
-    <label for="priority" class="form-label">Priority</label>
+    <label for="effectiveMaxNumberOfRunningTasks" class="form-label">Effective max number of running tasks</label>
+    <input type="number" min="0" class="form-control" id="effectiveMaxNumberOfRunningTasks" name="effectiveMaxNumberOfRunningTasks" [(ngModel)]="user!.maxNumberOfRunningTasks" [value]="user?.maxNumberOfRunningTasks" disabled>
+  </div>
+  <div class="col-md-3">
+    <label for="priority" class="form-label">User priority</label>
     <input type="number" min="0" max="20" class="form-control" id="priority" name="priority" [(ngModel)]="user!.priority" [value]="user?.priority" [disabled]="!isEditAllowed">
     <div class="invalid-feedback">The value must be between 0 and 20</div>
   </div>
+  <div class="col-md-3">
+    <label for="effectivePriority" class="form-label">Effective priority</label>
+    <input type="number" min="0" max="20" class="form-control" id="effectivePriority" name="effectivePriority" [(ngModel)]="user!.effectivePriority" [value]="user?.effectivePriority" disabled>
+  </div>
+
   <div class="col-md-3">
     <label for="userType" class="form-label">User type</label>
     <select id="userType" class="form-select" [value]="user?.userType" name="userType" [(ngModel)]="user!.userType" [disabled]="!isEditAllowed">
@@ -57,8 +66,11 @@
   <div class="col-md-3">
     <label for="consumerGroup" class="form-label">Group</label>
     <select id="consumerGroup" class="form-select" [value]="user?.consumerGroup" name="consumerGroup" [(ngModel)]="user!.consumerGroup" [disabled]="!isEditAllowed">
+      <option [value]="" [selected]="null === user?.consumerGroup">no group</option>
       <option *ngFor="let group of groups" [value]="group" [selected]="group === user?.consumerGroup">{{group}}</option>
     </select>
+  </div>
+  <div class="col-md-6">
   </div>
 
   <div class="col-md-2">
@@ -149,15 +161,15 @@
   </div>
   <div class="col-md-4">
     <label for="groupTokensToBeAddedRemoved" class="form-label">eCubes to add/remove</label>
-    <input type="number" min="0" class="form-control" id="groupTokensToBeAddedRemoved" name="tokensToBeAddedRemoved" ngModel>
+    <input type="number" min="0" class="form-control" id="groupTokensToBeAddedRemoved" name="tokensToBeAddedRemoved" ngModel [disabled]="user?.consumerGroup == null">
   </div>
   <div class="col-md-2">
     <label class="form-label">&nbsp;</label>
-    <button type="submit" class="btn btn-primary form-control" (click)="giveGroupTokens()">Give</button>
+    <button type="submit" class="btn btn-primary form-control" (click)="giveGroupTokens()" [disabled]="user?.consumerGroup == null">Give</button>
   </div>
   <div class="col-md-2">
     <label class="form-label">&nbsp;</label>
-    <button type="submit" class="btn btn-primary form-control" (click)="takeGroupTokens()">Take</button>
+    <button type="submit" class="btn btn-primary form-control" (click)="takeGroupTokens()" [disabled]="user?.consumerGroup == null">Take</button>
   </div>
 </form>
 

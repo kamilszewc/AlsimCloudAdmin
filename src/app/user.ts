@@ -12,6 +12,7 @@ export interface User {
   taxId: string | null;
   tokenBalance: string | null;
   priority: number | null;
+  effectivePriority: number | null;
   loggedFromAlsimCloud: boolean | null;
   loggedFromDynairix: boolean | null;
   userType: string | null;
@@ -26,4 +27,5 @@ export interface User {
   isCompany: boolean | null;
   groupTokenBalance: string | null;
   maxNumberOfRunningTasks: number | null;
+  effectiveMaxNumberOfRunningTasks: number | null;
 }

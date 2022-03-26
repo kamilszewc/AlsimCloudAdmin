@@ -87,7 +87,11 @@ export class UserComponent implements OnInit {
   editUser() {
     console.info(this.userForm.value)
 
-    this.userService.editUser(this.id!, this.userForm.value)
+    let value = this.userForm.value;
+    if (value.priority == null) value.priority = -1;
+    if (value.maxNumberOfRunningTasks == null) value.maxNumberOfRunningTasks = -1;
+
+    this.userService.editUser(this.id!, value)
       .subscribe(
         (user) => {
           this.user = user
