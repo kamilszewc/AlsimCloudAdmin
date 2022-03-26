@@ -27,6 +27,8 @@ export class LoginComponent {
   login() {
     const val = this.loginForm.value;
 
+    console.log(val)
+
     if (val.username && val.password) {
 
       this.authService.basicLogin(val.username, val.password)

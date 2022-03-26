@@ -28,6 +28,7 @@ export class AuthService {
               private router: Router) { }
 
   basicLogin(user: string, password: string) {
+
     let headers = new HttpHeaders({
       authorization: 'Basic ' + btoa(user + ':' + password)
     });
@@ -36,7 +37,6 @@ export class AuthService {
   }
 
   tokenLogin(token: string) {
-    console.log(token)
 
     let headers = new HttpHeaders({
       authorization: 'Bearer ' + token
