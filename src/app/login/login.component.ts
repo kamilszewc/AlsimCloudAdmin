@@ -19,6 +19,7 @@ export class LoginComponent {
               private router: Router) {
 
     this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
       password: ['', Validators.required]
     })
   }
@@ -26,9 +27,9 @@ export class LoginComponent {
   login() {
     const val = this.loginForm.value;
 
-    if (val.password) {
+    if (val.username && val.password) {
 
-      this.authService.basicLogin(val.password)
+      this.authService.basicLogin(val.username, val.password)
         .pipe(
           finalize(() => {
             if (this.authService.isLoggedOut()) {
@@ -45,23 +46,6 @@ export class LoginComponent {
             this.router.navigateByUrl('');
           }
         );
-
-
-
-      // this.authService.basicLogin(val.password)
-      //   .pipe(
-      //     finalize(() => {
-      //       if (this.authService.isLoggedOut()) {
-      //         this.wrongCredentialAlert.nativeElement.hidden = false;
-      //       }
-      //     })
-      //   )
-      //   .subscribe(
-      //     () => {
-      //       console.log("User is logged in");
-      //       this.router.navigateByUrl('');
-      //     }
-      //   );
 
     }
   }

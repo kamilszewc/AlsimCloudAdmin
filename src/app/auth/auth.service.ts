@@ -27,9 +27,9 @@ export class AuthService {
   constructor(private http: HttpClient,
               private router: Router) { }
 
-  basicLogin(password: string) {
+  basicLogin(user: string, password: string) {
     let headers = new HttpHeaders({
-      authorization: 'Basic ' + btoa("admin" + ':' + password)
+      authorization: 'Basic ' + btoa(user + ':' + password)
     });
 
     return this.generateToken(headers)
