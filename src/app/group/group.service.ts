@@ -29,6 +29,6 @@ export class GroupService {
   }
 
   getListOfUsers(id: number) {
-    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers");
+    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?groupId=" + id);
   }
 }
