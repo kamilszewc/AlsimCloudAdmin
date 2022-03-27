@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {GlobalConstants} from "../common/global-constants";
 import {Group} from "../group";
 import {Message} from "../message";
+import {User} from "../user";
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,9 @@ export class GroupService {
 
   editGroup(id: number, group: Group) {
     return this.http.post<Group>(this.apiUrl + "/api/v1/group/edit/" + id, group)
+  }
+
+  getListOfUsers(id: number) {
+    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers");
   }
 }
