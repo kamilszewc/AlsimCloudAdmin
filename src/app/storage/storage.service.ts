@@ -51,4 +51,15 @@ export class StorageService {
 
     return this.http.get<StorageFile[]>(this.apiUrl + "/api/v1/storage/group/filenamesAndDescriptionsList?fileType=LOG", httpOptions);
   }
+
+  removeFile(name: string, token: string, type: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.http.delete<Message<string>>(this.apiUrl + "/api/v1/storage/file/" + name + "?fileType=" + type + "&token=" + token, httpOptions);
+  }
 }

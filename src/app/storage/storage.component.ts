@@ -7,6 +7,7 @@ import {User} from "../user";
 import {StorageFile} from "../storageFile";
 import {ActivatedRoute, Router} from "@angular/router";
 import {StorageService} from "./storage.service";
+import {GlobalConstants} from "../common/global-constants";
 
 @Component({
   selector: 'app-storage',
@@ -14,6 +15,8 @@ import {StorageService} from "./storage.service";
   styleUrls: ['./storage.component.css']
 })
 export class StorageComponent implements OnInit {
+
+  apiUrl = GlobalConstants.apiUrl;
 
   @ViewChild('findFilesByTaskIdForm') findFilesByTaskIdForm!: NgForm;
   taskId!: number;
@@ -30,7 +33,7 @@ export class StorageComponent implements OnInit {
   @ViewChild('logFilesTable', {read: MatSort}) logFilesSort!: MatSort;
   logFiles = new MatTableDataSource<StorageFile>([]);
 
-  displayedColumns: string[] = ['filename', 'details'];
+  displayedColumns: string[] = ['filename', 'size', 'isUploaded', 'mediaType', 'checksum', 'download', 'remove'];
 
   token!: string;
 
@@ -54,13 +57,13 @@ export class StorageComponent implements OnInit {
     this.storageService.generateStorageManagerToken(this.taskId).subscribe(message => {
       // Get token
       this.token = message.message;
-      console.log(this.token)
 
       // Get input files
       this.storageService.getInputFiles(this.token).subscribe(files => {
         this.inputFiles = new MatTableDataSource<StorageFile>(files);
         this.inputFiles.paginator = this.inputFilesPaginator;
         this.inputFiles.sort = this.inputFilesSort;
+        console.log(files)
       })
 
       // Get output files
@@ -80,7 +83,24 @@ export class StorageComponent implements OnInit {
   }
 
   goTo() {
+  }
 
+  removeInput(name: string) {
+    this.storageService.removeFile(name, this.token, 'INPUT').subscribe(message => {
+      window.location.reload();
+    })
+  }
+
+  removeOutput(name: string) {
+    this.storageService.removeFile(name, this.token, 'OUTPUT').subscribe(message => {
+      window.location.reload();
+    })
+  }
+
+  removeLog(name: string) {
+    this.storageService.removeFile(name, this.token, 'LOG').subscribe(message => {
+      window.location.reload();
+    })
   }
 
 }

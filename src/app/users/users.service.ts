@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from "../user";
 import {GlobalConstants} from "../common/global-constants";
+import {filter} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,8 @@ export class UsersService {
     return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?onlyDynairix=true&onlyClient=true");
   }
 
+  getAdminUsers() {
+    return this.http.get<User[]>(this.apiUrl + "/api/v1/user/getAllUsers?onlyAdmin=true")
+  }
 
 }

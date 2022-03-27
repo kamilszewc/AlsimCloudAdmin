@@ -48,6 +48,8 @@ export class SchemaComponent implements OnInit {
   }
 
   editSchema() {
+    let schemaToSubmit = this.schema
+    if (schemaToSubmit.ownersGitlabId == null) schemaToSubmit.ownersGitlabId = -1
     this.schemaService.editSchema(this.id!, this.schema!).subscribe(schema => {
       this.schema = schema;
       this.blockEdit();
