@@ -35,8 +35,8 @@
 
     <!-- RamMemory Column -->
     <ng-container matColumnDef="ramMemory" >
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ram memory </th>
-      <td mat-cell *matCellDef="let element"> {{element?.ramMemory}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ram memory (GB) </th>
+      <td mat-cell *matCellDef="let element"> {{toGb(element?.ramMemory)}} </td>
     </ng-container>
 
     <!-- Priority Column -->

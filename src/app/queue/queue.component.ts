@@ -59,4 +59,8 @@ export class QueueComponent implements OnInit {
       window.location.reload();
     });
   }
+
+  toGb(ramMemory: number) {
+    return ramMemory / 1024 / 1024 | 0;
+  }
 }

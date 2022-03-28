@@ -25,6 +25,7 @@ export class UserComponent implements OnInit {
   countries: Map<string, string> | undefined;
   userTypes!: string[];
   groups!: string[];
+  areTasksLoading = true;
 
   displayedTasksColumns: string[] = ['id', 'name', 'status', 'progress', 'schema', 'resource', 'files', 'details'];
   displayedHistoricalTasksColumns: string[] = ['id', 'name', 'numberOfCpus', 'numberOfGpus', 'ramMemory', 'schemaId', 'resourceId', 'createDateTime'];
@@ -67,6 +68,7 @@ export class UserComponent implements OnInit {
       this.userTasks = new MatTableDataSource<Task>(userTasks);
       this.userTasks.sort = this.userTasksSort;
       this.userTasks.paginator = this.userTasksPaginator;
+      this.areTasksLoading = false;
     })
 
     this.userService.getUserHistoricalTasks(this.id).subscribe(userHistoricalTasks => {
@@ -153,4 +155,7 @@ export class UserComponent implements OnInit {
     this.router.navigate(['storage', id]);
   }
 
+  toGb(ramMemory: number) {
+    return ramMemory / 1024 / 1024 | 0
+  }
 }

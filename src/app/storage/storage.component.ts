@@ -33,7 +33,7 @@ export class StorageComponent implements OnInit {
   @ViewChild('logFilesTable', {read: MatSort}) logFilesSort!: MatSort;
   logFiles = new MatTableDataSource<StorageFile>([]);
 
-  displayedColumns: string[] = ['filename', 'size', 'isUploaded', 'mediaType', 'checksum', 'download', 'remove'];
+  displayedColumns: string[] = ['filename', 'size', 'isUploaded', 'checksum', 'download', 'remove'];
 
   token!: string;
 
@@ -103,4 +103,8 @@ export class StorageComponent implements OnInit {
     })
   }
 
+
+  toKb(size: number) {
+      return size / 1024 | 1;
+  }
 }

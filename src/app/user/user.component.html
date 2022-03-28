@@ -230,6 +230,14 @@
 
   </table>
 
+  <div *ngIf="areTasksLoading" style="display: flex; justify-content: center; align-items: center; background: white; margin-top: 20px">
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+      diameter="50">
+    </mat-progress-spinner>
+  </div>
+
   <mat-paginator #userTasksPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
 </div>
 
@@ -265,8 +273,8 @@
 
     <!-- Ram memory Column -->
     <ng-container matColumnDef="ramMemory">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> RAM memory </th>
-      <td mat-cell *matCellDef="let element"> {{element?.ramMemory}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> RAM memory (GB)</th>
+      <td mat-cell *matCellDef="let element"> {{toGb(element?.ramMemory)}} </td>
     </ng-container>
 
     <!-- Schema id Column -->
