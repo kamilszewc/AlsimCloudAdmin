@@ -148,7 +148,6 @@ export class UserComponent implements OnInit {
   onCountryChange(value: string) {
     console.info(value)
     this.user!.country = value;
-    this.user!.username = "Dfdsffs"
   }
 
   goToFiles(id: number) {
