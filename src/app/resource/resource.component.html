@@ -41,17 +41,21 @@
     <input type="number" min="0" class="form-control" id="ramMemoryInUse" name="ramMemoryInUse" [(ngModel)]="resource!.ramMemoryInUse" [value]="resource?.ramMemoryInUse" disabled>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-3">
     <label for="status" class="form-label">Status</label>
     <input type="text" min="0" class="form-control" id="status" name="status" [(ngModel)]="resource!.status" [value]="resource?.status" disabled>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <label for="type" class="form-label">Type</label>
     <input type="text" min="0" class="form-control" id="type" name="type" [(ngModel)]="resource!.type" [value]="resource?.type" disabled>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <label for="zone" class="form-label">Zone</label>
     <input type="number" min="0" class="form-control" id="zone" name="zone" [(ngModel)]="resource!.zone" [value]="resource?.zone" disabled>
+  </div>
+  <div class="col-md-3">
+    <label for="version" class="form-label">Version</label>
+    <input type="string" min="0" class="form-control" id="version" name="version" [(ngModel)]="resource!.version" [value]="resource?.version" disabled>
   </div>
 
   <div class="col-md-12">

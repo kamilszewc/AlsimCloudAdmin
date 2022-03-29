@@ -45,6 +45,12 @@
       <td mat-cell *matCellDef="let element"> {{bytesToMb(element?.ramMemoryInUse)}} / {{bytesToMb(element?.ramMemory)}} GB</td>
     </ng-container>
 
+    <!-- Version Column -->
+    <ng-container matColumnDef="version">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Version </th>
+      <td mat-cell *matCellDef="let element"> {{element?.version}} </td>
+    </ng-container>
+
     <!-- Details Column -->
     <ng-container matColumnDef="details">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>

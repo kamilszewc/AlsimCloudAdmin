@@ -19,7 +19,7 @@ export class ResourcesComponent implements OnInit {
   @ViewChild('resourcesTable', {read: MatSort}) resourcesSort!: MatSort;
   resources = new MatTableDataSource<Resource>([]);
   isLoading = true;
-  displayedColumns: string[] = ['id', 'name', 'description', 'suspended', 'cpuUsage', 'gpuUsage', 'ramUsage', 'details'];
+  displayedColumns: string[] = ['id', 'name', 'description', 'suspended', 'cpuUsage', 'gpuUsage', 'ramUsage', 'version', 'details'];
 
   @ViewChild('newResourceForm') newResourcesForm!: NgForm;
   newResource: Resource = new class implements Resource {
@@ -38,6 +38,7 @@ export class ResourcesComponent implements OnInit {
     url: string | null = "";
     zone: number | null = 0;
     jwtSecret: string | null = "";
+    version: string | null = "";
   }
 
   constructor(private resourcesService: ResourcesService,

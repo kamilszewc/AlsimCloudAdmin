@@ -14,4 +14,5 @@ export interface Resource {
   ramMemoryInUse: number | null;
   status: string | null;
   jwtSecret: string | null;
+  version: string | null;
 }
