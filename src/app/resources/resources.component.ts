@@ -7,6 +7,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
+import {Task} from "../task";
 
 @Component({
   selector: 'app-resources',
@@ -41,6 +42,12 @@ export class ResourcesComponent implements OnInit {
     version: string | null = "";
   }
 
+  runningTasks = new MatTableDataSource<Task>([]);
+  @ViewChild('runningTasksPaginator') runningTasksPaginator!: MatPaginator;
+  @ViewChild('runningTasksTable', {read: MatSort}) runningTasksSort!: MatSort;
+  displayedTaskColumns: string[] = ['id', 'name', 'status', 'progress', 'user', 'schema', 'resource', 'files', 'details'];
+  runningTasksIsLoading = true;
+
   constructor(private resourcesService: ResourcesService,
               private router: Router) { }
 
@@ -56,6 +63,14 @@ export class ResourcesComponent implements OnInit {
         this.resources.paginator = this.resourcesPaginator;
         this.isLoading = false;
       })
+
+    this.resourcesService.getRunningTasks().subscribe(tasks => {
+      console.info(tasks);
+      this.runningTasks = new MatTableDataSource<Task>(tasks);
+      this.runningTasks.sort = this.runningTasksSort;
+      this.runningTasks.paginator = this.runningTasksPaginator;
+      this.runningTasksIsLoading = false;
+    })
   }
 
   addNewResource() {
@@ -71,6 +86,14 @@ export class ResourcesComponent implements OnInit {
 
   bytesToMb(value: number) {
     return Math.floor(value / 1024 / 1024);
+  }
+
+  goToTask(id: number) {
+    this.router.navigate(['task', id]);
+  }
+
+  goToFiles(id: number) {
+    this.router.navigate(['storage', id]);
   }
 
 }

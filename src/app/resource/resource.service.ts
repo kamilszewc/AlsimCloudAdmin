@@ -4,6 +4,7 @@ import {GlobalConstants} from "../common/global-constants";
 import {User} from "../user";
 import {Resource} from "../resource";
 import {Message} from "../message";
+import {Task} from "../task";
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,9 @@ export class ResourceService {
 
   editResources(id: number, resource: Resource) {
     return this.http.post<Resource>(this.apiUrl + "/api/v1/resource/edit/" + id, resource);
+  }
+
+  getRunningTasks(id: number) {
+    return this.http.get<Task[]>(this.apiUrl + "/api/v1/task/findTasks?resourceId=" + id + "&isInRemoteRunner=true");
   }
 }
