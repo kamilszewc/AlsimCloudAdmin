@@ -15,27 +15,21 @@ export class LoginComponent {
   loginComponents = new class {
     username: string = "";
     password: string = "";
+    code: string = "";
   }
   @ViewChild('wrongCredentialAlert') wrongCredentialAlert!: ElementRef;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private router: Router) {
-
-    // this.loginForm = this.formBuilder.group({
-    //   username: ['', Validators.required],
-    //   password: ['', Validators.required]
-    // })
   }
 
   login() {
     const val = this.loginComponents;
 
-    console.log(val)
-
     if (val.username && val.password) {
 
-      this.authService.basicLogin(val.username, val.password)
+      this.authService.basicLogin(val.username, val.password, val.code)
         .pipe(
           finalize(() => {
             if (this.authService.isLoggedOut()) {
