@@ -8,6 +8,7 @@ import {NgForm} from "@angular/forms";
 import {User} from "../user";
 import {MatTableDataSource} from "@angular/material/table";
 import {Task} from "../task";
+import {CudaResource, SystemResources} from "../systemResources";
 
 @Component({
   selector: 'app-resource',
@@ -28,6 +29,14 @@ export class ResourceComponent implements OnInit {
   @ViewChild('runningTasksTable', {read: MatSort}) runningTasksSort!: MatSort;
   displayedColumns: string[] = ['id', 'name', 'status', 'progress', 'user', 'schema', 'files', 'details'];
 
+  systemResources!: SystemResources;
+  gpus = new MatTableDataSource<CudaResource>([]);
+  @ViewChild('gpusPaginator') gpusPaginator!: MatPaginator;
+  @ViewChild('gpusTable', {read: MatSort}) gpusSort!: MatSort;
+  gpusDisplayedColumns: string[] = ['id', 'name', 'totalMemory', 'freeMemory', 'usedMemory', 'temperature', 'utilisation'];
+
+  isSystemResourcesLoaded = false;
+
   constructor(private route: ActivatedRoute,
               private resourceService: ResourceService,
               private router: Router) { }
@@ -39,10 +48,17 @@ export class ResourceComponent implements OnInit {
     })
 
     this.resourceService.getRunningTasks(this.id).subscribe(tasks => {
-      console.info(tasks);
       this.runningTasks = new MatTableDataSource<Task>(tasks);
       this.runningTasks.sort = this.runningTasksSort;
       this.runningTasks.paginator = this.runningTasksPaginator;
+    })
+
+    this.resourceService.getSystemResources(this.id).subscribe(systemResources => {
+      this.systemResources = systemResources;
+      this.gpus = new MatTableDataSource<CudaResource>(systemResources.cudaResources!);
+      this.gpus.sort = this.gpusSort;
+      this.gpus.paginator = this.gpusPaginator;
+      this.isSystemResourcesLoaded = true;
     })
   }
 

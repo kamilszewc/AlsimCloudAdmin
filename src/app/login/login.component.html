@@ -3,8 +3,8 @@
 <form class="form-signin text-center" [ngModel]="loginForm" xmlns="http://www.w3.org/1999/html">
   <img class="mb-4" src="assets/logo.svg" alt="" width="90" height="90">
   <h1 class="h3 mb-3 font-weight-normal">Admin profile login</h1>
-  <input name="username" type="username" class="form-control" placeholder="Username" [(ngModel)]="loginComponents.username" required autofocus>
-  <input name="password" type="password" class="form-control" placeholder="Password" [(ngModel)]="loginComponents.password" required>
+  <input name="username" type="username" class="form-control" placeholder="Username" [(ngModel)]="loginComponents.username" (change)="hideAlert()" (keypress)="hideAlert()" required autofocus>
+  <input name="password" type="password" class="form-control" placeholder="Password" [(ngModel)]="loginComponents.password" (change)="hideAlert()" (keypress)="hideAlert()" required>
   <div #wrongCredentialAlert class="alert alert-warning" role="alert" hidden="true">
     Credentials are incorrect
   </div>

@@ -5,6 +5,7 @@ import {User} from "../user";
 import {Resource} from "../resource";
 import {Message} from "../message";
 import {Task} from "../task";
+import {SystemResources} from "../systemResources";
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,9 @@ export class ResourceService {
 
   getRunningTasks(id: number) {
     return this.http.get<Task[]>(this.apiUrl + "/api/v1/task/findTasks?resourceId=" + id + "&isInRemoteRunner=true");
+  }
+
+  getSystemResources(id: number) {
+    return this.http.get<SystemResources>(this.apiUrl + "/api/v1/resource/getSystemResources/" + id);
   }
 }

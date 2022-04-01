@@ -55,4 +55,8 @@ export class LoginComponent {
 
     }
   }
+
+  hideAlert() {
+    this.wrongCredentialAlert.nativeElement.hidden = true;
+  }
 }

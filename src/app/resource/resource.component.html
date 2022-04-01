@@ -163,6 +163,134 @@
   <mat-paginator #runningTasksPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
 </div>
 
+<br/>
+
+<!-- System resources -->
+<h3>System resources</h3>
+<form class="row g-3" #systemResourcesForm="ngForm" >
+  <div class="col-md-2">
+    <label for="ramMemoryLabel" class="form-label">&nbsp;</label>
+    <label id="ramMemoryLabel" class="form-control-plaintext">RAM memory</label>
+  </div>
+  <div class="col-md-2">
+    <label for="available" class="form-label">Available</label>
+    <input type="text" class="form-control" id="available" name="available" [(ngModel)]="systemResources!.ramMemory!.available" [value]="systemResources!.ramMemory!.available" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="free" class="form-label">Free</label>
+    <input type="text" class="form-control" id="free" name="free" [(ngModel)]="systemResources!.ramMemory!.free" [value]="systemResources!.ramMemory!.free" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="used" class="form-label">Used</label>
+    <input type="text" class="form-control" id="used" name="used" [(ngModel)]="systemResources!.ramMemory!.used" [value]="systemResources!.ramMemory!.used" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="cached" class="form-label">Cached</label>
+    <input type="text" class="form-control" id="cached" name="cached" [(ngModel)]="systemResources!.ramMemory!.cached" [value]="systemResources!.ramMemory!.cached" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="buffers" class="form-label">Buffers</label>
+    <input type="buffers" class="form-control" id="buffers" name="buffers" [(ngModel)]="systemResources!.ramMemory!.buffers" [value]="systemResources!.ramMemory!.buffers" disabled>
+  </div>
+
+  <div class="col-md-2">
+    <label for="diskSpaceLabel" class="form-label">&nbsp;</label>
+    <label id="diskSpaceLabel" class="form-control-plaintext">Disk space</label>
+  </div>
+  <div class="col-md-2">
+    <label for="rootAvailable" class="form-label">Root available</label>
+    <input type="text" class="form-control" id="rootAvailable" name="rootAvailable" [(ngModel)]="systemResources!.diskSpace!.root!.available" [value]="systemResources?.diskSpace?.root?.available" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="rootUsed" class="form-label">Root used</label>
+    <input type="text" class="form-control" id="rootUsed" name="rootUsed" [(ngModel)]="systemResources!.diskSpace!.root!.used" [value]="systemResources?.diskSpace?.root?.used" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="storageAvailable" class="form-label">Storage available</label>
+    <input type="text" class="form-control" id="storageAvailable" name="storageAvailable" [(ngModel)]="systemResources!.diskSpace!.storage!.available" [value]="systemResources?.diskSpace?.storage?.available" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="storageUsed" class="form-label">Root used</label>
+    <input type="text" class="form-control" id="storageUsed" name="storageUsed" [(ngModel)]="systemResources!.diskSpace!.storage!.used" [value]="systemResources?.diskSpace?.storage?.used" disabled>
+  </div>
+  <div class="col-md-2">
+  </div>
+
+  <div class="col-md-2">
+    <label for="processesLabel" class="form-label">&nbsp;</label>
+    <label id="processesLabel" class="form-control-plaintext">Processes</label>
+  </div>
+  <div class="col-md-2">
+    <label for="numberOfProcesses" class="form-label">Number of processes</label>
+    <input type="text" class="form-control" id="numberOfProcesses" name="numberOfProcesses" [(ngModel)]="systemResources!.processesStatistics!.numberOfProcesses" [value]="systemResources?.processesStatistics?.numberOfProcesses" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="numberOfThreads" class="form-label">Number of threads</label>
+    <input type="text" class="form-control" id="numberOfThreads" name="numberOfThreads" [(ngModel)]="systemResources!.processesStatistics!.numberOfThreads" [value]="systemResources?.processesStatistics?.numberOfThreads" disabled>
+  </div>
+  <div class="col-md-6">
+  </div>
+
+  <div class="col-md-2">
+    <label for="gpusLabel" class="form-label">&nbsp;</label>
+    <label id="gpusLabel" class="form-control-plaintext">GPUs</label>
+  </div>
+  <div class="col-md-10">
+  </div>
+</form>
+
+<div class="mat-elevation-z8">
+  <table mat-table #gpusTable [dataSource]="gpus" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
+
+    <!-- Id Column -->
+    <ng-container matColumnDef="id" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element?.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element?.name}} </td>
+    </ng-container>
+
+    <!-- TotalMemory Column -->
+    <ng-container matColumnDef="totalMemory">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Total memory </th>
+      <td mat-cell *matCellDef="let element"> {{element?.totalMemory}} </td>
+    </ng-container>
+
+    <!-- FreeMemory Column -->
+    <ng-container matColumnDef="freeMemory">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Free memory </th>
+      <td mat-cell *matCellDef="let element"> {{element?.freeMemory}} </td>
+    </ng-container>
+
+    <!-- UsedMemory Column -->
+    <ng-container matColumnDef="usedMemory">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Used memory </th>
+      <td mat-cell *matCellDef="let element"> {{element?.usedMemory}} </td>
+    </ng-container>
+
+    <!-- Temperature Column -->
+    <ng-container matColumnDef="temperature">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Temperature </th>
+      <td mat-cell *matCellDef="let element"> {{element?.temperature}} </td>
+    </ng-container>
+
+    <!-- Utilisation Column -->
+    <ng-container matColumnDef="utilisation">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Utilisation </th>
+      <td mat-cell *matCellDef="let element"> {{element?.utilisation}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="gpusDisplayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: gpusDisplayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator #gpusPaginator [pageSizeOptions]="[10, 50]" showFirstLastButtons></mat-paginator>
+</div>
 
 <br/>
 
