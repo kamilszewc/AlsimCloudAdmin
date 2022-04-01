@@ -24,6 +24,8 @@ export class AuthService {
   isAutomaticTokenRegeneration = false;
   tokenRegeneration: Subscription | undefined;
 
+  isUsing2FA = false;
+
   constructor(private http: HttpClient,
               private router: Router) { }
 
@@ -105,6 +107,13 @@ export class AuthService {
 
   isLoggedOut() {
     return !this.isLoggedIn()
+  }
+
+  hasTwoFaEnabled(username: string) {
+    return this.http.get<Message<boolean>>(GlobalConstants.apiUrl + "/api/v1/user/isUsing2FA/" + username)
+      .pipe(tap((message: Message<boolean>) => {
+        this.isUsing2FA = message.message;
+      }))
   }
 
   private getNow() {

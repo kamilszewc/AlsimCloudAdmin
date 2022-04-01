@@ -32,6 +32,7 @@ import { FileComponent } from './file/file.component';
 import { StorageComponent } from './storage/storage.component';
 import { SchemaCategoriesComponent } from './schema-categories/schema-categories.component';
 import { EducationalDomainsComponent } from './educational-domains/educational-domains.component';
+import {TwoFAComponent} from "./two-fa/two-fa.component";
 
 const routes: Routes = [
   { path: '', component: UsersComponent, canActivate: [LoginGuard] },
@@ -52,6 +53,7 @@ const routes: Routes = [
   { path: 'storage/:id', component: StorageComponent, canActivate: [LoginGuard] },
   { path: 'schemaCategories', component: SchemaCategoriesComponent, canActivate: [LoginGuard] },
   { path: 'educationalDomains', component: EducationalDomainsComponent, canActivate: [LoginGuard] },
+  { path: 'twoFA', component: TwoFAComponent, canActivate: [LoginGuard] },
   { path: 'login', component: LoginComponent }
 ]
 
@@ -78,7 +80,8 @@ const HttpInterceptorProviders = [
     FileComponent,
     StorageComponent,
     SchemaCategoriesComponent,
-    EducationalDomainsComponent
+    EducationalDomainsComponent,
+    TwoFAComponent
   ],
     imports: [
         BrowserModule,

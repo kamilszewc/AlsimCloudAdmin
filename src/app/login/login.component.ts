@@ -29,23 +29,32 @@ export class LoginComponent {
 
     if (val.username && val.password) {
 
-      this.authService.basicLogin(val.username, val.password, val.code)
-        .pipe(
-          finalize(() => {
-            if (this.authService.isLoggedOut()) {
-              this.wrongCredentialAlert.nativeElement.hidden = false;
+      this.authService.hasTwoFaEnabled(val.username).subscribe(message => {
+          console.log("Is using: " + message.message);
+
+        this.authService.basicLogin(val.username, val.password, val.code)
+          .pipe(
+            finalize(() => {
+              if (this.authService.isLoggedOut()) {
+                this.wrongCredentialAlert.nativeElement.hidden = false;
+              }
+            })
+          )
+          .subscribe(
+            () => {
+              console.log("User is logged in");
+
+              this.authService.regenerateToken();
+
+              if (message.message == true) {
+                this.router.navigateByUrl('');
+              } else {
+                this.router.navigateByUrl('twoFA');
+              }
             }
-          })
-        )
-        .subscribe(
-          () => {
-            console.log("User is logged in");
-
-            this.authService.regenerateToken();
-
-            this.router.navigateByUrl('');
-          }
-        );
+          );
+        }
+      )
 
     }
   }
