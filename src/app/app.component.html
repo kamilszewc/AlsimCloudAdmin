@@ -2,7 +2,11 @@
   <router-outlet></router-outlet>
 </div>
 
-<div *ngIf="authService.isLoggedIn() && authService.isUsing2FA">
+<div *ngIf="authService.isLoggedIn() && authService.isUsing2FA == false">
+  <router-outlet></router-outlet>
+</div>
+
+<div *ngIf="authService.isLoggedIn() && authService.isUsing2FA == true">
   <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" routerLink="">&nbsp; Alsim Cloud admin profile</a>
     <ul class="navbar-nav px-3">

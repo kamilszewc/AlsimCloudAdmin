@@ -20,6 +20,7 @@ import { FilesComponent } from './files/files.component';
 import { GroupsComponent } from './groups/groups.component';
 import {AuthInterceptor} from "./auth/auth.interceptor";
 import {LoginGuard} from "./login.guard";
+import {TwoFaGuard} from "./two-fa/two-fa.guard"
 import { UserComponent } from './user/user.component';
 import {KeyValuePipe} from "@angular/common";
 import { GroupComponent } from './group/group.component';
@@ -35,24 +36,24 @@ import { EducationalDomainsComponent } from './educational-domains/educational-d
 import {TwoFAComponent} from "./two-fa/two-fa.component";
 
 const routes: Routes = [
-  { path: '', component: UsersComponent, canActivate: [LoginGuard] },
-  { path: 'users', component: UsersComponent, canActivate: [LoginGuard] },
-  { path: 'users/:id', component: UserComponent, canActivate: [LoginGuard] },
-  { path: 'groups', component: GroupsComponent, canActivate: [LoginGuard] },
-  { path: 'group/:id', component: GroupComponent, canActivate: [LoginGuard] },
-  { path: 'tasks', component: TasksComponent, canActivate: [LoginGuard] },
-  { path: 'task/:id', component: TaskComponent, canActivate: [LoginGuard] },
-  { path: 'resources', component: ResourcesComponent, canActivate: [LoginGuard] },
-  { path: 'resource/:id', component: ResourceComponent, canActivate: [LoginGuard] },
-  { path: 'schemas', component: SchemasComponent, canActivate: [LoginGuard] },
-  { path: 'schema/:id', component: SchemaComponent, canActivate: [LoginGuard] },
-  { path: 'queue', component: QueueComponent, canActivate: [LoginGuard] },
-  { path: 'files', component: FilesComponent, canActivate: [LoginGuard] },
-  { path: 'file/:id', component: FileComponent, canActivate: [LoginGuard] },
-  { path: 'storage', component: StorageComponent, canActivate: [LoginGuard] },
-  { path: 'storage/:id', component: StorageComponent, canActivate: [LoginGuard] },
-  { path: 'schemaCategories', component: SchemaCategoriesComponent, canActivate: [LoginGuard] },
-  { path: 'educationalDomains', component: EducationalDomainsComponent, canActivate: [LoginGuard] },
+  { path: '', component: UsersComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'users/:id', component: UserComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'groups', component: GroupsComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'group/:id', component: GroupComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'tasks', component: TasksComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'task/:id', component: TaskComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'resources', component: ResourcesComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'resource/:id', component: ResourceComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'schemas', component: SchemasComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'schema/:id', component: SchemaComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'queue', component: QueueComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'files', component: FilesComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'file/:id', component: FileComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'storage', component: StorageComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'storage/:id', component: StorageComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'schemaCategories', component: SchemaCategoriesComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'educationalDomains', component: EducationalDomainsComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'twoFA', component: TwoFAComponent, canActivate: [LoginGuard] },
   { path: 'login', component: LoginComponent }
 ]
