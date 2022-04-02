@@ -16,7 +16,7 @@ export class TwoFaGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if (this.authService.isUsing2FA != true) {
+    if (this.authService.hasTwoFaEnabled() == false) {
       this.router.navigate(['login']);
     }
     return true;

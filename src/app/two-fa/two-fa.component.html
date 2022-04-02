@@ -1,3 +1,4 @@
+
 <form class="form-twofa text-center" [ngModel]="twoFaForm" xmlns="http://www.w3.org/1999/html">
   <h1 class="h3 mb-3 font-weight-normal">You need to enable 2FA</h1>
   <img class="mb-4" [src]="twoFA?.qrCode" alt="" width="180" height="180">
@@ -6,6 +7,10 @@
   <div #wrongCodeAlert class="alert alert-warning" role="alert" hidden="true">
     Wrong code
   </div>
+  <div #correctCodeAlert class="alert alert-success" role="alert" hidden="true">
+    Code accepted. Redirection in 3 seconds...
+  </div>
   <button name="apply" class="btn btn-lg btn-primary btn-block" type="submit" (click)="apply()">Apply</button>
   <button name="logout" class="btn btn-lg btn-primary btn-block" type="submit" (click)="logout()">Logout</button>
 </form>
+

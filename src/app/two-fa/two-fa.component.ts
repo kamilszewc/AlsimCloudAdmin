@@ -19,6 +19,7 @@ export class TwoFAComponent implements OnInit {
   @ViewChild("secret") secret!: ElementRef<HTMLSpanElement>;
 
   @ViewChild("wrongCodeAlert") wrongCodeAlert!: ElementRef<HTMLDivElement>;
+  @ViewChild("correctCodeAlert") correctCodeAlert!: ElementRef<HTMLDivElement>
 
   constructor(private twoFaService: TwoFaService,
               private authService: AuthService,
@@ -35,10 +36,14 @@ export class TwoFAComponent implements OnInit {
     console.log(this.code)
     this.twoFaService.enableTwoFa(this.code).subscribe(
       message => {
-        console.log(message.message)
 
-        this.authService.isUsing2FA = true;
-        this.router.navigate([''])
+        this.correctCodeAlert.nativeElement.hidden = false;
+
+        setTimeout(() => {
+          this.authService.logout()
+          this.router.navigate([''])
+        }, 3000)
+
       },
       error => {
         this.wrongCodeAlert.nativeElement.hidden = false;

@@ -8,9 +8,11 @@ import {Router} from "@angular/router";
 
 class Token {
   role: string
+  twoFA: boolean
 
-  constructor(role: string) {
+  constructor(role: string, twoFA: boolean) {
     this.role = role
+    this.twoFA = twoFA
   }
 }
 
@@ -24,7 +26,7 @@ export class AuthService {
   isAutomaticTokenRegeneration = false;
   tokenRegeneration: Subscription | undefined;
 
-  isUsing2FA = false;
+  // isUsing2FA = false;
 
   constructor(private http: HttpClient,
               private router: Router) { }
@@ -109,11 +111,16 @@ export class AuthService {
     return !this.isLoggedIn()
   }
 
-  hasTwoFaEnabled(username: string) {
-    return this.http.get<Message<boolean>>(GlobalConstants.apiUrl + "/api/v1/user/isUsing2FA/" + username)
-      .pipe(tap((message: Message<boolean>) => {
-        this.isUsing2FA = message.message;
-      }))
+  hasTwoFaEnabled() {
+    if (localStorage.getItem('token') != null) {
+      let decodedToken: Token = jwtDecode(localStorage.getItem('token')!);
+      return decodedToken.twoFA;
+    }
+    return false;
+    // return this.http.get<Message<boolean>>(GlobalConstants.apiUrl + "/api/v1/user/isUsing2FA/" + username)
+    //   .pipe(tap((message: Message<boolean>) => {
+    //     this.isUsing2FA = message.message;
+    //   }))
   }
 
   private getNow() {
