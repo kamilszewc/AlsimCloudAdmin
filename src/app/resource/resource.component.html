@@ -1,4 +1,4 @@
-<h5>Resource {{resource?.id}}</h5>
+<h3>Resource {{resource?.id}} details</h3>
 
 <form class="row g-3" #resourceForm="ngForm" >
   <div class="col-md-6">
@@ -294,6 +294,34 @@
 
 <br/>
 
+<h3>Resource statistics</h3>
+<form class="row g-3" #runCaseStatisticsForm="ngForm" >
+  <div class="col-md-2">
+    <label for="runCaseStat" class="form-label">&nbsp;</label>
+    <label id="runCaseStat" class="form-control-plaintext">Run case statistics</label>
+  </div>
+  <div class="col-md-2">
+    <label for="statisticYear" class="form-label">Year</label>
+    <select id="statisticYear" class="form-select" [(ngModel)]="statisticYear!" name="statisticYear">
+      <option *ngFor="let method of statisticYears" [value]="method">{{method}}</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label for="statisticMonth" class="form-label">Month</label>
+    <select id="statisticMonth" class="form-select"[(ngModel)]="statisticMonth!" name="statisticMonth">
+      <option *ngFor="let method of statisticMonths" [value]="method">{{method}}</option>
+    </select>
+  </div>
+  <div class="col-2">
+    <label for="submission" class="form-label">&nbsp;</label>
+    <button id="submission" type="submit" class="btn btn-primary form-control" (click)="getRunCaseResourceStatistics()">Download</button>
+  </div>
+</form>
+
+
+<br/>
+
+<h3>Resource removal</h3>
 <form class="row g-3">
   <div class="col-12" *ngIf="isRemovalAllowed == false">
     <button type="submit" class="btn btn-primary" (click)="allowRemoval()">Delete resource</button>

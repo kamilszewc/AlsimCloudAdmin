@@ -37,6 +37,12 @@ export class ResourceComponent implements OnInit {
 
   isSystemResourcesLoaded = false;
 
+  statisticYears = [2022]
+  statisticMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  @ViewChild('runCaseStatisticsForm') runCaseStatisticsForm! : NgForm;
+  statisticYear: number = 2022;
+  statisticMonth: number = 1;
+
   constructor(private route: ActivatedRoute,
               private resourceService: ResourceService,
               private router: Router) { }
@@ -94,5 +100,23 @@ export class ResourceComponent implements OnInit {
 
   goToFiles(id: number) {
     this.router.navigate(['storage', id]);
+  }
+
+  getRunCaseResourceStatistics() {
+
+    this.resourceService.generateAnalyticsGrabberToken().subscribe(message => {
+        let token = message.message;
+        this.resourceService.getRunCaseResourceStatistics(this.id!, this.statisticYear, this.statisticMonth, token).subscribe(response => {
+          //Generate file
+          let file = new Blob([JSON.stringify(response)], {type: 'application/txt'})
+          let a = document.createElement("a");
+          let url = URL.createObjectURL(file);
+          a.href = url;
+          document.body.appendChild(a);
+          a.download = "run-cases-r" + this.id! + "-y" + this.statisticYear + "-m" + this.statisticMonth + ".json"
+          a.click();
+        })
+      }
+    )
   }
 }
