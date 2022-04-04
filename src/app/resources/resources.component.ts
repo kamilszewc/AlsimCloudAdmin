@@ -49,6 +49,7 @@ export class ResourcesComponent implements OnInit {
     instanceTypeName: string | null = null;
   }
   awsAvailableInstances: CloudInstanceInfo[] | null = null;
+  isAwsSubmitting = false;
 
   runningTasks = new MatTableDataSource<Task>([]);
   @ViewChild('runningTasksPaginator') runningTasksPaginator!: MatPaginator;
@@ -93,8 +94,13 @@ export class ResourcesComponent implements OnInit {
 
   addNewAwsResource() {
     console.log(this.newAwsResource)
-    this.resourcesService.addNewAwsResource(this.newAwsResource).subscribe(resource => {
+    this.isAwsSubmitting = true;
+    this.resourcesService.addNewAwsResource(this.newAwsResource).subscribe(
+      resource => {
         window.location.reload();
+      },
+        error => {
+          this.isAwsSubmitting = false;
       }
     )
   }

@@ -224,7 +224,7 @@
     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
       <div class="accordion-body">
 
-        <form class="row g-3 was-validated" #newAwsResourceForm="ngForm" >
+        <form class="row g-3 was-validated" #newAwsResourceForm="ngForm" *ngIf="!isAwsSubmitting">
           <div class="col-md-6">
             <label for="awsName" class="form-label">Name</label>
             <input type="text" class="form-control was-validated" pattern=".{5,255}" id="awsName" name="name" [(ngModel)]="newAwsResource!.name" [value]="newAwsResource?.name" required>
@@ -247,6 +247,14 @@
             <button type="submit" class="btn btn-primary" (click)="addNewAwsResource()">Add new resource</button>
           </div>
         </form>
+
+        <div *ngIf="isAwsSubmitting" style="display: flex; justify-content: center; align-items: center; background: white; margin-top: 20px">
+          <mat-progress-spinner
+            color="primary"
+            mode="indeterminate"
+            diameter="50">
+          </mat-progress-spinner>
+        </div>
 
       </div>
     </div>

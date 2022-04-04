@@ -76,10 +76,17 @@ export class ResourceComponent implements OnInit {
     this.isRemovalAllowed = true;
   }
 
+  @ViewChild('deleteButton') deleteButton!: HTMLButtonElement;
   deleteResource() {
-    this.resourceService.deleteResource(this.id!).subscribe(message => {
-      this.router.navigate(['resources']);
-    })
+    this.deleteButton.disabled = true;
+    this.resourceService.deleteResource(this.id!).subscribe(
+      message => {
+        this.router.navigate(['resources']);
+      },
+      error => {
+        this.deleteButton.disabled = false;
+      }
+    )
   }
 
   reload() {

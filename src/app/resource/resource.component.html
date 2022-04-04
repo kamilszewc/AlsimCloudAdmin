@@ -327,7 +327,7 @@
     <button type="submit" class="btn btn-primary" (click)="allowRemoval()">Delete resource</button>
   </div>
   <div class="col-12" *ngIf="isRemovalAllowed == true">
-    <button type="submit" class="btn btn-warning" (click)="deleteResource()">Click here to confirm resource delete</button>&nbsp;
+    <button type="submit" class="btn btn-warning" (click)="deleteResource()" #deleteButton>Click here to confirm resource delete</button>&nbsp;
     <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
   </div>
 </form>
