@@ -55,7 +55,7 @@
 <form class="row g-3 was-validated" #newGroupForm="ngForm">
   <div class="col-md-6">
     <label for="name" class="form-label">Name</label>
-    <input type="text" minlength="4" class="form-control" id="name" name="name" [(ngModel)]="newGroup!.name" [value]="newGroup?.name" required>
+    <input type="text" pattern=".{4,255}" class="form-control" id="name" name="name" [(ngModel)]="newGroup!.name" [value]="newGroup?.name" required>
   </div>
   <div class="col-md-6">
     <label for="tokensBalance" class="form-label">eCubes</label>

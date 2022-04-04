@@ -174,23 +174,23 @@
   </div>
   <div class="col-md-2">
     <label for="available" class="form-label">Available</label>
-    <input type="text" class="form-control" id="available" name="available" [(ngModel)]="systemResources!.ramMemory!.available" [value]="systemResources!.ramMemory!.available" disabled>
+    <input type="text" class="form-control" id="available" name="available" [value]="systemResources?.ramMemory?.available" disabled>
   </div>
   <div class="col-md-2">
     <label for="free" class="form-label">Free</label>
-    <input type="text" class="form-control" id="free" name="free" [(ngModel)]="systemResources!.ramMemory!.free" [value]="systemResources!.ramMemory!.free" disabled>
+    <input type="text" class="form-control" id="free" name="free" [value]="systemResources?.ramMemory?.free" disabled>
   </div>
   <div class="col-md-2">
     <label for="used" class="form-label">Used</label>
-    <input type="text" class="form-control" id="used" name="used" [(ngModel)]="systemResources!.ramMemory!.used" [value]="systemResources!.ramMemory!.used" disabled>
+    <input type="text" class="form-control" id="used" name="used" [value]="systemResources?.ramMemory?.used" disabled>
   </div>
   <div class="col-md-2">
     <label for="cached" class="form-label">Cached</label>
-    <input type="text" class="form-control" id="cached" name="cached" [(ngModel)]="systemResources!.ramMemory!.cached" [value]="systemResources!.ramMemory!.cached" disabled>
+    <input type="text" class="form-control" id="cached" name="cached" [value]="systemResources?.ramMemory?.cached" disabled>
   </div>
   <div class="col-md-2">
     <label for="buffers" class="form-label">Buffers</label>
-    <input type="buffers" class="form-control" id="buffers" name="buffers" [(ngModel)]="systemResources!.ramMemory!.buffers" [value]="systemResources!.ramMemory!.buffers" disabled>
+    <input type="buffers" class="form-control" id="buffers" name="buffers"  [value]="systemResources?.ramMemory?.buffers" disabled>
   </div>
 
   <div class="col-md-2">
@@ -199,19 +199,19 @@
   </div>
   <div class="col-md-2">
     <label for="rootAvailable" class="form-label">Root available</label>
-    <input type="text" class="form-control" id="rootAvailable" name="rootAvailable" [(ngModel)]="systemResources!.diskSpace!.root!.available" [value]="systemResources?.diskSpace?.root?.available" disabled>
+    <input type="text" class="form-control" id="rootAvailable" name="rootAvailable" [value]="systemResources?.diskSpace?.root?.available" disabled>
   </div>
   <div class="col-md-2">
     <label for="rootUsed" class="form-label">Root used</label>
-    <input type="text" class="form-control" id="rootUsed" name="rootUsed" [(ngModel)]="systemResources!.diskSpace!.root!.used" [value]="systemResources?.diskSpace?.root?.used" disabled>
+    <input type="text" class="form-control" id="rootUsed" name="rootUsed" [value]="systemResources?.diskSpace?.root?.used" disabled>
   </div>
   <div class="col-md-2">
     <label for="storageAvailable" class="form-label">Storage available</label>
-    <input type="text" class="form-control" id="storageAvailable" name="storageAvailable" [(ngModel)]="systemResources!.diskSpace!.storage!.available" [value]="systemResources?.diskSpace?.storage?.available" disabled>
+    <input type="text" class="form-control" id="storageAvailable" name="storageAvailable"  [value]="systemResources?.diskSpace?.storage?.available" disabled>
   </div>
   <div class="col-md-2">
     <label for="storageUsed" class="form-label">Root used</label>
-    <input type="text" class="form-control" id="storageUsed" name="storageUsed" [(ngModel)]="systemResources!.diskSpace!.storage!.used" [value]="systemResources?.diskSpace?.storage?.used" disabled>
+    <input type="text" class="form-control" id="storageUsed" name="storageUsed" [value]="systemResources?.diskSpace?.storage?.used" disabled>
   </div>
   <div class="col-md-2">
   </div>
@@ -222,22 +222,23 @@
   </div>
   <div class="col-md-2">
     <label for="numberOfProcesses" class="form-label">Number of processes</label>
-    <input type="text" class="form-control" id="numberOfProcesses" name="numberOfProcesses" [(ngModel)]="systemResources!.processesStatistics!.numberOfProcesses" [value]="systemResources?.processesStatistics?.numberOfProcesses" disabled>
+    <input type="text" class="form-control" id="numberOfProcesses" name="numberOfProcesses" [value]="systemResources?.processesStatistics?.numberOfProcesses" disabled>
   </div>
   <div class="col-md-2">
     <label for="numberOfThreads" class="form-label">Number of threads</label>
-    <input type="text" class="form-control" id="numberOfThreads" name="numberOfThreads" [(ngModel)]="systemResources!.processesStatistics!.numberOfThreads" [value]="systemResources?.processesStatistics?.numberOfThreads" disabled>
+    <input type="text" class="form-control" id="numberOfThreads" name="numberOfThreads" [value]="systemResources?.processesStatistics?.numberOfThreads" disabled>
   </div>
   <div class="col-md-6">
   </div>
 
   <div class="col-md-2">
     <label for="gpusLabel" class="form-label">&nbsp;</label>
-    <label id="gpusLabel" class="form-control-plaintext">GPUs</label>
+    <label id="gpusLabel" class="form-control-plaintext">GPUs:</label>
   </div>
   <div class="col-md-10">
   </div>
 </form>
+
 
 <div class="mat-elevation-z8">
   <table mat-table #gpusTable [dataSource]="gpus" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
@@ -317,7 +318,6 @@
     <button id="submission" type="submit" class="btn btn-primary form-control" (click)="getRunCaseResourceStatistics()">Download</button>
   </div>
 </form>
-
 
 <br/>
 

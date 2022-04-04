@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {GlobalConstants} from "../common/global-constants";
-import {Resource} from "../resource";
+import {Resource, CloudResource, CloudInstanceInfo} from "../resource";
 import {Task} from "../task";
 
 @Injectable({
@@ -20,7 +20,15 @@ export class ResourcesService {
   }
 
   addNewEssResource(resource: Resource) {
-    return this.http.post<Resource>(this.apiUrl + "/api/v1/resource/new/ess", resource);
+    return this.http.post<Resource>(this.apiUrl + "/api/v1/resource/ess/new", resource);
+  }
+
+  addNewAwsResource(resource: CloudResource) {
+    return this.http.post<Resource>(this.apiUrl + "/api/v1/resource/aws/new", resource);
+  }
+
+  getAwsAvailableInstances() {
+    return this.http.get<CloudInstanceInfo[]>(this.apiUrl + "/api/v1/resource/aws/availableInstances");
   }
 
   getRunningTasks() {

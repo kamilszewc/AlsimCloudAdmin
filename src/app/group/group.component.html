@@ -2,7 +2,7 @@
 <form class="row g-3 was-validated" #groupForm="ngForm">
   <div class="col-md-6">
     <label for="name" class="form-label">Name</label>
-    <input type="text" minlength="4" class="form-control" id="name" name="name" [(ngModel)]="group!.name" [value]="group?.name" required [disabled]="!isEditAllowed">
+    <input type="text" pattern=".{4,255}" class="form-control" id="name" name="name" [(ngModel)]="group!.name" [value]="group?.name" required [disabled]="!isEditAllowed">
   </div>
   <div class="col-md-6">
     <label for="tokensBalance" class="form-label">eCubes</label>

@@ -160,42 +160,112 @@
 
 <h3>New resource</h3>
 
-<form class="row g-3" #newResourceForm="ngForm" >
-  <div class="col-md-6">
-    <label for="name" class="form-label">Name</label>
-    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="newResource!.name" [value]="newResource?.name">
-  </div>
-  <div class="col-md-6">
-    <label for="description" class="form-label">Description</label>
-    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="newResource!.description" [value]="newResource?.description">
-  </div>
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+        New ESS resource
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
 
-  <div class="col-md-12">
-    <label for="url" class="form-label">Url</label>
-    <input type="text" class="form-control" id="url" name="url" [(ngModel)]="newResource!.url" [value]="newResource?.url">
-  </div>
+        <form class="row g-3 was-validated" #newResourceForm="ngForm" >
+          <div class="col-md-6">
+            <label for="essName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="essName" name="name" pattern=".{5,255}" [(ngModel)]="newResource!.name" [value]="newResource?.name" required>
+            <div class="invalid-feedback">Number of letters must be between 5 and 255</div>
+          </div>
+          <div class="col-md-6">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="description" name="description" pattern=".{0,255}" [(ngModel)]="newResource!.description" [value]="newResource?.description">
+            <div class="invalid-feedback">Number of letters must be between 0 and 255</div>
+          </div>
 
-  <div class="col-md-4">
-    <label for="numberOfCpus" class="form-label">Number of CPUs</label>
-    <input type="number" min="0" class="form-control" id="numberOfCpus" name="numberOfCpus" [(ngModel)]="newResource!.numberOfCpus" [value]="newResource?.numberOfCpus">
-  </div>
-  <div class="col-md-4">
-    <label for="numberOfGpus" class="form-label">Number of GPUs</label>
-    <input type="number" min="0" class="form-control" id="numberOfGpus" name="numberOfGpus" [(ngModel)]="newResource!.numberOfGpus" [value]="newResource?.numberOfGpus">
-  </div>
-  <div class="col-md-4">
-    <label for="ramMemory" class="form-label">RAM memory (B)</label>
-    <input type="number" min="0" class="form-control" id="ramMemory" name="ramMemory" [(ngModel)]="newResource!.ramMemory" [value]="newResource?.ramMemory">
-  </div>
+          <div class="col-md-12">
+            <label for="url" class="form-label">Url</label>
+            <input type="text" class="form-control" id="url" name="url" pattern=".{8,255}" [(ngModel)]="newResource!.url" [value]="newResource?.url" required>
+            <div class="invalid-feedback">Number of letters must be between 8 and 255</div>
+          </div>
 
-  <div class="col-md-12">
-    <label for="jwtSecret" class="form-label">Secret</label>
-    <input type="text" class="form-control" id="jwtSecret" name="jwtSecret" [(ngModel)]="newResource!.jwtSecret" [value]="newResource?.jwtSecret">
-  </div>
+          <div class="col-md-4">
+            <label for="numberOfCpus" class="form-label">Number of CPUs</label>
+            <input type="number" min="0" class="form-control" id="numberOfCpus" name="numberOfCpus" [(ngModel)]="newResource!.numberOfCpus" [value]="newResource?.numberOfCpus" required>
+          </div>
+          <div class="col-md-4">
+            <label for="numberOfGpus" class="form-label">Number of GPUs</label>
+            <input type="number" min="0" class="form-control" id="numberOfGpus" name="numberOfGpus" [(ngModel)]="newResource!.numberOfGpus" [value]="newResource?.numberOfGpus" required>
+          </div>
+          <div class="col-md-4">
+            <label for="ramMemory" class="form-label">RAM memory (B)</label>
+            <input type="number" min="0" class="form-control" id="ramMemory" name="ramMemory" [(ngModel)]="newResource!.ramMemory" [value]="newResource?.ramMemory" required>
+          </div>
 
-  <div class="col-2">
-    <button type="submit" class="btn btn-primary" (click)="addNewResource()">Add new resource</button>
+          <div class="col-md-12">
+            <label for="jwtSecret" class="form-label">Secret</label>
+            <input type="text" class="form-control" id="jwtSecret" name="jwtSecret" pattern=".{32,128}" [(ngModel)]="newResource!.jwtSecret" [value]="newResource?.jwtSecret" required>
+            <div class="invalid-feedback">Number of letters must be between 32 and 128</div>
+          </div>
+
+          <div class="col-2">
+            <button type="submit" class="btn btn-primary" (click)="addNewResource()">Add new resource</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
   </div>
-</form>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        New AWS resource
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+
+        <form class="row g-3 was-validated" #newAwsResourceForm="ngForm" >
+          <div class="col-md-6">
+            <label for="awsName" class="form-label">Name</label>
+            <input type="text" class="form-control was-validated" pattern=".{5,255}" id="awsName" name="name" [(ngModel)]="newAwsResource!.name" [value]="newAwsResource?.name" required>
+            <div class="invalid-feedback">Number of letters must be between 5 and 255</div>
+          </div>
+          <div class="col-md-6">
+            <label for="awsDescription" class="form-label">Description</label>
+            <input type="text" class="form-control" id="awsDescription" name="description" pattern=".{0,255}" [(ngModel)]="newAwsResource!.description" [value]="newAwsResource?.description">
+            <div class="invalid-feedback">Number of letters must be between 0 and 255</div>
+          </div>
+
+          <div class="col-md-12">
+            <label for="instanceTypeName" class="form-label">Instance type</label>
+            <select id="instanceTypeName" class="form-select" [(ngModel)]="newAwsResource!.instanceTypeName" [value]="newAwsResource?.instanceTypeName" name="instanceTypeName">
+              <option *ngFor="let instance of awsAvailableInstances!" [value]="instance.name">{{instance.name}}</option>
+            </select>
+          </div>
+
+          <div class="col-2">
+            <button type="submit" class="btn btn-primary" (click)="addNewAwsResource()">Add new resource</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        New GenesisCloud resource
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        This part is still under construction
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 <br/>

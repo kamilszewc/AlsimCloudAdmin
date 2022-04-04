@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ResourcesService} from "./resources.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../user";
-import {Resource} from "../resource";
+import {CloudInstanceInfo, CloudResource, Resource} from "../resource";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {Router} from "@angular/router";
@@ -26,7 +26,7 @@ export class ResourcesComponent implements OnInit {
   newResource: Resource = new class implements Resource {
     description: string | null = "";
     id: number | null = null;
-    name: string | null = "";
+    name: string | null = null;
     numberOfCpus: number | null = 0;
     numberOfCpusInUse: number | null = null;
     numberOfGpus: number | null = 0;
@@ -36,11 +36,19 @@ export class ResourcesComponent implements OnInit {
     status: string | null = null;
     isSuspended: boolean | null = true;
     type: string | null = null;
-    url: string | null = "";
+    url: string | null = null;
     zone: number | null = 0;
-    jwtSecret: string | null = "";
+    jwtSecret: string | null = null;
     version: string | null = "";
   }
+
+  @ViewChild('newAwsResourceForm') newAwsResourceForm!: NgForm;
+  newAwsResource: CloudResource = new class implements CloudResource {
+    name: string | null = null;
+    description: string | null = "";
+    instanceTypeName: string | null = null;
+  }
+  awsAvailableInstances: CloudInstanceInfo[] | null = null;
 
   runningTasks = new MatTableDataSource<Task>([]);
   @ViewChild('runningTasksPaginator') runningTasksPaginator!: MatPaginator;
@@ -53,6 +61,8 @@ export class ResourcesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getResources()
+    this.getAwsAvailableInstances();
+    //this.newAwsResource.instanceTypeName = this.awsAvailableInstances![0].name;
   }
 
   getResources() {
@@ -74,10 +84,26 @@ export class ResourcesComponent implements OnInit {
   }
 
   addNewResource() {
+    console.log(this.newResource)
     this.resourcesService.addNewEssResource(this.newResource).subscribe(resource => {
       window.location.reload();
       }
     )
+  }
+
+  addNewAwsResource() {
+    console.log(this.newAwsResource)
+    this.resourcesService.addNewAwsResource(this.newAwsResource).subscribe(resource => {
+        window.location.reload();
+      }
+    )
+  }
+
+  getAwsAvailableInstances() {
+    this.resourcesService.getAwsAvailableInstances().subscribe(instances => {
+      this.awsAvailableInstances = instances;
+      this.newAwsResource.instanceTypeName = instances[0].name
+    })
   }
 
   goTo(id: number) {
