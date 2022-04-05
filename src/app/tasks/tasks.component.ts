@@ -40,11 +40,17 @@ export class TasksComponent implements OnInit {
   allTasks = new MatTableDataSource<Task>([]);
   isLoadingAllTasks = true;
 
+  @ViewChild('runningTasksPaginator') runningTasksPaginator!: MatPaginator;
+  @ViewChild('runningTasksTable', {read: MatSort}) runningTasksSort!: MatSort;
+  runningTasks = new MatTableDataSource<Task>([]);
+  isLoadingRunningTasks = true;
+
   constructor(private tasksService: TasksService,
               private router: Router) { }
 
   ngOnInit(): void {
     this.getAllTasks();
+    this.getRunningTasks();
   }
 
   findTasksBySchemaId() {
@@ -122,6 +128,16 @@ export class TasksComponent implements OnInit {
         this.allTasks.sort = this.allTasksSort;
         this.allTasks.paginator = this.allTasksPaginator;
         this.isLoadingAllTasks = false;
+      })
+  }
+
+  getRunningTasks() {
+    this.tasksService.findTasksByStatus("running")
+      .subscribe(runningTasks => {
+        this.runningTasks = new MatTableDataSource<Task>(runningTasks)
+        this.runningTasks.sort = this.runningTasksSort;
+        this.runningTasks.paginator = this.runningTasksPaginator;
+        this.isLoadingRunningTasks = false;
       })
   }
 
