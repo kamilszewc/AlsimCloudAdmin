@@ -19,7 +19,7 @@ export interface User {
   consumerGroup: string | null;
   isEnabled: boolean | null;
   isBlocked: boolean | null;
-  using2FA: boolean | null;
+  isUsing2FA: boolean | null;
   isEss: boolean | null;
   isAdmin: boolean | null;
   hash: string | null;

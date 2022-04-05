@@ -1,6 +1,6 @@
 <h5>Schema {{schema?.id}}</h5>
 
-<form class="row g-3" #schemaForm="ngForm" >
+<form class="row g-3 was-validated" #schemaForm="ngForm" >
   <div class="col-md-6">
     <label for="name" class="form-label">Name</label>
     <input type="text" pattern=".{4,255}" class="form-control" id="name" name="name" [(ngModel)]="schema!.name" [value]="schema?.name" [disabled]="!isEditAllowed">
