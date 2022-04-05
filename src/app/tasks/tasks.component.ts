@@ -18,24 +18,33 @@ export class TasksComponent implements OnInit {
   userId!: number;
   groupId!: number;
   schemaId!: number;
+  resourceId!: number;
   status: string = "unknown";
   @ViewChild('findTasksByUserIdForm') findTasksByUserIdForm!: NgForm;
   @ViewChild('findTasksByGroupIdForm') findTasksByGroupIdForm!: NgForm;
   @ViewChild('findTasksBySchemaIdForm') findTasksBySchemaIdForm!: NgForm;
   @ViewChild('findTasksByStatusForm') findTasksByStatusForm!: NgForm;
+  @ViewChild('findTasksByResourcerIdForm') findTasksByResourceIdForm!: NgForm;
+
 
   condition: string = "";
-  @ViewChild('allTasksPaginator') allTasksPaginator!: MatPaginator;
-  @ViewChild('allTasksTable', {read: MatSort}) allTasksSort!: MatSort;
-  allTasks = new MatTableDataSource<Task>([]);
+  @ViewChild('searchTasksPaginator') searchTasksPaginator!: MatPaginator;
+  @ViewChild('searchTasksTable', {read: MatSort}) searchTasksSort!: MatSort;
+  searchTasks = new MatTableDataSource<Task>([]);
   displayedColumns: string[] = ['id', 'name', 'status', 'progress', 'user', 'schema', 'resource', 'files', 'details'];
   isTableVisible = false;
   isLoading = true;
+
+  @ViewChild('allTasksPaginator') allTasksPaginator!: MatPaginator;
+  @ViewChild('allTasksTable', {read: MatSort}) allTasksSort!: MatSort;
+  allTasks = new MatTableDataSource<Task>([]);
+  isLoadingAllTasks = true;
 
   constructor(private tasksService: TasksService,
               private router: Router) { }
 
   ngOnInit(): void {
+    this.getAllTasks();
   }
 
   findTasksBySchemaId() {
@@ -44,9 +53,9 @@ export class TasksComponent implements OnInit {
       this.condition = "schema id = " + this.schemaId;
       this.tasksService.findTasksBySchemaId(this.schemaId)
         .subscribe(allTasks => {
-          this.allTasks = new MatTableDataSource<Task>(allTasks)
-          this.allTasks.sort = this.allTasksSort;
-          this.allTasks.paginator = this.allTasksPaginator;
+          this.searchTasks = new MatTableDataSource<Task>(allTasks)
+          this.searchTasks.sort = this.searchTasksSort;
+          this.searchTasks.paginator = this.searchTasksPaginator;
           this.isLoading = false;
         })
     }
@@ -58,9 +67,9 @@ export class TasksComponent implements OnInit {
       this.condition = "user id = " + this.userId;
       this.tasksService.findTasksByUserId(this.userId)
         .subscribe(allTasks => {
-          this.allTasks = new MatTableDataSource<Task>(allTasks)
-          this.allTasks.sort = this.allTasksSort;
-          this.allTasks.paginator = this.allTasksPaginator;
+          this.searchTasks = new MatTableDataSource<Task>(allTasks)
+          this.searchTasks.sort = this.searchTasksSort;
+          this.searchTasks.paginator = this.searchTasksPaginator;
           this.isLoading = false;
         })
     }
@@ -72,9 +81,9 @@ export class TasksComponent implements OnInit {
       this.condition = "group id = " + this.groupId;
       this.tasksService.findTasksByGroupId(this.groupId)
         .subscribe(allTasks => {
-          this.allTasks = new MatTableDataSource<Task>(allTasks)
-          this.allTasks.sort = this.allTasksSort;
-          this.allTasks.paginator = this.allTasksPaginator;
+          this.searchTasks = new MatTableDataSource<Task>(allTasks)
+          this.searchTasks.sort = this.searchTasksSort;
+          this.searchTasks.paginator = this.searchTasksPaginator;
           this.isLoading = false;
         })
     }
@@ -85,21 +94,34 @@ export class TasksComponent implements OnInit {
     this.condition = "status = " + this.status;
     this.tasksService.findTasksByStatus(this.status)
       .subscribe(allTasks => {
-        this.allTasks = new MatTableDataSource<Task>(allTasks)
-        this.allTasks.sort = this.allTasksSort;
-        this.allTasks.paginator = this.allTasksPaginator;
+        this.searchTasks = new MatTableDataSource<Task>(allTasks)
+        this.searchTasks.sort = this.searchTasksSort;
+        this.searchTasks.paginator = this.searchTasksPaginator;
         this.isLoading = false;
       })
   }
 
+  findTasksByResourceId() {
+    if (this.resourceId > 0) {
+      this.isTableVisible = true;
+      this.condition = "resource id = " + this.resourceId;
+      this.tasksService.findTasksByResourceId(this.resourceId)
+        .subscribe(allTasks => {
+          this.searchTasks = new MatTableDataSource<Task>(allTasks)
+          this.searchTasks.sort = this.searchTasksSort;
+          this.searchTasks.paginator = this.searchTasksPaginator;
+          this.isLoading = false;
+        })
+    }
+  }
+
   getAllTasks() {
-    this.isTableVisible = true;
     this.tasksService.getAllTasks()
       .subscribe(allTasks => {
         this.allTasks = new MatTableDataSource<Task>(allTasks)
         this.allTasks.sort = this.allTasksSort;
         this.allTasks.paginator = this.allTasksPaginator;
-        this.isLoading = false;
+        this.isLoadingAllTasks = false;
       })
   }
 

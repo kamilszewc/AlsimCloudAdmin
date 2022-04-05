@@ -29,8 +29,13 @@ export class TasksService {
     return this.http.get<Task[]>(this.apiUrl + "/api/v1/task/findTasks?status=" + status)
   }
 
+  findTasksByResourceId(id: number) {
+    return this.http.get<Task[]>(this.apiUrl + "/api/v1/task/findTasks?resourceId=" + id)
+  }
+
   getAllTasks() {
     return this.http.get<Task[]>(this.apiUrl + "/api/v1/task/findTasks")
   }
+
 
 }
