@@ -96,6 +96,11 @@
   </div>
 
   <div class="col-md-12">
+    <label for="filesToNotRemoveDuringRuntime" class="form-label">Files to not remove during runtime</label>
+    <input type="text" class="form-control" id="filesToNotRemoveDuringRuntime" name="filesToNotRemoveDuringRuntime" [(ngModel)]="newSchema!.filesToNotRemoveDuringRuntime" [value]="newSchema?.filesToNotRemoveDuringRuntime">
+  </div>
+
+  <div class="col-md-12">
     <label for="assessmentKeys" class="form-label">Assessment keys</label>
     <input type="text" class="form-control" id="assessmentKeys" name="assessmentKeys" [(ngModel)]="newSchema!.assessmentKeys" [value]="newSchema?.assessmentKeys">
   </div>

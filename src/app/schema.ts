@@ -19,6 +19,7 @@ export interface Schema {
   icon: Myfile | null;
   banner: Myfile | null;
   commandTemplate: string | null;
+  filesToNotRemoveDuringRuntime: string | null;
 }
 
 export interface UserSchemaInfo {

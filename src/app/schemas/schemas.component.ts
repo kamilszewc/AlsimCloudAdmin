@@ -42,6 +42,7 @@ export class SchemasComponent implements OnInit {
     solverGroup: string | null = "";
     usesMlModel: boolean | null = false;
     validationKeys: string | null = "";
+    filesToNotRemoveDuringRuntime: string | null = "";
   }
 
   constructor(private schemasService: SchemasService,

@@ -46,6 +46,11 @@
     <input type="text" class="form-control" id="assessmentKeys" name="assessmentKeys" [(ngModel)]="schema!.assessmentKeys" [value]="schema?.assessmentKeys" [disabled]="!isEditAllowed">
   </div>
 
+  <div class="col-md-12">
+    <label for="filesToNotRemoveDuringRuntime" class="form-label">Files to not remove during runtime</label>
+    <input type="text" class="form-control" id="filesToNotRemoveDuringRuntime" name="filesToNotRemoveDuringRuntime" [(ngModel)]="schema!.filesToNotRemoveDuringRuntime" [value]="schema?.filesToNotRemoveDuringRuntime" [disabled]="!isEditAllowed">
+  </div>
+
   <div class="col-md-4">
     <label for="minNumberOfCpus" class="form-label">Minimum number of CPUs</label>
     <input type="number" min="0" class="form-control" id="minNumberOfCpus" name="minNumberOfCpus" [(ngModel)]="schema!.minNumberOfCpus" [value]="schema?.minNumberOfCpus" [disabled]="!isEditAllowed">
