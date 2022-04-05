@@ -8,6 +8,7 @@ import {Task} from "../task";
 import {HistoricalTask} from "../historicalTask";
 import {Message} from "../message";
 import {Group} from "../group";
+import {UserSchemaInfo} from "../schema";
 
 @Injectable({
   providedIn: 'root'
@@ -73,5 +74,17 @@ export class UserService {
 
   deleteUser(id: number) {
     return this.http.delete<Message<string>>(this.apiUrl + "/api/v1/user/remove/" + id);
+  }
+
+  getUserSchemas(id: number) {
+    return this.http.get<UserSchemaInfo>(this.apiUrl + "/api/v1/schema/getUserSchemaInfo/" + id);
+  }
+
+  allowSchema(userId: number, schemaId: number) {
+    return this.http.post<Message<string>>(this.apiUrl + "/api/v1/schema/allow/" + schemaId + "/" + userId, null);
+  }
+
+  disallowSchema(userId: number, schemaId: number) {
+    return this.http.post<Message<string>>(this.apiUrl + "/api/v1/schema/disallow/" + schemaId + "/" + userId, null);
   }
 }

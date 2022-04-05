@@ -20,3 +20,8 @@ export interface Schema {
   banner: Myfile | null;
   commandTemplate: string | null;
 }
+
+export interface UserSchemaInfo {
+  permitted: Schema[] | null;
+  notPermitted: Schema[] | null;
+}

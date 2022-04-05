@@ -10,6 +10,7 @@ import {HistoricalTask} from "../historicalTask";
 import {NgForm} from "@angular/forms";
 import {catchError} from "rxjs";
 import {Group} from "../group";
+import {Schema} from "../schema";
 
 @Component({
   selector: 'app-user',
@@ -40,6 +41,17 @@ export class UserComponent implements OnInit {
   @ViewChild('userForm') userForm! : NgForm;
   @ViewChild('userTokensRechargeForm') userTokensRechargeForm! : NgForm;
   @ViewChild('groupTokensRechargeForm') groupTokensRechargeForm! : NgForm;
+
+  permittedSchemas = new MatTableDataSource<Schema>([])
+  @ViewChild('permittedSchemasPaginator') permittedSchemasPaginator!: MatPaginator;
+  @ViewChild('permittedSchemasTable', {read: MatSort}) permittedSchemasSort!: MatSort;
+  displayedPermittedSchemasColumns: string[] = ['id', 'name', 'paymentMethod', 'solverGroup', 'details', 'disallow'];
+
+  notPermittedSchemas = new MatTableDataSource<Schema>([])
+  @ViewChild('notPermittedSchemasPaginator') notPermittedSchemasPaginator!: MatPaginator;
+  @ViewChild('notPermittedSchemasTable', {read: MatSort}) notPermittedSchemasSort!: MatSort;
+  displayedNotPermittedSchemasColumns: string[] = ['id', 'name', 'paymentMethod', 'solverGroup', 'details', 'allow'];
+
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -76,6 +88,8 @@ export class UserComponent implements OnInit {
       this.userHistoricalTasks.sort = this.userHistoricalTasksSort;
       this.userHistoricalTasks.paginator = this.userHistoricalTasksPaginator;
     })
+
+    this.getUserSchemas();
   }
 
   allowEdit() {
@@ -125,6 +139,30 @@ export class UserComponent implements OnInit {
       .subscribe(user => this.user = user);
   }
 
+  getUserSchemas() {
+    this.userService.getUserSchemas(this.id!).subscribe(userSchemas => {
+      this.permittedSchemas = new MatTableDataSource<Schema>(userSchemas.permitted!);
+      this.permittedSchemas.sort = this.permittedSchemasSort
+      this.permittedSchemas.paginator = this.permittedSchemasPaginator
+
+      this.notPermittedSchemas = new MatTableDataSource<Schema>(userSchemas.notPermitted!);
+      this.notPermittedSchemas.sort = this.notPermittedSchemasSort
+      this.notPermittedSchemas.paginator = this.notPermittedSchemasPaginator
+    })
+  }
+
+  allowSchema(schemaId: number) {
+    this.userService.allowSchema(this.id!, schemaId).subscribe(message => {
+      this.getUserSchemas();
+    })
+  }
+
+  disallowSchema(schemaId: number) {
+    this.userService.disallowSchema(this.id!, schemaId).subscribe(message => {
+      this.getUserSchemas();
+    })
+  }
+
   allowRemoval() {
     this.isRemovalAllowed = true;
   }
@@ -156,5 +194,9 @@ export class UserComponent implements OnInit {
 
   toGb(ramMemory: number) {
     return ramMemory / 1024 / 1024 | 0
+  }
+
+  goToSchema(id: number) {
+    this.router.navigate(['schema', id]);
   }
 }
