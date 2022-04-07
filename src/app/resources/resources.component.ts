@@ -1,13 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ResourcesService} from "./resources.service";
 import {MatTableDataSource} from "@angular/material/table";
-import {User} from "../user";
 import {CloudInstanceInfo, CloudResource, Resource} from "../resource";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {Task} from "../task";
+import {interval} from "rxjs";
 
 @Component({
   selector: 'app-resources',
@@ -20,7 +20,7 @@ export class ResourcesComponent implements OnInit {
   @ViewChild('resourcesTable', {read: MatSort}) resourcesSort!: MatSort;
   resources = new MatTableDataSource<Resource>([]);
   isLoading = true;
-  displayedColumns: string[] = ['id', 'name', 'description', 'suspended', 'cpuUsage', 'gpuUsage', 'ramUsage', 'version', 'details'];
+  displayedColumns: string[] = ['id', 'name', 'description', 'suspended', 'cpuUsage', 'gpuUsage', 'ramUsage', 'cloudType', 'version', 'details'];
 
   @ViewChild('newResourceForm') newResourcesForm!: NgForm;
   newResource: Resource = new class implements Resource {
@@ -34,12 +34,13 @@ export class ResourcesComponent implements OnInit {
     ramMemory: number | null = 0;
     ramMemoryInUse: number | null = null;
     status: string | null = null;
-    isSuspended: boolean | null = true;
+    isSuspended: boolean | null = null;
     type: string | null = null;
     url: string | null = null;
     zone: number | null = 0;
     jwtSecret: string | null = null;
     version: string | null = "";
+    cloudType: string | null = "";
   }
 
   @ViewChild('newAwsResourceForm') newAwsResourceForm!: NgForm;
@@ -51,6 +52,15 @@ export class ResourcesComponent implements OnInit {
   awsAvailableInstances: CloudInstanceInfo[] | null = null;
   isAwsSubmitting = false;
 
+  @ViewChild('newGenesisResourceForm') newGenesisResourceForm!: NgForm;
+  newGenesisResource: CloudResource = new class implements CloudResource {
+    name: string | null = null;
+    description: string | null = "";
+    instanceTypeName: string | null = null;
+  }
+  genesisAvailableInstances: CloudInstanceInfo[] | null = null;
+  isGenesisSubmitting = false;
+
   runningTasks = new MatTableDataSource<Task>([]);
   @ViewChild('runningTasksPaginator') runningTasksPaginator!: MatPaginator;
   @ViewChild('runningTasksTable', {read: MatSort}) runningTasksSort!: MatSort;
@@ -61,9 +71,19 @@ export class ResourcesComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.getResources()
+
+    this.getResources();
+    interval(60000).subscribe(value => {
+      this.getResources();
+    });
+
+    this.getTasks();
+    interval(60000).subscribe(value => {
+      this.getTasks();
+    })
+
     this.getAwsAvailableInstances();
-    //this.newAwsResource.instanceTypeName = this.awsAvailableInstances![0].name;
+    this.getGenesisAvailableInstances();
   }
 
   getResources() {
@@ -74,7 +94,9 @@ export class ResourcesComponent implements OnInit {
         this.resources.paginator = this.resourcesPaginator;
         this.isLoading = false;
       })
+  }
 
+  getTasks() {
     this.resourcesService.getRunningTasks().subscribe(tasks => {
       console.info(tasks);
       this.runningTasks = new MatTableDataSource<Task>(tasks);
@@ -109,6 +131,26 @@ export class ResourcesComponent implements OnInit {
     this.resourcesService.getAwsAvailableInstances().subscribe(instances => {
       this.awsAvailableInstances = instances;
       this.newAwsResource.instanceTypeName = instances[0].name
+    })
+  }
+
+  addNewGenesisResource() {
+    console.log(this.newGenesisResource)
+    this.isGenesisSubmitting = true;
+    this.resourcesService.addNewGenesisResource(this.newGenesisResource).subscribe(
+      resource => {
+        window.location.reload();
+      },
+      error => {
+        this.isGenesisSubmitting = false;
+      }
+    )
+  }
+
+  getGenesisAvailableInstances() {
+    this.resourcesService.getGenesisAvailableInstances().subscribe(instances => {
+      this.genesisAvailableInstances = instances;
+      this.newGenesisResource.instanceTypeName = instances[0].name
     })
   }
 

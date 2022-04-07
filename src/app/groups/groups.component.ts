@@ -6,6 +6,7 @@ import {GroupsService} from "./groups.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {Group} from "../group";
 import {NgForm} from "@angular/forms";
+import {interval} from "rxjs";
 
 @Component({
   selector: 'app-groups',
@@ -37,6 +38,9 @@ export class GroupsComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.getGroups()
+    interval(60000).subscribe(value => {
+      this.getGroups();
+    });
   }
 
   getGroups() {

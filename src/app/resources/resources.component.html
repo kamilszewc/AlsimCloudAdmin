@@ -24,7 +24,7 @@
     <!-- Suspended Column -->
     <ng-container matColumnDef="suspended">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Suspended </th>
-      <td mat-cell *matCellDef="let element"> {{element?.suspended}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.suspended != null ? element.suspended : "dead"}} </td>
     </ng-container>
 
     <!-- CpuUsage Column -->
@@ -43,6 +43,12 @@
     <ng-container matColumnDef="ramUsage">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> RAM usage </th>
       <td mat-cell *matCellDef="let element"> {{bytesToMb(element?.ramMemoryInUse)}} / {{bytesToMb(element?.ramMemory)}} GB</td>
+    </ng-container>
+
+    <!-- CloudType Column -->
+    <ng-container matColumnDef="cloudType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cloud type </th>
+      <td mat-cell *matCellDef="let element"> {{element?.cloudType}} </td>
     </ng-container>
 
     <!-- Version Column -->
@@ -239,7 +245,7 @@
           <div class="col-md-12">
             <label for="instanceTypeName" class="form-label">Instance type</label>
             <select id="instanceTypeName" class="form-select" [(ngModel)]="newAwsResource!.instanceTypeName" [value]="newAwsResource?.instanceTypeName" name="instanceTypeName">
-              <option *ngFor="let instance of awsAvailableInstances!" [value]="instance.name">{{instance.name}}</option>
+              <option *ngFor="let instance of awsAvailableInstances!" [value]="instance.name">{{instance.description}}</option>
             </select>
           </div>
 
@@ -267,7 +273,41 @@
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-        This part is still under construction
+        <div class="accordion-body">
+
+          <form class="row g-3 was-validated" #newGenesisResourceForm="ngForm" *ngIf="!isGenesisSubmitting">
+            <div class="col-md-6">
+              <label for="awsName" class="form-label">Name</label>
+              <input type="text" class="form-control was-validated" pattern=".{5,255}" id="genesisName" name="name" [(ngModel)]="newGenesisResource!.name" [value]="newGenesisResource?.name" required>
+              <div class="invalid-feedback">Number of letters must be between 5 and 255</div>
+            </div>
+            <div class="col-md-6">
+              <label for="awsDescription" class="form-label">Description</label>
+              <input type="text" class="form-control" id="genesisDescription" name="description" pattern=".{0,255}" [(ngModel)]="newGenesisResource!.description" [value]="newGenesisResource?.description">
+              <div class="invalid-feedback">Number of letters must be between 0 and 255</div>
+            </div>
+
+            <div class="col-md-12">
+              <label for="instanceTypeName" class="form-label">Instance type</label>
+              <select id="genesisInstanceTypeName" class="form-select" [(ngModel)]="newGenesisResource!.instanceTypeName" [value]="newGenesisResource?.instanceTypeName" name="instanceTypeName">
+                <option *ngFor="let instance of genesisAvailableInstances!" [value]="instance.name">{{instance.description}}</option>
+              </select>
+            </div>
+
+            <div class="col-2">
+              <button type="submit" class="btn btn-primary" (click)="addNewGenesisResource()">Add new resource</button>
+            </div>
+          </form>
+
+          <div *ngIf="isGenesisSubmitting" style="display: flex; justify-content: center; align-items: center; background: white; margin-top: 20px">
+            <mat-progress-spinner
+              color="primary"
+              mode="indeterminate"
+              diameter="50">
+            </mat-progress-spinner>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>

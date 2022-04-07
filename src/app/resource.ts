@@ -15,6 +15,7 @@ export interface Resource {
   status: string | null;
   jwtSecret: string | null;
   version: string | null;
+  cloudType: string | null;
 }
 
 export interface CloudResource {

@@ -8,6 +8,7 @@ import {StorageFile} from "../storageFile";
 import {ActivatedRoute, Router} from "@angular/router";
 import {StorageService} from "./storage.service";
 import {GlobalConstants} from "../common/global-constants";
+import {interval} from "rxjs";
 
 @Component({
   selector: 'app-storage',
@@ -45,6 +46,9 @@ export class StorageComponent implements OnInit {
     if (Number(this.route.snapshot.paramMap.has('id'))) {
       this.taskId = Number(this.route.snapshot.paramMap.get('id'))
       this.findFiles();
+      interval(60000).subscribe(value => {
+        this.findFiles();
+      });
     }
   }
 

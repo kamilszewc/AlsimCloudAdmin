@@ -32,7 +32,7 @@ export class SchemasComponent implements OnInit {
     icon: Myfile | null = null;
     id: number | null = null;
     latestSolverVersion: string | null = "";
-    minNumberOfCpus: number | null = 0;
+    minNumberOfCpus: number | null = 1;
     minNumberOfGpus: number | null = 0;
     minRamMemory: number | null = 0;
     name: string | null = "";
@@ -43,6 +43,8 @@ export class SchemasComponent implements OnInit {
     usesMlModel: boolean | null = false;
     validationKeys: string | null = "";
     filesToNotRemoveDuringRuntime: string | null = "";
+    filesToNotUpload: string | null = "";
+    additionalFoldersToUpload: string | null = "";
   }
 
   constructor(private schemasService: SchemasService,

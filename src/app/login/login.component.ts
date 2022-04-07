@@ -29,20 +29,6 @@ export class LoginComponent {
 
     if (val.username && val.password) {
 
-      // this.authService.hasTwoFaEnabled(val.username)
-        // .pipe(
-        //   finalize(() => {
-        //       this.wrongCredentialAlert.nativeElement.hidden = false;
-        //   })
-        // )
-        // .subscribe(
-        //   message => {
-        //   console.log("Is using: " + message.message);
-        //
-        //   if (message.message == null) {
-        //     this.wrongCredentialAlert.nativeElement.hidden = false;
-        //   }
-
           this.authService.basicLogin(val.username, val.password, val.code)
             .pipe(
               finalize(() => {
@@ -62,20 +48,8 @@ export class LoginComponent {
                 } else {
                   this.router.navigateByUrl('twoFA')
                 }
-                // if (message.message == true) {
-                //   this.router.navigateByUrl('');
-                // } else {
-                //   console.log("routing here")
-                //   this.router.navigateByUrl('twoFA');
-                // }
               }
             );
-          // }
-          // error => {
-          //   this.wrongCredentialAlert.nativeElement.hidden = false;
-          // }
-      // )
-
     }
   }
 

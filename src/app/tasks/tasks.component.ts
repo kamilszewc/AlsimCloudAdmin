@@ -5,6 +5,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {NgForm} from "@angular/forms";
+import {interval} from "rxjs";
 
 @Component({
   selector: 'app-tasks',
@@ -50,7 +51,14 @@ export class TasksComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllTasks();
+    interval(60000).subscribe(value => {
+      this.getAllTasks();
+    });
+
     this.getRunningTasks();
+    interval(60000).subscribe(value => {
+      this.getRunningTasks();
+    });
   }
 
   findTasksBySchemaId() {

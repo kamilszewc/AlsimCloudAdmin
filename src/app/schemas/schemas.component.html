@@ -54,10 +54,10 @@
 <!-- New schema -->
 <h3>New schema</h3>
 
-<form class="row g-3" #newSchemaForm="ngForm" >
+<form class="row g-3 was-validated" #newSchemaForm="ngForm" >
   <div class="col-md-6">
     <label for="name" class="form-label">Name</label>
-    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="newSchema!.name" [value]="newSchema?.name">
+    <input type="text" pattern=".{4,255}" class="form-control" id="name" name="name" [(ngModel)]="newSchema!.name" [value]="newSchema?.name" required>
   </div>
   <div class="col-md-3">
     <label for="ownerGitlabId" class="form-label">Owner's gitlab id</label>
@@ -70,44 +70,53 @@
     </select>
   </div>
 
-
   <div class="col-md-12">
     <label for="description" class="form-label">Description</label>
-    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="newSchema!.description" [value]="newSchema?.description">
+    <input type="text" pattern=".{0,255}" class="form-control" id="description" name="description" [(ngModel)]="newSchema!.description" [value]="newSchema?.description">
   </div>
 
   <div class="col-md-6">
     <label for="solverGroup" class="form-label">Solver group</label>
-    <input type="text" class="form-control" id="solverGroup" name="solverGroup" [(ngModel)]="newSchema!.solverGroup" [value]="newSchema?.solverGroup">
+    <input type="text" pattern=".{0,255}" class="form-control" id="solverGroup" name="solverGroup" [(ngModel)]="newSchema!.solverGroup" [value]="newSchema?.solverGroup" required>
   </div>
   <div class="col-md-6">
     <label for="latestSolverVersion" class="form-label">Latest solver version</label>
-    <input type="text" class="form-control" id="latestSolverVersion" name="latestSolverVersion" [(ngModel)]="newSchema!.latestSolverVersion" [value]="newSchema?.latestSolverVersion">
+    <input type="text" pattern=".{0,255}" class="form-control" id="latestSolverVersion" name="latestSolverVersion" [(ngModel)]="newSchema!.latestSolverVersion" [value]="newSchema?.latestSolverVersion" required>
   </div>
 
   <div class="col-md-12">
     <label for="commandTemplate" class="form-label">Command template</label>
-    <input type="text" class="form-control" id="commandTemplate" name="commandTemplate" [(ngModel)]="newSchema!.commandTemplate" [value]="newSchema?.commandTemplate">
+    <input type="text" pattern=".{0,255}" class="form-control" id="commandTemplate" name="commandTemplate" [(ngModel)]="newSchema!.commandTemplate" [value]="newSchema?.commandTemplate" required>
   </div>
 
   <div class="col-md-12">
     <label for="validationKeys" class="form-label">Validation keys</label>
-    <input type="text" class="form-control" id="validationKeys" name="validationKeys" [(ngModel)]="newSchema!.validationKeys" [value]="newSchema?.validationKeys">
+    <input type="text" pattern=".{0,255}" class="form-control" id="validationKeys" name="validationKeys" [(ngModel)]="newSchema!.validationKeys" [value]="newSchema?.validationKeys">
   </div>
 
   <div class="col-md-12">
     <label for="filesToNotRemoveDuringRuntime" class="form-label">Files to not remove during runtime</label>
-    <input type="text" class="form-control" id="filesToNotRemoveDuringRuntime" name="filesToNotRemoveDuringRuntime" [(ngModel)]="newSchema!.filesToNotRemoveDuringRuntime" [value]="newSchema?.filesToNotRemoveDuringRuntime">
+    <input type="text" pattern=".{0,255}" class="form-control" id="filesToNotRemoveDuringRuntime" name="filesToNotRemoveDuringRuntime" [(ngModel)]="newSchema!.filesToNotRemoveDuringRuntime" [value]="newSchema?.filesToNotRemoveDuringRuntime">
+  </div>
+
+  <div class="col-md-12">
+    <label for="filesToNotUpload" class="form-label">Files to not upload</label>
+    <input type="text" pattern=".{0,255}" class="form-control" id="filesToNotUpload" name="filesToNotUpload" [(ngModel)]="newSchema!.filesToNotUpload" [value]="newSchema?.filesToNotUpload">
+  </div>
+
+  <div class="col-md-12">
+    <label for="additionalFoldersToUpload" class="form-label">Additional folders to upload</label>
+    <input type="text" pattern=".{0,255}" class="form-control" id="additionalFoldersToUpload" name="additionalFoldersToUpload" [(ngModel)]="newSchema!.additionalFoldersToUpload" [value]="newSchema?.additionalFoldersToUpload">
   </div>
 
   <div class="col-md-12">
     <label for="assessmentKeys" class="form-label">Assessment keys</label>
-    <input type="text" class="form-control" id="assessmentKeys" name="assessmentKeys" [(ngModel)]="newSchema!.assessmentKeys" [value]="newSchema?.assessmentKeys">
+    <input type="text" pattern=".{0,255}" class="form-control" id="assessmentKeys" name="assessmentKeys" [(ngModel)]="newSchema!.assessmentKeys" [value]="newSchema?.assessmentKeys">
   </div>
 
   <div class="col-md-4">
     <label for="minNumberOfCpus" class="form-label">Minimum number of CPUs</label>
-    <input type="number" min="0" class="form-control" id="minNumberOfCpus" name="minNumberOfCpus" [(ngModel)]="newSchema!.minNumberOfCpus" [value]="newSchema?.minNumberOfCpus">
+    <input type="number" min="1" class="form-control" id="minNumberOfCpus" name="minNumberOfCpus" [(ngModel)]="newSchema!.minNumberOfCpus" [value]="newSchema?.minNumberOfCpus">
   </div>
   <div class="col-md-4">
     <label for="minNumberOfGpus" class="form-label">Minimum number of GPUs</label>
@@ -118,14 +127,6 @@
     <input type="number" min="0" class="form-control" id="minRamMemory" name="minRamMemory" [(ngModel)]="newSchema!.minRamMemory" [value]="newSchema?.minRamMemory">
   </div>
 
-<!--  <div class="col-md-12">-->
-<!--    <div class="form-check">-->
-<!--      <input class="form-check-input" type="checkbox" id="usesMlModel" [checked]="newSchema?.usesMlModel">-->
-<!--      <label class="form-check-label" for="usesMlModel">-->
-<!--        Is using ML model-->
-<!--      </label>-->
-<!--    </div>-->
-<!--  </div>-->
 
   <div class="col-2">
     <button type="submit" class="btn btn-primary" (click)="addNewSchema()">Add new schema</button>

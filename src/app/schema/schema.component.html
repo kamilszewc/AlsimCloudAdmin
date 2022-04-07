@@ -3,7 +3,7 @@
 <form class="row g-3 was-validated" #schemaForm="ngForm" >
   <div class="col-md-6">
     <label for="name" class="form-label">Name</label>
-    <input type="text" pattern=".{4,255}" class="form-control" id="name" name="name" [(ngModel)]="schema!.name" [value]="schema?.name" [disabled]="!isEditAllowed">
+    <input type="text" pattern=".{4,255}" class="form-control" id="name" name="name" [(ngModel)]="schema!.name" [value]="schema?.name" [disabled]="!isEditAllowed" required>
   </div>
   <div class="col-md-3">
     <label for="ownersGitlabId" class="form-label">Owner's gitlab id</label>
@@ -19,41 +19,51 @@
 
   <div class="col-md-12">
     <label for="description" class="form-label">Description</label>
-    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="schema!.description" [value]="schema?.description" [disabled]="!isEditAllowed">
+    <input type="text" pattern=".{0,255}" class="form-control" id="description" name="description" [(ngModel)]="schema!.description" [value]="schema?.description" [disabled]="!isEditAllowed">
   </div>
 
   <div class="col-md-6">
     <label for="solverGroup" class="form-label">Solver group</label>
-    <input type="text" class="form-control" id="solverGroup" name="solverGroup" [(ngModel)]="schema!.solverGroup" [value]="schema?.solverGroup" [disabled]="!isEditAllowed">
+    <input type="text" pattern=".{0,255}" class="form-control" id="solverGroup" name="solverGroup" [(ngModel)]="schema!.solverGroup" [value]="schema?.solverGroup" [disabled]="!isEditAllowed" required>
   </div>
   <div class="col-md-6">
     <label for="latestSolverVersion" class="form-label">Latest solver version</label>
-    <input type="text" class="form-control" id="latestSolverVersion" name="latestSolverVersion" [(ngModel)]="schema!.latestSolverVersion" [value]="schema?.latestSolverVersion" [disabled]="!isEditAllowed">
+    <input type="text" pattern=".{0,255}" class="form-control" id="latestSolverVersion" name="latestSolverVersion" [(ngModel)]="schema!.latestSolverVersion" [value]="schema?.latestSolverVersion" [disabled]="!isEditAllowed" required>
   </div>
 
   <div class="col-md-12">
     <label for="commandTemplate" class="form-label">Command template</label>
-    <input type="text" class="form-control" id="commandTemplate" name="commandTemplate" [(ngModel)]="schema!.commandTemplate" [value]="schema?.commandTemplate" [disabled]="!isEditAllowed">
+    <input type="text" pattern=".{0,255}" class="form-control" id="commandTemplate" name="commandTemplate" [(ngModel)]="schema!.commandTemplate" [value]="schema?.commandTemplate" [disabled]="!isEditAllowed" required>
   </div>
 
   <div class="col-md-12">
     <label for="validationKeys" class="form-label">Validation keys</label>
-    <input type="text" class="form-control" id="validationKeys" name="validationKeys" [(ngModel)]="schema!.validationKeys" [value]="schema?.validationKeys" [disabled]="!isEditAllowed">
+    <input type="text" pattern=".{0,255}" class="form-control" id="validationKeys" name="validationKeys" [(ngModel)]="schema!.validationKeys" [value]="schema?.validationKeys" [disabled]="!isEditAllowed">
   </div>
 
   <div class="col-md-12">
     <label for="assessmentKeys" class="form-label">Assessment keys</label>
-    <input type="text" class="form-control" id="assessmentKeys" name="assessmentKeys" [(ngModel)]="schema!.assessmentKeys" [value]="schema?.assessmentKeys" [disabled]="!isEditAllowed">
+    <input type="text" pattern=".{0,255}" class="form-control" id="assessmentKeys" name="assessmentKeys" [(ngModel)]="schema!.assessmentKeys" [value]="schema?.assessmentKeys" [disabled]="!isEditAllowed">
   </div>
 
   <div class="col-md-12">
     <label for="filesToNotRemoveDuringRuntime" class="form-label">Files to not remove during runtime</label>
-    <input type="text" class="form-control" id="filesToNotRemoveDuringRuntime" name="filesToNotRemoveDuringRuntime" [(ngModel)]="schema!.filesToNotRemoveDuringRuntime" [value]="schema?.filesToNotRemoveDuringRuntime" [disabled]="!isEditAllowed">
+    <input type="text" pattern=".{0,255}" class="form-control" id="filesToNotRemoveDuringRuntime" name="filesToNotRemoveDuringRuntime" [(ngModel)]="schema!.filesToNotRemoveDuringRuntime" [value]="schema?.filesToNotRemoveDuringRuntime" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-12">
+    <label for="filesToNotUpload" class="form-label">Files to not upload</label>
+    <input type="text" pattern=".{0,255}" class="form-control" id="filesToNotUpload" name="filesToNotUpload" [(ngModel)]="schema!.filesToNotUpload" [value]="schema?.filesToNotUpload" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-md-12">
+    <label for="additionalFoldersToUpload" class="form-label">Additional folders to upload</label>
+    <input type="text" pattern=".{0,255}" class="form-control" id="additionalFoldersToUpload" name="additionalFoldersToUpload" [(ngModel)]="schema!.additionalFoldersToUpload" [value]="schema?.additionalFoldersToUpload" [disabled]="!isEditAllowed">
   </div>
 
   <div class="col-md-4">
     <label for="minNumberOfCpus" class="form-label">Minimum number of CPUs</label>
-    <input type="number" min="0" class="form-control" id="minNumberOfCpus" name="minNumberOfCpus" [(ngModel)]="schema!.minNumberOfCpus" [value]="schema?.minNumberOfCpus" [disabled]="!isEditAllowed">
+    <input type="number" min="1" class="form-control" id="minNumberOfCpus" name="minNumberOfCpus" [(ngModel)]="schema!.minNumberOfCpus" [value]="schema?.minNumberOfCpus" [disabled]="!isEditAllowed">
   </div>
   <div class="col-md-4">
     <label for="minNumberOfGpus" class="form-label">Minimum number of GPUs</label>
@@ -63,16 +73,6 @@
     <label for="minRamMemory" class="form-label">Minimum RAM memory (B)</label>
     <input type="number" min="0" class="form-control" id="minRamMemory" name="minRamMemory" [(ngModel)]="schema!.minRamMemory" [value]="schema?.minRamMemory" [disabled]="!isEditAllowed">
   </div>
-
-<!--  <div class="col-md-12">-->
-<!--    <div class="form-check">-->
-<!--      <input class="form-check-input" type="checkbox" id="usesMlModel" [checked]="schema?.usesMlModel" [disabled]="!isEditAllowed">-->
-<!--      <label class="form-check-label" for="usesMlModel">-->
-<!--        Is using ML model-->
-<!--      </label>-->
-<!--    </div>-->
-<!--  </div>-->
-
 
   <div class="col-2" *ngIf="isEditAllowed == false">
     <button type="submit" class="btn btn-primary" (click)="allowEdit()">Edit</button>

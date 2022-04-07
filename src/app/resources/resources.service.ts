@@ -31,6 +31,14 @@ export class ResourcesService {
     return this.http.get<CloudInstanceInfo[]>(this.apiUrl + "/api/v1/resource/aws/availableInstances");
   }
 
+  addNewGenesisResource(resource: CloudResource) {
+    return this.http.post<Resource>(this.apiUrl + "/api/v1/resource/genesis/new", resource);
+  }
+
+  getGenesisAvailableInstances() {
+    return this.http.get<CloudInstanceInfo[]>(this.apiUrl + "/api/v1/resource/genesis/availableInstances");
+  }
+
   getRunningTasks() {
     return this.http.get<Task[]>(this.apiUrl + "/api/v1/task/findTasks?isInRemoteRunner=true");
   }

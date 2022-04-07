@@ -20,6 +20,8 @@ export interface Schema {
   banner: Myfile | null;
   commandTemplate: string | null;
   filesToNotRemoveDuringRuntime: string | null;
+  filesToNotUpload: string | null;
+  additionalFoldersToUpload: string | null;
 }
 
 export interface UserSchemaInfo {

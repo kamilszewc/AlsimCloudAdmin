@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {NgForm} from "@angular/forms";
+import {interval} from "rxjs";
 
 @Component({
   selector: 'app-educational-domains',
@@ -41,7 +42,10 @@ export class EducationalDomainsComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.getAllDomains()
+    this.getAllDomains();
+    interval(60000).subscribe(value => {
+      this.getAllDomains();
+    });
 
     this.educationalDomainsService.getCountries().subscribe(countries => {
       this.countries = countries;

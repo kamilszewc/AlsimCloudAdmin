@@ -5,6 +5,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {User} from "../user";
 import {MatSort} from "@angular/material/sort";
 import {Route, Router} from "@angular/router";
+import {interval} from "rxjs";
 
 @Component({
   selector: 'app-users',
@@ -37,11 +38,18 @@ export class UsersComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.getEssUsers()
-    this.getAlsimUsers()
-    this.getDynairixUsers()
-    this.getAllUsers()
+    this.getEssUsers();
+    this.getAlsimUsers();
+    this.getDynairixUsers();
+    this.getAllUsers();
     this.getAdminUsers();
+    interval(60000).subscribe(value => {
+      this.getEssUsers();
+      this.getAlsimUsers();
+      this.getDynairixUsers();
+      this.getAllUsers();
+      this.getAdminUsers();
+    });
   }
 
   getEssUsers() {
