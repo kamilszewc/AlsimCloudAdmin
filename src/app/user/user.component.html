@@ -3,11 +3,11 @@
 <form class="row g-3 was-validated" #userForm="ngForm">
   <div class="col-md-6">
     <label for="firstName" class="form-label">First name</label>
-    <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="user!.firstName" [value]="user?.firstName" [disabled]="!isEditAllowed">
+    <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="user!.firstName" [value]="user?.firstName" [disabled]="!isEditAllowed" required>
   </div>
   <div class="col-md-6">
     <label for="secondName" class="form-label">Second name</label>
-    <input type="text" class="form-control" id="secondName" name="secondName" [(ngModel)]="user!.secondName" [value]="user?.secondName" [disabled]="!isEditAllowed">
+    <input type="text" class="form-control" id="secondName" name="secondName" [(ngModel)]="user!.secondName" [value]="user?.secondName" [disabled]="!isEditAllowed" required>
   </div>
 
   <div class="col-12">
