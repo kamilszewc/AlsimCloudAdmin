@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {Task} from "../task";
 import {interval} from "rxjs";
+import {AlarmDialogService} from "../alarm-dialog/alarm-dialog.service";
 
 @Component({
   selector: 'app-resources',
@@ -68,7 +69,8 @@ export class ResourcesComponent implements OnInit {
   runningTasksIsLoading = true;
 
   constructor(private resourcesService: ResourcesService,
-              private router: Router) { }
+              private router: Router,
+              private alarmDialogService: AlarmDialogService) { }
 
   ngOnInit(): void {
 
@@ -122,6 +124,11 @@ export class ResourcesComponent implements OnInit {
         window.location.reload();
       },
         error => {
+          const options = {
+            title: "Error",
+            message: error.error.message
+          };
+          this.alarmDialogService.open(options);
           this.isAwsSubmitting = false;
       }
     )

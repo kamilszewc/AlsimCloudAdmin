@@ -34,6 +34,8 @@ import { StorageComponent } from './storage/storage.component';
 import { SchemaCategoriesComponent } from './schema-categories/schema-categories.component';
 import { EducationalDomainsComponent } from './educational-domains/educational-domains.component';
 import {TwoFAComponent} from "./two-fa/two-fa.component";
+import { AlarmDialogComponent } from './alarm-dialog/alarm-dialog.component';
+import {AlarmDialogModule} from "./alarm-dialog/alarm-dialog.module";
 
 const routes: Routes = [
   { path: '', component: UsersComponent, canActivate: [LoginGuard, TwoFaGuard] },
@@ -96,7 +98,8 @@ const HttpInterceptorProviders = [
         ReactiveFormsModule,
         RouterModule.forRoot(routes),
         FormsModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        AlarmDialogModule
     ],
   exports: [RouterModule],
   providers: [
