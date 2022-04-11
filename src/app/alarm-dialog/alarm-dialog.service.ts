@@ -4,6 +4,11 @@ import {map, take} from "rxjs/operators";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {AlarmDialogComponent} from "./alarm-dialog.component";
 
+export interface AlarmDialogMessage {
+  title: string,
+  message: string;
+}
+
 @Injectable()
 export class AlarmDialogService {
 
@@ -11,7 +16,7 @@ export class AlarmDialogService {
 
   dialogRef: MatDialogRef<AlarmDialogComponent> | undefined;
 
-  public open(options: any) {
+  public open(options: AlarmDialogMessage) {
     this.dialogRef = this.dialog.open(AlarmDialogComponent, {
       data: {
         title: options.title,

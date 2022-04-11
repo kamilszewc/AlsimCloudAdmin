@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {Task} from "../task";
 import {interval} from "rxjs";
-import {AlarmDialogService} from "../alarm-dialog/alarm-dialog.service";
+import {AlarmDialogMessage, AlarmDialogService} from "../alarm-dialog/alarm-dialog.service";
 
 @Component({
   selector: 'app-resources',
@@ -110,8 +110,17 @@ export class ResourcesComponent implements OnInit {
 
   addNewResource() {
     console.log(this.newResource)
-    this.resourcesService.addNewEssResource(this.newResource).subscribe(resource => {
-      window.location.reload();
+    this.resourcesService.addNewEssResource(this.newResource).subscribe(
+      resource => {
+        window.location.reload();
+      },
+      error => {
+        const dialogMessage = new class implements AlarmDialogMessage {
+          title = "Error"
+          message = error.error.message
+        };
+        this.alarmDialogService.open(dialogMessage);
+        this.isAwsSubmitting = false;
       }
     )
   }
@@ -124,11 +133,11 @@ export class ResourcesComponent implements OnInit {
         window.location.reload();
       },
         error => {
-          const options = {
-            title: "Error",
-            message: error.error.message
+          const dialogMessage = new class implements AlarmDialogMessage {
+            title = "Error"
+            message = error.error.message
           };
-          this.alarmDialogService.open(options);
+          this.alarmDialogService.open(dialogMessage);
           this.isAwsSubmitting = false;
       }
     )
@@ -149,6 +158,11 @@ export class ResourcesComponent implements OnInit {
         window.location.reload();
       },
       error => {
+        const dialogMessage = new class implements AlarmDialogMessage {
+          title = "Error"
+          message = error.error.message
+        };
+        this.alarmDialogService.open(dialogMessage);
         this.isGenesisSubmitting = false;
       }
     )
