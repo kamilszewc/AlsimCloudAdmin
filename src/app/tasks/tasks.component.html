@@ -66,6 +66,18 @@
       </div>
     </form>
   </div>
+  <div class="col-md-4">
+    <form class="row g-3" #findTasksByTaskIdForm="ngForm" >
+      <div class="col-md-6">
+        <label for="taskId" class="form-label">Task id</label>
+        <input type="number" min="1" class="form-control" id="taskId" name="taskId" [(ngModel)]="taskId" [value]="taskId">
+      </div>
+      <div class="col-md-6">
+        <label for="submitFindTasksByTaskId" class="form-label">&nbsp;</label>
+        <button type="submit" class="btn btn-primary form-control" id="submitFindTasksByTaskId" (click)="findTasksByTaskId()">Find</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 

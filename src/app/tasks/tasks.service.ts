@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {GlobalConstants} from "../common/global-constants";
+import {Message} from "@angular/compiler/src/i18n/i18n_ast";
 
 @Injectable({
   providedIn: 'root'
@@ -33,9 +34,12 @@ export class TasksService {
     return this.http.get<Task[]>(this.apiUrl + "/api/v1/task/findTasks?resourceId=" + id)
   }
 
+  findTasksByTaskId(id: number) {
+    return this.http.get<Task[]>(this.apiUrl + "/api/v1/task/findTasks?taskId=" + id)
+  }
+
   getAllTasks() {
     return this.http.get<Task[]>(this.apiUrl + "/api/v1/task/findTasks")
   }
-
 
 }

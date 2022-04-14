@@ -20,12 +20,14 @@ export class TasksComponent implements OnInit {
   groupId!: number;
   schemaId!: number;
   resourceId!: number;
+  taskId!: number;
   status: string = "unknown";
   @ViewChild('findTasksByUserIdForm') findTasksByUserIdForm!: NgForm;
   @ViewChild('findTasksByGroupIdForm') findTasksByGroupIdForm!: NgForm;
   @ViewChild('findTasksBySchemaIdForm') findTasksBySchemaIdForm!: NgForm;
   @ViewChild('findTasksByStatusForm') findTasksByStatusForm!: NgForm;
-  @ViewChild('findTasksByResourcerIdForm') findTasksByResourceIdForm!: NgForm;
+  @ViewChild('findTasksByResourceIdForm') findTasksByResourceIdForm!: NgForm;
+  @ViewChild('findTasksByTaskIdForm') findTasksByTaskIdForm!: NgForm;
 
 
   condition: string = "";
@@ -120,6 +122,20 @@ export class TasksComponent implements OnInit {
       this.isTableVisible = true;
       this.condition = "resource id = " + this.resourceId;
       this.tasksService.findTasksByResourceId(this.resourceId)
+        .subscribe(allTasks => {
+          this.searchTasks = new MatTableDataSource<Task>(allTasks)
+          this.searchTasks.sort = this.searchTasksSort;
+          this.searchTasks.paginator = this.searchTasksPaginator;
+          this.isLoading = false;
+        })
+    }
+  }
+
+  findTasksByTaskId() {
+    if (this.taskId > 0) {
+      this.isTableVisible = true;
+      this.condition = "task id = " + this.taskId;
+      this.tasksService.findTasksByTaskId(this.taskId)
         .subscribe(allTasks => {
           this.searchTasks = new MatTableDataSource<Task>(allTasks)
           this.searchTasks.sort = this.searchTasksSort;

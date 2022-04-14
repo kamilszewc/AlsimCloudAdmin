@@ -24,7 +24,7 @@
     <input type="number" min="0" class="form-control" id="numberOfGpus" name="numberOfGpus" [(ngModel)]="task!.numberOfGpus" [value]="task?.numberOfGpus" [disabled]="!isEditAllowed">
   </div>
   <div class="col-md-4">
-    <label for="ramMemory" class="form-label">RAM memory (B)</label>
+    <label for="ramMemory" class="form-label">RAM memory (KB)</label>
     <input type="number" min="0" class="form-control" id="ramMemory" name="ramMemory" [(ngModel)]="task!.ramMemory" [value]="task?.ramMemory" [disabled]="!isEditAllowed">
   </div>
 
@@ -127,3 +127,18 @@
 </div>
 
 <br/>
+
+
+<h3>Task stop</h3>
+<form class="row g-3">
+  <div class="col-12" *ngIf="isStopAllowed == false">
+    <button type="submit" class="btn btn-primary" (click)="allowStop()" [disabled]="isStopHidden">Task stop</button>
+  </div>
+  <div class="col-12" *ngIf="isStopAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="stop()" #stopButton>Click here to confirm task stop</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+</form>
+
+<br/>
+
