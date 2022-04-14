@@ -88,7 +88,7 @@
 
 <form class="row g-3">
   <div class="col-12" *ngIf="isRemovalAllowed == false">
-    <button type="submit" class="btn btn-primary" (click)="allowRemoval()">Delete schema</button>
+    <button type="submit" class="btn btn-danger" (click)="allowRemoval()">Delete schema</button>
   </div>
   <div class="col-12" *ngIf="isRemovalAllowed == true">
     <button type="submit" class="btn btn-warning" (click)="deleteSchema()">Click here to confirm schema delete</button>&nbsp;

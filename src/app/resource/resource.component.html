@@ -324,7 +324,7 @@
 <h3>Resource removal</h3>
 <form class="row g-3">
   <div class="col-12" *ngIf="isRemovalAllowed == false">
-    <button type="submit" class="btn btn-primary" (click)="allowRemoval()">Delete resource</button>
+    <button type="submit" class="btn btn-danger" (click)="allowRemoval()">Delete resource</button>
   </div>
   <div class="col-12" *ngIf="isRemovalAllowed == true">
     <button type="submit" class="btn btn-warning" (click)="deleteResource()" #deleteButton>Click here to confirm resource delete</button>&nbsp;

@@ -84,7 +84,7 @@
 
 <form class="row g-3">
   <div class="col-12" *ngIf="isRemovalAllowed == false">
-    <button type="submit" class="btn btn-primary" (click)="allowRemoval()">Delete</button>
+    <button type="submit" class="btn btn-danger" (click)="allowRemoval()">Delete</button>
   </div>
   <div class="col-12" *ngIf="isRemovalAllowed == true">
     <button type="submit" class="btn btn-warning" (click)="removeGroup()">Confirm delete</button>&nbsp;
