@@ -36,6 +36,7 @@ import { EducationalDomainsComponent } from './educational-domains/educational-d
 import {TwoFAComponent} from "./two-fa/two-fa.component";
 import { AlarmDialogComponent } from './alarm-dialog/alarm-dialog.component';
 import {AlarmDialogModule} from "./alarm-dialog/alarm-dialog.module";
+import { AnalyticsComponent } from './analytics/analytics.component';
 
 const routes: Routes = [
   { path: '', component: UsersComponent, canActivate: [LoginGuard, TwoFaGuard] },
@@ -56,6 +57,7 @@ const routes: Routes = [
   { path: 'storage/:id', component: StorageComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'schemaCategories', component: SchemaCategoriesComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'educationalDomains', component: EducationalDomainsComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'analytics', component: AnalyticsComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'twoFA', component: TwoFAComponent, canActivate: [LoginGuard] },
   { path: 'login', component: LoginComponent }
 ]
@@ -84,7 +86,8 @@ const HttpInterceptorProviders = [
     StorageComponent,
     SchemaCategoriesComponent,
     EducationalDomainsComponent,
-    TwoFAComponent
+    TwoFAComponent,
+    AnalyticsComponent
   ],
     imports: [
         BrowserModule,
