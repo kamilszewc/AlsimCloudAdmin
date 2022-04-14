@@ -37,6 +37,7 @@ import {TwoFAComponent} from "./two-fa/two-fa.component";
 import { AlarmDialogComponent } from './alarm-dialog/alarm-dialog.component';
 import {AlarmDialogModule} from "./alarm-dialog/alarm-dialog.module";
 import { AnalyticsComponent } from './analytics/analytics.component';
+import { NgChartsModule } from 'ng2-charts';
 
 const routes: Routes = [
   { path: '', component: UsersComponent, canActivate: [LoginGuard, TwoFaGuard] },
@@ -102,7 +103,8 @@ const HttpInterceptorProviders = [
         RouterModule.forRoot(routes),
         FormsModule,
         MatProgressSpinnerModule,
-        AlarmDialogModule
+        AlarmDialogModule,
+        NgChartsModule
     ],
   exports: [RouterModule],
   providers: [
