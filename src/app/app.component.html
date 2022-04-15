@@ -81,11 +81,19 @@
               Educational domains
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="analytics">
-              <span data-feather="analytics"></span>
-              Analytics
-            </a>
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" routerLink="user-statistics">-->
+<!--              <span data-feather="user-statistics"></span>-->
+<!--              Analytics-->
+<!--            </a>-->
+<!--          </li>-->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Analytics</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="user-statistics">User statistics</a></li>
+              <li><a class="dropdown-item" routerLink="task-statistics">Task statistics</a></li>
+              <li><a class="dropdown-item" routerLink="resource-statistics">Resource statistics</a></li>
+            </ul>
           </li>
         </ul>
       </div>

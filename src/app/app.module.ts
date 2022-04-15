@@ -36,8 +36,10 @@ import { EducationalDomainsComponent } from './educational-domains/educational-d
 import {TwoFAComponent} from "./two-fa/two-fa.component";
 import { AlarmDialogComponent } from './alarm-dialog/alarm-dialog.component';
 import {AlarmDialogModule} from "./alarm-dialog/alarm-dialog.module";
-import { AnalyticsComponent } from './analytics/analytics.component';
+import { UserStatisticsComponent } from './analytics/user-statistics/user-statistics.component';
 import { NgChartsModule } from 'ng2-charts';
+import { TaskStatisticsComponent } from './analytics/task-statistics/task-statistics.component';
+import { ResourceStatisticsComponent } from './analytics/resource-statistics/resource-statistics.component';
 
 const routes: Routes = [
   { path: '', component: UsersComponent, canActivate: [LoginGuard, TwoFaGuard] },
@@ -58,7 +60,9 @@ const routes: Routes = [
   { path: 'storage/:id', component: StorageComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'schemaCategories', component: SchemaCategoriesComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'educationalDomains', component: EducationalDomainsComponent, canActivate: [LoginGuard, TwoFaGuard] },
-  { path: 'analytics', component: AnalyticsComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'user-statistics', component: UserStatisticsComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'task-statistics', component: TaskStatisticsComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'resource-statistics', component: ResourceStatisticsComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'twoFA', component: TwoFAComponent, canActivate: [LoginGuard] },
   { path: 'login', component: LoginComponent }
 ]
@@ -88,7 +92,9 @@ const HttpInterceptorProviders = [
     SchemaCategoriesComponent,
     EducationalDomainsComponent,
     TwoFAComponent,
-    AnalyticsComponent
+    UserStatisticsComponent,
+    TaskStatisticsComponent,
+    ResourceStatisticsComponent
   ],
     imports: [
         BrowserModule,

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {ChartDataset, ChartOptions, ChartType} from "chart.js";
 
 @Component({
-  selector: 'app-analytics',
-  templateUrl: './analytics.component.html',
-  styleUrls: ['./analytics.component.css']
+  selector: 'app-user-statistics',
+  templateUrl: './user-statistics.component.html',
+  styleUrls: ['./user-statistics.component.css']
 })
-export class AnalyticsComponent implements OnInit {
+export class UserStatisticsComponent implements OnInit {
 
   public chartData: ChartDataset[] = [
     {
