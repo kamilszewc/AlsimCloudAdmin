@@ -1,6 +1,6 @@
 <h5>Schema {{schema?.id}}</h5>
 
-<form class="row g-3 was-validated" #schemaForm="ngForm" >
+<form class="row g-3 was-validated" #schemaForm="ngForm">
   <div class="col-md-6">
     <label for="name" class="form-label">Name</label>
     <input type="text" pattern=".{4,255}" class="form-control" id="name" name="name" [(ngModel)]="schema!.name" [value]="schema?.name" [disabled]="!isEditAllowed" required>
@@ -17,9 +17,17 @@
   </div>
 
 
-  <div class="col-md-12">
+  <div class="col-md-8">
     <label for="description" class="form-label">Description</label>
     <input type="text" pattern=".{0,255}" class="form-control" id="description" name="description" [(ngModel)]="schema!.description" [value]="schema?.description" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-4">
+    <label for="schemaCategoryId" class="form-label">Schema category</label>
+<!--    <input type="text" pattern=".{0,255}" class="form-control" id="schemaCategory" name="schemaCategory" [(ngModel)]="schema!.schemaCategory!.name" [value]="schema?.schemaCategory?.name" [disabled]="!isEditAllowed">-->
+
+      <select id="schemaCategoryId" class="form-select" name="schemaCategoryId" [disabled]="!isEditAllowed" [(ngModel)]="schema!.schemaCategoryId">
+      <option *ngFor="let method of schemaCategories" [ngValue]="method.id">{{method.name}}</option>
+    </select>
   </div>
 
   <div class="col-md-6">

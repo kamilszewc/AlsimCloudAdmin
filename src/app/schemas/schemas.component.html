@@ -46,7 +46,7 @@
 
   </table>
 
-  <mat-paginator #schemaPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
+  <mat-paginator #schemasPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
 </div>
 
 <br/>
@@ -70,9 +70,16 @@
     </select>
   </div>
 
-  <div class="col-md-12">
+  <div class="col-md-8">
     <label for="description" class="form-label">Description</label>
     <input type="text" pattern=".{0,255}" class="form-control" id="description" name="description" [(ngModel)]="newSchema!.description" [value]="newSchema?.description">
+  </div>
+
+  <div class="col-md-4">
+    <label for="schemaCategory" class="form-label">Schema category</label>
+    <select id="schemaCategory" class="form-select" [(ngModel)]="newSchema!.schemaCategory" [value]="newSchema?.schemaCategory" name="schemaCategory">
+      <option *ngFor="let method of schemaCategories" [value]="method">{{method.name}}</option>
+    </select>
   </div>
 
   <div class="col-md-6">

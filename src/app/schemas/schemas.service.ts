@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Schema} from "../schema";
 import {HttpClient} from "@angular/common/http";
 import {GlobalConstants} from "../common/global-constants";
+import {SchemaCategory} from "../schemaCategory";
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,9 @@ export class SchemasService {
 
   addNewSchema(schema: Schema) {
     return this.http.post<Schema>(this.apiUrl + "/api/v1/schema/new", schema);
+  }
+
+  getAllSchemaCategories() {
+    return this.http.get<SchemaCategory[]>(this.apiUrl + "/api/v1/schemaCategory");
   }
 }

@@ -183,11 +183,6 @@ export class UserComponent implements OnInit {
     this.router.navigate(['task', id])
   }
 
-  onCountryChange(value: string) {
-    console.info(value)
-    this.user!.country = value;
-  }
-
   goToFiles(id: number) {
     this.router.navigate(['storage', id]);
   }

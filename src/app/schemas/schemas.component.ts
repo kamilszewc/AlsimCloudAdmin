@@ -9,6 +9,7 @@ import {Resource} from "../resource";
 import {NgForm} from "@angular/forms";
 import {Myfile} from "../myfile";
 import {SchemaCategory} from "../schemaCategory";
+import {AlarmDialogMessage, AlarmDialogService} from "../alarm-dialog/alarm-dialog.service";
 
 @Component({
   selector: 'app-schemas',
@@ -21,6 +22,8 @@ export class SchemasComponent implements OnInit {
   @ViewChild('schemasTable', {read: MatSort}) schemasSort!: MatSort;
   schemas = new MatTableDataSource<Schema>([]);
   displayedColumns: string[] = ['id', 'name', 'solverGroup', 'latestSolverVersion', 'paymentMethod', 'details'];
+
+  schemaCategories!: SchemaCategory[]
 
   @ViewChild('newSchemaForm') newSchemaForm! : NgForm;
   paymentMethods: string[] | undefined;
@@ -39,6 +42,7 @@ export class SchemasComponent implements OnInit {
     ownersGitlabId: number | null = null;
     paymentMethod: string | null = 'CONTACT';
     schemaCategory: SchemaCategory | null = null;
+    schemaCategoryId: number | null = null;
     solverGroup: string | null = "";
     usesMlModel: boolean | null = false;
     validationKeys: string | null = "";
@@ -48,10 +52,12 @@ export class SchemasComponent implements OnInit {
   }
 
   constructor(private schemasService: SchemasService,
-              private router: Router) { }
+              private router: Router,
+              private alarmDialogService: AlarmDialogService) { }
 
   ngOnInit(): void {
     this.getSchemas()
+    this.getAllSchemaCategories()
 
     this.schemasService.getPaymentMethods().subscribe(paymentMethods => {
       this.paymentMethods = paymentMethods;
@@ -61,11 +67,18 @@ export class SchemasComponent implements OnInit {
   getSchemas() {
     this.schemasService.getSchemas()
       .subscribe(schemas => {
-        console.log(schemas)
         this.schemas = new MatTableDataSource<Schema>(schemas)
         this.schemas.sort = this.schemasSort;
         this.schemas.paginator = this.schemasPaginator;
       })
+  }
+
+  getAllSchemaCategories() {
+    this.schemasService.getAllSchemaCategories().subscribe(schemaCategories => {
+      this.schemaCategories = schemaCategories
+      this.newSchema.schemaCategory = this.schemaCategories[0]
+      this.newSchema.schemaCategoryId = this.schemaCategories[0].id
+    })
   }
 
   goTo(id: number) {
@@ -73,9 +86,18 @@ export class SchemasComponent implements OnInit {
   }
 
   addNewSchema() {
-    this.schemasService.addNewSchema(this.newSchema!).subscribe(schema => {
-      this.router.navigate(['schema', schema.id])
-    })
+    this.newSchema!.schemaCategoryId = this.newSchema.schemaCategory!.id;
+    this.schemasService.addNewSchema(this.newSchema!).subscribe(
+      schema => {
+        this.router.navigate(['schema', schema.id])
+      },
+      error => {
+        const dialogMessage = new class implements AlarmDialogMessage {
+          title = "Error"
+          message = error.error.message
+        };
+        this.alarmDialogService.open(dialogMessage);
+      })
   }
 
 }

@@ -60,6 +60,7 @@ const routes: Routes = [
   { path: 'storage', component: StorageComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'storage/:id', component: StorageComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'schemaCategories', component: SchemaCategoriesComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'schemaCategories/:id', component: SchemaCategoryComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'educationalDomains', component: EducationalDomainsComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'user-statistics', component: UserStatisticsComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'task-statistics', component: TaskStatisticsComponent, canActivate: [LoginGuard, TwoFaGuard] },

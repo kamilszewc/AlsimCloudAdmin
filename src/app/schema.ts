@@ -7,6 +7,7 @@ export interface Schema {
   description: string | null;
   paymentMethod: string | null;
   schemaCategory: SchemaCategory | null;
+  schemaCategoryId: number | null;
   validationKeys: string | null;
   solverGroup: string | null;
   ownersGitlabId: number | null;
