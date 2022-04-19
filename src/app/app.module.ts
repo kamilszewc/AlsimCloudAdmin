@@ -40,6 +40,7 @@ import { UserStatisticsComponent } from './analytics/user-statistics/user-statis
 import { NgChartsModule } from 'ng2-charts';
 import { TaskStatisticsComponent } from './analytics/task-statistics/task-statistics.component';
 import { ResourceStatisticsComponent } from './analytics/resource-statistics/resource-statistics.component';
+import { SchemaCategoryComponent } from './schema-category/schema-category.component';
 
 const routes: Routes = [
   { path: '', component: UsersComponent, canActivate: [LoginGuard, TwoFaGuard] },
@@ -94,7 +95,8 @@ const HttpInterceptorProviders = [
     TwoFAComponent,
     UserStatisticsComponent,
     TaskStatisticsComponent,
-    ResourceStatisticsComponent
+    ResourceStatisticsComponent,
+    SchemaCategoryComponent
   ],
     imports: [
         BrowserModule,

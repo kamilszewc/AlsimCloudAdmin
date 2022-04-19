@@ -24,7 +24,7 @@
     <input type="number" min="0" class="form-control" id="numberOfGpus" name="numberOfGpus" [(ngModel)]="resource!.numberOfGpus" [value]="resource?.numberOfGpus" [disabled]="!isEditAllowed">
   </div>
   <div class="col-md-4">
-    <label for="ramMemory" class="form-label">RAM memory (B)</label>
+    <label for="ramMemory" class="form-label">RAM memory (KB)</label>
     <input type="number" min="0" class="form-control" id="ramMemory" name="ramMemory" [(ngModel)]="resource!.ramMemory" [value]="resource?.ramMemory" [disabled]="!isEditAllowed">
   </div>
 
@@ -37,7 +37,7 @@
     <input type="number" min="0" class="form-control" id="numberOfGpusInUse" name="numberOfGpusInUse" [(ngModel)]="resource!.numberOfGpusInUse" [value]="resource?.numberOfGpusInUse" disabled>
   </div>
   <div class="col-md-4">
-    <label for="ramMemoryInUse" class="form-label">RAM memory in use (B)</label>
+    <label for="ramMemoryInUse" class="form-label">RAM memory in use (KB)</label>
     <input type="number" min="0" class="form-control" id="ramMemoryInUse" name="ramMemoryInUse" [(ngModel)]="resource!.ramMemoryInUse" [value]="resource?.ramMemoryInUse" disabled>
   </div>
 
