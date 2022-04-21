@@ -1,9 +1,29 @@
 <h3>User statistics</h3>
 
-<!--<div style="display: block;" class="w-50">-->
-<!--  <canvas baseChart-->
-<!--    [datasets]="chartData"-->
-<!--    [options]="chartOptions"-->
-<!--    [type]="chartType">-->
-<!--  </canvas>-->
-<!--</div>-->
+<form class="row g-3" #timeRangePickerForm="ngForm">
+  <div class="col-md-2">
+    <label for="label" class="form-label">&nbsp;</label>
+    <label id="label" class="form-control-plaintext">Choose the time range</label>
+  </div>
+  <div class="col-md-4">
+    <label for="timeRange" class="form-label">&nbsp;</label>
+    <select id="timeRange" class="form-select" [(ngModel)]="chosenTimeRange" name="timeRange" (ngModelChange)="selectedTimeRange()">
+      <option *ngFor="let timeRange of timeRangeNames" [value]="timeRange">{{timeRange}}</option>
+    </select>
+  </div>
+</form>
+
+<br/>
+
+<div *ngFor="let header of headers">
+  <div style="display: block;" class="w-75">
+    <canvas baseChart
+            [labels]="chartLabels.get(header)"
+            [datasets]="chartDatasets.get(header)"
+            [options]="chartOptions.get(header)"
+            [type]="chartType">
+    </canvas>
+  </div>
+
+  <br/>
+</div>
