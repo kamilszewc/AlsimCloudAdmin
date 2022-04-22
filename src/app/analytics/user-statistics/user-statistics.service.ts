@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {GlobalConstants} from "../../common/global-constants";
 import {Message} from "../../message";
+import {shareReplay, tap} from "rxjs";
 
 export interface HeaderDescription {
   id: number;
@@ -11,7 +12,7 @@ export interface HeaderDescription {
 }
 
 export interface TimeValueData {
-  x: string[];
+  x: Date[];
   y: number[];
   title: string;
   xlabel: string;
@@ -57,6 +58,14 @@ export class UserStatisticsService {
       parameter = "?timeRange=" + timeRange;
     }
 
-    return this.http.get<TimeValueData>(this.apiUrl + "/api/v1/analytics/user/getDataForPlotting/" + header + parameter, httpOptions);
+    return this.http.get<TimeValueData>(this.apiUrl + "/api/v1/analytics/user/getDataForPlotting/" + header + parameter, httpOptions)
+      .pipe(tap((timeValueData: TimeValueData) => {
+
+        timeValueData.x = timeValueData.x.map(date => {
+          return new Date(date)
+        })
+
+        return timeValueData;
+      }));
   }
 }

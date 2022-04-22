@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {BubbleDataPoint, ChartDataset, ChartOptions, ChartType, ScatterDataPoint} from "chart.js";
-import {HeaderDescription, UserStatisticsService} from "./user-statistics.service";
+import {ChartDataset, ChartOptions, ChartType} from "chart.js";
+import {UserStatisticsService} from "./user-statistics.service";
 import {NgForm} from "@angular/forms";
 
 @Component({
@@ -84,7 +84,7 @@ export class UserStatisticsComponent implements OnInit {
             }
 
             this.chartDatasets.set(key, chartDataset);
-            this.chartLabels.set(key, x);
+            this.chartLabels.set(key, x.map(e => e.toDateString()));
             this.chartOptions.set(key, chartOption);
           })
         }
