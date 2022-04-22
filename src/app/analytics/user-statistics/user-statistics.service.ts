@@ -54,7 +54,7 @@ export class UserStatisticsService {
 
     let parameter = ""
     if (timeRange != null) {
-      parameter = "?timeRange" + timeRange;
+      parameter = "?timeRange=" + timeRange;
     }
 
     return this.http.get<TimeValueData>(this.apiUrl + "/api/v1/analytics/user/getDataForPlotting/" + header + parameter, httpOptions);
