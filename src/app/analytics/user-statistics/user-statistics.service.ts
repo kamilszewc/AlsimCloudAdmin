@@ -34,7 +34,7 @@ export class UserStatisticsService {
     return this.http.get<Message<string>>(this.apiUrl + "/api/v1/token/generateAnalyticsGrabberToken");
   }
 
-  getHeadersForPlotting(token: string) {
+  getHeadersForPlotting(token: string, source: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -42,7 +42,7 @@ export class UserStatisticsService {
       })
     };
 
-    return this.http.get<Map<string, HeaderDescription>>(this.apiUrl + "/api/v1/analytics/user/getHeadersForPlotting", httpOptions);
+    return this.http.get<Map<string, HeaderDescription>>(this.apiUrl + "/api/v1/analytics/user/getHeadersForPlotting?source=" + source, httpOptions);
   }
 
   getDataForPlotting(header: string, token: string, timeRange: number | null) {

@@ -16,6 +16,9 @@ export class UserStatisticsComponent implements OnInit {
 
   chosenTimeRange = "since beginning";
 
+  dataSources = ["alsimcloud", "dynairix"]
+  chosenDataSource = "alsimcloud"
+
   public headers!: string[];
   public chartDatasets!: Map<string, ChartDataset[]>;
   public chartLabels!: Map<string, string[]>;
@@ -44,7 +47,7 @@ export class UserStatisticsComponent implements OnInit {
       let token = response.message;
       console.log(token)
 
-      this.userStatisticsService.getHeadersForPlotting(token).subscribe(headers => {
+      this.userStatisticsService.getHeadersForPlotting(token, this.chosenDataSource).subscribe(headers => {
 
         this.headers = [];
 
@@ -93,7 +96,7 @@ export class UserStatisticsComponent implements OnInit {
     })
   }
 
-  selectedTimeRange() {
+  selectedTimeRangeOrDataSource() {
     const timeRange = this.timeRangeOptions.get(this.chosenTimeRange);
     this.getPlotsData(timeRange!)
   }

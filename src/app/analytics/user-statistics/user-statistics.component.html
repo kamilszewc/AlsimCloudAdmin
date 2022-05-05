@@ -1,15 +1,19 @@
 <h3>User statistics</h3>
 
 <form class="row g-3" #timeRangePickerForm="ngForm">
-  <div class="col-md-2">
-    <label for="label" class="form-label">&nbsp;</label>
-    <label id="label" class="form-control-plaintext">Choose the time range</label>
+  <div class="col-md-4">
+    <label for="source" class="form-label">Choose the source</label>
+    <select id="source" class="form-select" [(ngModel)]="chosenDataSource" name="source" (ngModelChange)="selectedTimeRangeOrDataSource()">
+      <option *ngFor="let dataSource of dataSources" [value]="dataSource">{{dataSource}}</option>
+    </select>
   </div>
   <div class="col-md-4">
-    <label for="timeRange" class="form-label">&nbsp;</label>
-    <select id="timeRange" class="form-select" [(ngModel)]="chosenTimeRange" name="timeRange" (ngModelChange)="selectedTimeRange()">
+    <label for="timeRange" class="form-label">Choose the time range</label>
+    <select id="timeRange" class="form-select" [(ngModel)]="chosenTimeRange" name="timeRange" (ngModelChange)="selectedTimeRangeOrDataSource()">
       <option *ngFor="let timeRange of timeRangeNames" [value]="timeRange">{{timeRange}}</option>
     </select>
+  </div>
+  <div class="col-md-4">
   </div>
 </form>
 
