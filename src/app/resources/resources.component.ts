@@ -62,6 +62,15 @@ export class ResourcesComponent implements OnInit {
   genesisAvailableInstances: CloudInstanceInfo[] | null = null;
   isGenesisSubmitting = false;
 
+  @ViewChild('newExoscaleResourceForm') newExoscaleResourceForm!: NgForm;
+  newExoscaleResource: CloudResource = new class implements CloudResource {
+    name: string | null = null;
+    description: string | null = "";
+    instanceTypeName: string | null = null;
+  }
+  exoscaleAvailableInstances: CloudInstanceInfo[] | null = null;
+  isExoscaleSubmitting = false;
+
   runningTasks = new MatTableDataSource<Task>([]);
   @ViewChild('runningTasksPaginator') runningTasksPaginator!: MatPaginator;
   @ViewChild('runningTasksTable', {read: MatSort}) runningTasksSort!: MatSort;
@@ -86,6 +95,7 @@ export class ResourcesComponent implements OnInit {
 
     this.getAwsAvailableInstances();
     this.getGenesisAvailableInstances();
+    this.getExoscaleAvailableInstances();
   }
 
   getResources() {
@@ -172,6 +182,31 @@ export class ResourcesComponent implements OnInit {
     this.resourcesService.getGenesisAvailableInstances().subscribe(instances => {
       this.genesisAvailableInstances = instances;
       this.newGenesisResource.instanceTypeName = instances[0].name
+    })
+  }
+
+  addNewExoscaleResource() {
+    console.log(this.newExoscaleResource)
+    this.isExoscaleSubmitting = true;
+    this.resourcesService.addNewExoscaleResource(this.newExoscaleResource).subscribe(
+      resource => {
+        window.location.reload();
+      },
+      error => {
+        const dialogMessage = new class implements AlarmDialogMessage {
+          title = "Error"
+          message = error.error.message
+        };
+        this.alarmDialogService.open(dialogMessage);
+        this.isExoscaleSubmitting = false;
+      }
+    )
+  }
+
+  getExoscaleAvailableInstances() {
+    this.resourcesService.getExoscaleAvailableInstances().subscribe(instances => {
+      this.exoscaleAvailableInstances = instances;
+      this.newExoscaleResource.instanceTypeName = instances[0].name
     })
   }
 

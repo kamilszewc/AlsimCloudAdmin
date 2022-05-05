@@ -39,6 +39,14 @@ export class ResourcesService {
     return this.http.get<CloudInstanceInfo[]>(this.apiUrl + "/api/v1/resource/genesis/availableInstances");
   }
 
+  addNewExoscaleResource(resource: CloudResource) {
+    return this.http.post<Resource>(this.apiUrl + "/api/v1/resource/exoscale/new", resource);
+  }
+
+  getExoscaleAvailableInstances() {
+    return this.http.get<CloudInstanceInfo[]>(this.apiUrl + "/api/v1/resource/exoscale/availableInstances");
+  }
+
   getRunningTasks() {
     return this.http.get<Task[]>(this.apiUrl + "/api/v1/task/findTasks?isInRemoteRunner=true");
   }
