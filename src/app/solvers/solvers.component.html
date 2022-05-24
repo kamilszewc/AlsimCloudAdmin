@@ -13,14 +13,15 @@
           <table class="table">
             <thead>
               <th scope="col">Version</th>
-              <th scope="col">Size (KB)</th>
+              <th scope="col">Size (B)</th>
               <th scope="col">Modification time</th>
               <th scope="col"></th>
             </thead>
             <tbody>
               <tr *ngFor="let version of solver!.versions">
                 <th scope="row">{{version!.version}}</th>
-                <td>{{version!.size}}</td>
+                <td *ngIf="version!.size! >= 500">{{version!.size}}</td>
+                <td *ngIf="version!.size! < 500" style="color: red"><b>{{version!.size}}</b></td>
                 <td>{{version!.updateDateTime}}</td>
                 <td><button type="submit" class="btn btn-danger" (click)="removeVersion(solver.name!, version!.version!)">Remove</button></td>
               </tr>
