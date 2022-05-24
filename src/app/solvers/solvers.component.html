@@ -1,1 +1,43 @@
-<h3>Here you will be able to manipulate solvers in cloud</h3>
+<h3>Solvers</h3>
+
+<div class="accordion" id="accordionExample">
+  <div *ngFor="let solver of this.solvers" class="accordion-item">
+    <h2 class="accordion-header" [id]="'header-'+solver.name">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#' + solver.name" aria-expanded="false" [attr.aria-controls]="solver.name">
+        <span [textContent]="solver.name"></span>
+      </button>
+    </h2>
+    <div [id]="solver.name" class="accordion-collapse collapse" [attr.aria-labelledby]="'header-'+solver.name" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <div class="col-md-12">
+          <table class="table">
+            <thead>
+              <th scope="col">Version</th>
+              <th scope="col">Size (KB)</th>
+              <th scope="col">Modification time</th>
+              <th scope="col"></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let version of solver!.versions">
+                <th scope="row">{{version!.version}}</th>
+                <td>{{version!.size}}</td>
+                <td>{{version!.updateDateTime}}</td>
+                <td><button type="submit" class="btn btn-danger" (click)="removeVersion(solver.name!, version!.version!)">Remove</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white; margin-top: 20px">
+  <mat-progress-spinner
+    color="primary"
+    mode="indeterminate"
+    diameter="70">
+  </mat-progress-spinner>
+</div>
+
+<br/>
