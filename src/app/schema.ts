@@ -6,6 +6,7 @@ export interface Schema {
   name: string | null;
   description: string | null;
   paymentMethod: string | null;
+  paymentSchema: string | null;
   schemaCategory: SchemaCategory | null;
   schemaCategoryId: number | null;
   validationKeys: string | null;

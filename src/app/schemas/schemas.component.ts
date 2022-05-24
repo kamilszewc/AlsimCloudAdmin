@@ -41,6 +41,7 @@ export class SchemasComponent implements OnInit {
     name: string | null = "";
     ownersGitlabId: number | null = null;
     paymentMethod: string | null = 'CONTACT';
+    paymentSchema: string | null = '';
     schemaCategory: SchemaCategory | null = null;
     schemaCategoryId: number | null = null;
     solverGroup: string | null = "";
@@ -87,6 +88,7 @@ export class SchemasComponent implements OnInit {
 
   addNewSchema() {
     this.newSchema!.schemaCategoryId = this.newSchema.schemaCategory!.id;
+    console.log(this.newSchema)
     this.schemasService.addNewSchema(this.newSchema!).subscribe(
       schema => {
         this.router.navigate(['schema', schema.id])
