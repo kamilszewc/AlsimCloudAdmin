@@ -23,12 +23,14 @@ export interface ObjectUrl {
 export interface Object {
   id: string;
   name: string;
+  group: string;
   description: string;
   extension: string;
   extensionIcon: string;
-  extensionsThumbnail: string;
+  extensionThumbnail: string;
   extensionSource: string;
   hasSource: boolean;
+  hasSimulations: boolean;
   owner: string;
   permission: string;
   isPublic: string;
@@ -40,7 +42,7 @@ export interface Object {
   simulations: Simulation[] | null;
 }
 
-export interface Group {
+export interface ObjectGroup {
   id: string;
   description: string;
   owner: string;
@@ -50,13 +52,12 @@ export interface Group {
   size: number;
   creationTime: string;
   modificationTime: string;
-  files: Object[];
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class ObjectsService {
+export class ObjectGroupsService {
 
   apiUrl: string;
 
@@ -76,7 +77,7 @@ export class ObjectsService {
       })
     };
 
-    return this.http.get<Group[]>(this.apiUrl + "/api/v1/objectsrepository/groups")
+    return this.http.get<ObjectGroup[]>(this.apiUrl + "/api/v1/objectsrepository/groups", httpOptions)
   }
 
 }

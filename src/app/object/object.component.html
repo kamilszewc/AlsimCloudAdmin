@@ -1,0 +1,98 @@
+<h5>Object {{object?.id}}</h5>
+
+<form class="row g-3 was-validated" #objectForm="ngForm">
+
+  <div class="col-md-4">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="object!.name" [value]="object?.name" [disabled]="!isEditAllowed" required>
+  </div>
+  <div class="col-md-8">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="object!.description" [value]="object?.description" [disabled]="!isEditAllowed" required>
+  </div>
+
+  <div class="col-md-2">
+    <label for="group" class="form-label">Group</label>
+    <input type="text" class="form-control" id="group" name="group" [(ngModel)]="object!.group" [value]="object?.group" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="size" class="form-label">Size</label>
+    <input type="text" class="form-control" id="size" name="size" [(ngModel)]="object!.size" [value]="object?.size" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="extension" class="form-label">Extension</label>
+    <input type="text" class="form-control" id="extension" name="extension" [(ngModel)]="object!.extension" [value]="object?.extension" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="extensionIcon" class="form-label">Icon extension</label>
+    <input type="text" class="form-control" id="extensionIcon" name="extensionIcon" [(ngModel)]="object!.extensionIcon" [value]="object?.extensionIcon" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="extensionThumbnail" class="form-label">Thumbnail extension</label>
+    <input type="text" class="form-control" id="extensionThumbnail" name="extensionThumbnail" [(ngModel)]="object!.extensionThumbnail" [value]="object?.extensionThumbnail" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="extensionSource" class="form-label">Thumbnail source</label>
+    <input type="text" class="form-control" id="extensionSource" name="extensionSource" [(ngModel)]="object!.extensionSource" [value]="object?.extensionSource" disabled>
+  </div>
+
+  <div class="col-md-3">
+    <label for="owner" class="form-label">Owner</label>
+    <input type="text" class="form-control" id="owner" name="owner" [(ngModel)]="object!.owner" [value]="object?.owner" [disabled]="!isEditAllowed" required>
+  </div>
+  <div class="col-md-9">
+    <label for="permission" class="form-label">Permission</label>
+    <input type="text" class="form-control" id="permission" name="permission" [(ngModel)]="object!.permission" [value]="object?.permission" [disabled]="!isEditAllowed" required>
+  </div>
+
+  <div class="col-md-3">
+    <label for="creationTime" class="form-label">Creation time</label>
+    <input type="text" class="form-control" id="creationTime" name="creationTime" [(ngModel)]="object!.creationTime" [value]="object?.creationTime" disabled>
+  </div>
+  <div class="col-md-3">
+    <label for="modificationTime" class="form-label">Modification time</label>
+    <input type="text" class="form-control" id="modificationTime" name="modificationTime" [(ngModel)]="object!.modificationTime" [value]="object?.modificationTime" disabled>
+  </div>
+  <div class="col-md-6">
+    <label for="checksum" class="form-label">Checksum</label>
+    <input type="text" class="form-control" id="checksum" name="checksum" [(ngModel)]="object!.checksum" [value]="object?.checksum" disabled>
+  </div>
+
+  <div class="col-md-2">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="isPublic" name="isPublic" [(ngModel)]="object!.isPublic" [checked]="object?.isPublic" [disabled]="!isEditAllowed">
+      <label class="form-check-label" for="isPublic">
+        Is public
+      </label>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="hasSource" name="hasSource" [(ngModel)]="object!.hasSource" [checked]="object?.hasSource" disabled>
+      <label class="form-check-label" for="hasSource">
+        Has source
+      </label>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="hasSimulations" name="hasSimulations" [(ngModel)]="object!.hasSimulations" [checked]="object?.hasSimulations" disabled>
+      <label class="form-check-label" for="hasSource">
+        Has simulations
+      </label>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="col-12" *ngIf="isEditAllowed == false">
+      <button type="submit" class="btn btn-primary" (click)="allowEdit()" disabled>Edit</button>
+    </div>
+    <div class="col-12" *ngIf="isEditAllowed == true">
+      <button type="submit" class="btn btn-warning" (click)="editObject()">Submit</button>&nbsp;
+      <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+    </div>
+  </div>
+
+</form>
+
+<br/>

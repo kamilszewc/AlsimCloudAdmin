@@ -1,0 +1,124 @@
+<h5>Object group <b>{{group?.id}}</b></h5>
+
+<form class="row g-3 was-validated" #groupForm="ngForm">
+  <div class="col-md-12">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" class="form-control" id="description" name="description" [(ngModel)]="group!.description" [value]="group?.description" [disabled]="!isEditAllowed" required>
+  </div>
+
+  <div class="col-md-2">
+    <label for="size" class="form-label">Size</label>
+    <input type="text" class="form-control" id="size" name="size" [(ngModel)]="group!.size" [value]="group?.size" disabled>
+  </div>
+  <div class="col-md-2">
+    <label for="quota" class="form-label">Quota</label>
+    <input type="text" class="form-control" id="quota" name="quota" [(ngModel)]="group!.quota" [value]="group?.quota" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-2">
+    <label for="owner" class="form-label">Owner</label>
+    <input type="text" class="form-control" id="owner" name="owner" [(ngModel)]="group!.owner" [value]="group?.owner" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-3">
+    <label for="creationTime" class="form-label">Creation time</label>
+    <input type="text" class="form-control" id="creationTime" name="creationTime" [(ngModel)]="group!.creationTime" [value]="group?.creationTime" disabled>
+  </div>
+  <div class="col-md-3">
+    <label for="modificationTime" class="form-label">Modification time</label>
+    <input type="text" class="form-control" id="modificationTime" name="modificationTime" [(ngModel)]="group!.modificationTime" [value]="group?.modificationTime" disabled>
+  </div>
+
+  <div class="col-md-12">
+    <label for="permission" class="form-label">Permission</label>
+    <input type="text" class="form-control" id="permission" name="permission" [(ngModel)]="group!.permission" [value]="group?.permission" [disabled]="!isEditAllowed" required>
+  </div>
+
+  <div class="col-md-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="isPublic" name="isPublic" [(ngModel)]="group!.isPublic" [checked]="group?.isPublic" disabled>
+      <label class="form-check-label" for="isPublic">
+        Is public
+      </label>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="col-12" *ngIf="isEditAllowed == false">
+      <button type="submit" class="btn btn-primary" (click)="allowEdit()" disabled>Edit</button>
+    </div>
+    <div class="col-12" *ngIf="isEditAllowed == true">
+      <button type="submit" class="btn btn-warning" (click)="editGroup()">Submit</button>&nbsp;
+      <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+    </div>
+  </div>
+
+</form>
+
+<br/>
+
+<!-- List of objects -->
+<h5>List of objects</h5>
+<div class="mat-elevation-z8">
+  <table mat-table #objectsTable [dataSource]="objects" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
+
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Size Column -->
+    <ng-container matColumnDef="size">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Size </th>
+      <td mat-cell *matCellDef="let element"> {{element.size}} </td>
+    </ng-container>
+
+    <!-- Is public Column -->
+    <ng-container matColumnDef="isPublic">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Is public ?</th>
+      <td mat-cell *matCellDef="let element"> {{element.isPublic}} </td>
+    </ng-container>
+
+    <!-- HasSource Column -->
+    <ng-container matColumnDef="hasSource">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Has source ?</th>
+      <td mat-cell *matCellDef="let element"> {{element.hasSource}} </td>
+    </ng-container>
+
+    <!-- HasSimulation Column -->
+    <ng-container matColumnDef="hasSimulation">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Has simulation ?</th>
+      <td mat-cell *matCellDef="let element"> (not implemented) </td>
+    </ng-container>
+
+    <!-- Details Column -->
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <button type="button" class="btn btn-primary btn-sm" (click)="goTo(element.id)">Details</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+<!--  <div *ngIf="areTasksLoading" style="display: flex; justify-content: center; align-items: center; background: white; margin-top: 20px">-->
+<!--    <mat-progress-spinner-->
+<!--      color="primary"-->
+<!--      mode="indeterminate"-->
+<!--      diameter="50">-->
+<!--    </mat-progress-spinner>-->
+<!--  </div>-->
+
+  <mat-paginator #objectsPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
+</div>
+
+<br/>
+

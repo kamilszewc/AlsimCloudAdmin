@@ -15,13 +15,10 @@ import {interval} from "rxjs";
 })
 export class GroupsComponent implements AfterViewInit {
 
+  groups = new MatTableDataSource<Group>([]);
   @ViewChild('groupsPaginator') groupsPaginator!: MatPaginator;
   @ViewChild('groupsTable', {read: MatSort}) groupsSort!: MatSort;
-
   displayedColumns: string[] = ['id', 'name', 'tokenBalance', 'priority', 'maxNumberOfRunningTasks', 'details'];
-
-  groups = new MatTableDataSource<Group>([]);
-
   newGroup: Group;
   @ViewChild('newGroupForm') newGroupForm! : NgForm;
 
