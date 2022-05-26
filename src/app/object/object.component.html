@@ -74,7 +74,7 @@
       </label>
     </div>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-8">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" id="hasSimulations" name="hasSimulations" [(ngModel)]="object!.hasSimulations" [checked]="object?.hasSimulations" disabled>
       <label class="form-check-label" for="hasSource">
@@ -83,7 +83,7 @@
     </div>
   </div>
 
-  <div class="col-md-8">
+  <div class="col-md-1">
     <div class="col-12" *ngIf="isEditAllowed == false">
       <button type="submit" class="btn btn-primary" (click)="allowEdit()" disabled>Edit</button>
     </div>
@@ -92,7 +92,70 @@
       <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
     </div>
   </div>
-
+  <div class="col-md-11">
+    <a class="btn btn-primary" href="{{apiUrl + object?.objectUrls?.object + '?token=' + token}}">Download</a>
+  </div>
 </form>
+<br/>
 
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h5>Thumbnail</h5>
+      <img src="{{apiUrl + object?.objectUrls?.thumbnail + '?token=' + token}}"  height="180"/>
+    </div>
+    <div class="col">
+      <h5>Icon</h5>
+      <img src="{{apiUrl + object?.objectUrls?.icon + '?token=' + token}}"  height="180"/>
+    </div>
+  </div>
+  <br/>
+</div>
+
+
+<h5>Links:</h5>
+<p><b>Object url</b>: {{apiUrl + object?.objectUrls?.object}}</p>
+<p><b>Icon url</b>: {{apiUrl + object?.objectUrls?.icon}}</p>
+<p><b>Thumbnail url</b>: {{apiUrl + object?.objectUrls?.thumbnail}}</p>
+<p *ngIf="object?.objectUrls?.source"><b>Source url</b>: {{apiUrl + object?.objectUrls?.source}}</p>
+<br/>
+
+<div *ngIf="object?.hasSimulations">
+  <h5>Simulations:</h5>
+  <div class="col-md-12">
+    <table class="table">
+      <thead>
+      <th scope="col">Id</th>
+      <th scope="col">Time</th>
+      <th scope="col">Size</th>
+      <th scope="col">Modification time</th>
+      <th scope="col"></th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let simulation of object?.simulations">
+        <th scope="row">{{simulation!.id}}</th>
+        <td>{{simulation!.time}}</td>
+        <td>{{simulation!.size}}</td>
+        <td>{{simulation!.modificationTime}}</td>
+        <td>
+          <a class="btn btn-primary" href="{{apiUrl + simulation!.url + '?token=' + token}}">Download</a>
+          <button type="submit" class="btn btn-danger" (click)="removeSimulation(object!.id, simulation!.id)" disabled>Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <br/>
+</div>
+
+<form class="row g-3">
+  <div class="col-12" *ngIf="isRemovalAllowed == false">
+    <button type="submit" class="btn btn-danger" (click)="allowRemoval()">Delete object</button>
+  </div>
+  <div class="col-12" *ngIf="isRemovalAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="deleteObject()" disabled>Click here to confirm delete object</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+</form>
 <br/>

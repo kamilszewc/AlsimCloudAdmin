@@ -24,6 +24,7 @@ export class ObjectGroupComponent implements OnInit {
   @ViewChild('objectsPaginator') objectsPaginator!: MatPaginator;
   @ViewChild('objectsTable', {read: MatSort}) objectsSort!: MatSort;
   displayedColumns: string[] = ['id', 'name', 'size', 'isPublic', 'hasSource', 'hasSimulation', 'details'];
+  isRemovalAllowed = false;
 
   constructor(private router: Router,
               private objectGroupService: ObjectGroupService,
@@ -61,10 +62,18 @@ export class ObjectGroupComponent implements OnInit {
   }
 
   reload() {
-
+    window.location.reload();
   }
 
   goTo(id: string) {
     this.router.navigate(['object', id])
+  }
+
+  allowRemoval() {
+    this.isRemovalAllowed = true;
+  }
+
+  deleteGroup() {
+
   }
 }

@@ -4,6 +4,7 @@ import {ObjectService} from "./object.service";
 import {Object} from "../object-groups/object-groups.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {NgForm} from "@angular/forms";
+import {GlobalConstants} from "../common/global-constants";
 
 @Component({
   selector: 'app-object',
@@ -12,25 +13,31 @@ import {NgForm} from "@angular/forms";
 })
 export class ObjectComponent implements OnInit {
 
+  apiUrl: string;
+  token!: string;
   id!: string | null;
   object!: Object;
   @ViewChild('objectForm') objectForm! : NgForm;
   isEditAllowed = false;
+  isRemovalAllowed = false;
 
   constructor(private router: Router,
               private objectService: ObjectService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+    this.apiUrl = GlobalConstants.apiUrl;
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
 
     this.objectService.generateObjectsRepositoryToken().subscribe(message => {
       // Get token
-      let token = message.message;
+      this.token = message.message;
 
       // Get object information
-      this.objectService.getObject(this.id!, token).subscribe(object => {
+      this.objectService.getObject(this.id!, this.token).subscribe(object => {
         this.object = object;
+        console.log(this.object)
       })
     });
   }
@@ -45,6 +52,18 @@ export class ObjectComponent implements OnInit {
   }
 
   reload() {
+    window.location.reload();
+  }
+
+  removeSimulation(objectId: string, simulationId: string) {
+
+  }
+
+  allowRemoval() {
+    this.isRemovalAllowed = true;
+  }
+
+  deleteObject() {
 
   }
 }

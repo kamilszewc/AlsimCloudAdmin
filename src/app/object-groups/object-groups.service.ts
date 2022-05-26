@@ -13,7 +13,7 @@ export interface Simulation {
   url: string;
 }
 
-export interface ObjectUrl {
+export interface ObjectUrls {
   object: string;
   thumbnail: string;
   icon: string;
@@ -38,7 +38,7 @@ export interface Object {
   checksum: string;
   creationTime: string;
   modificationTime: string;
-  objectUrl: ObjectUrl;
+  objectUrls: ObjectUrls;
   simulations: Simulation[] | null;
 }
 
