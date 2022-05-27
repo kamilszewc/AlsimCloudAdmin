@@ -40,4 +40,15 @@ export class ObjectGroupService {
 
     return this.http.get<Object[]>(this.apiUrl + "/api/v1/objectsrepository/groups/" + groupId + '/listObjects', httpOptions)
   }
+
+  deleteGroup(groupId: string, token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    return this.http.delete<Message<string>>(this.apiUrl + "/api/v1/objectsrepository/groups/" + groupId, httpOptions);
+  }
 }

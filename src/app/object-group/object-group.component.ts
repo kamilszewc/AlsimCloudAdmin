@@ -6,6 +6,8 @@ import {MatTableDataSource} from "@angular/material/table";
 import {NgForm} from "@angular/forms";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {AlarmDialogMessage, AlarmDialogService} from "../alarm-dialog/alarm-dialog.service";
+import {group} from "@angular/animations";
 
 @Component({
   selector: 'app-object-group',
@@ -28,7 +30,8 @@ export class ObjectGroupComponent implements OnInit {
 
   constructor(private router: Router,
               private objectGroupService: ObjectGroupService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private alarmDialogService: AlarmDialogService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -74,6 +77,22 @@ export class ObjectGroupComponent implements OnInit {
   }
 
   deleteGroup() {
+    this.objectGroupService.generateObjectsRepositoryToken().subscribe(message => {
+      // Get token
+      let token = message.message;
 
+      // Delete group
+      this.objectGroupService.deleteGroup(this.id!, token).subscribe(
+        message => {
+          this.router.navigate(['object-groups'])
+        },
+        error => {
+          const dialogMessage = new class implements AlarmDialogMessage {
+            title = "Error"
+            message = error.error.message
+          };
+          this.alarmDialogService.open(dialogMessage);
+        });
+    });
   }
 }

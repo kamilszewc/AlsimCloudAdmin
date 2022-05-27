@@ -126,7 +126,7 @@
     <button type="submit" class="btn btn-danger" (click)="allowRemoval()">Delete object group</button>
   </div>
   <div class="col-12" *ngIf="isRemovalAllowed == true">
-    <button type="submit" class="btn btn-warning" (click)="deleteGroup()" disabled>Click here to confirm object group removal with all objects</button>&nbsp;
+    <button type="submit" class="btn btn-warning" (click)="deleteGroup()">Click here to confirm object group removal with all objects</button>&nbsp;
     <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
   </div>
 </form>

@@ -43,15 +43,15 @@ export interface Object {
 }
 
 export interface ObjectGroup {
-  id: string;
-  description: string;
-  owner: string;
-  permission: string;
-  isPublic: boolean;
-  quota: number;
-  size: number;
-  creationTime: string;
-  modificationTime: string;
+  id: string | null;
+  description: string | null;
+  owner: string | null;
+  permission: string | null;
+  isPublic: boolean | null;
+  quota: number | null;
+  size: number | null;
+  creationTime: string | null;
+  modificationTime: string | null;
 }
 
 @Injectable({
@@ -80,4 +80,18 @@ export class ObjectGroupsService {
     return this.http.get<ObjectGroup[]>(this.apiUrl + "/api/v1/objectsrepository/groups", httpOptions)
   }
 
+  createGroup(newGroup: ObjectGroup, token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    console.log(token);
+
+    return this.http.post<ObjectGroup>(this.apiUrl + "/api/v1/objectsrepository/groups/" + newGroup.id
+      + "?isPublic=" + newGroup.isPublic + "&description=" + newGroup.description + "&permission=" + newGroup.permission
+      + "&quota=" + newGroup.quota, null, httpOptions);
+  }
 }
