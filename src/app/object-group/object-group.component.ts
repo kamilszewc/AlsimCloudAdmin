@@ -143,7 +143,37 @@ export class ObjectGroupComponent implements OnInit {
   }
 
   uploadObject() {
+    console.log("Trying to upload...")
 
+    const formData = new FormData();
+    formData.append('object',  this.filePathToObjectUpload!, this.filePathToObjectUpload!.name)
+    formData.append('thumbnail',  this.filePathToThumbnailUpload!, this.filePathToThumbnailUpload!.name)
+    formData.append('icon',  this.filePathToIconUpload!, this.filePathToIconUpload!.name)
+    if (this.filePathToSourceUpload != null) {
+      formData.append('source', this.filePathToSourceUpload!, this.filePathToSourceUpload!.name)
+    }
+
+    const type = this.uploadForm.value.type;
+
+    this.objectGroupService.generateObjectsRepositoryToken().subscribe(message => {
+      // Get token
+      let token = message.message;
+
+      console.log("Getting a token... " + token)
+      this.objectToUpload.group = this.id;
+
+      this.objectGroupService.uploadObject(type, formData, this.objectToUpload, token).subscribe(
+        response => {
+          window.location.reload();
+        },
+        error => {
+          const dialogMessage = new class implements AlarmDialogMessage {
+            title = "Error"
+            message = error.error.message
+          };
+          this.alarmDialogService.open(dialogMessage);
+        });
+    });
   }
 
 

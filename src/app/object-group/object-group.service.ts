@@ -3,7 +3,6 @@ import {Message} from "../message";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Object, ObjectGroup} from "../object-groups/object-groups.service";
 import {GlobalConstants} from "../common/global-constants";
-import {AlarmDialogMessage} from "../alarm-dialog/alarm-dialog.service";
 
 @Injectable({
   providedIn: 'root'
@@ -66,15 +65,23 @@ export class ObjectGroupService {
       + "&quota=" + newGroup.quota, null, httpOptions);
   }
 
-  uploadObject(type: string, formData: FormData, token: string) {
+  uploadObject(type: string, formData: FormData, objectToUpload: Object, token: string) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
+        // 'Content-Type':  'application/json',
         Authorization: 'Bearer ' + token
       })
     };
 
-    // TODO
-    return this.http.post(this.apiUrl + "/api/v1/objectsrepository/objects", formData, httpOptions);
+    let url = this.apiUrl + "/api/v1/objectsrepository/objects?name=" + objectToUpload.name
+      + "&description=" + objectToUpload.description + "&group=" + objectToUpload.group
+      + "&isPublic=" + objectToUpload.isPublic
+
+    if (objectToUpload.permission != null) {
+      url += '&permission=' + objectToUpload.permission;
+    }
+
+    return this.http.post(url, formData, httpOptions);
   }
+
 }

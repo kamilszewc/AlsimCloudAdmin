@@ -92,8 +92,11 @@
       <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
     </div>
   </div>
-  <div class="col-md-11">
-    <a class="btn btn-primary" href="{{apiUrl + object?.objectUrls?.object + '?token=' + token}}">Download</a>
+  <div class="col-md-2">
+    <a class="btn btn-primary" href="{{apiUrl + object?.objectUrls?.object + '?token=' + token}}">Download object</a>
+  </div>
+  <div class="col-md-5">
+    <a *ngIf="object?.hasSource" class="btn btn-primary" href="{{apiUrl + object?.objectUrls?.object + '/source?token=' + token}}">Download source</a>
   </div>
 </form>
 <br/>
@@ -139,7 +142,7 @@
         <td>{{simulation!.modificationTime}}</td>
         <td>
           <a class="btn btn-primary" href="{{apiUrl + simulation!.url + '?token=' + token}}">Download</a>
-          <button type="submit" class="btn btn-danger" (click)="removeSimulation(object!.id, simulation!.id)" disabled>Remove</button>
+          <button type="submit" class="btn btn-danger" (click)="removeSimulation(simulation!.time)">Remove</button>
         </td>
       </tr>
       </tbody>
@@ -149,12 +152,34 @@
   <br/>
 </div>
 
+
+<h5>Upload simulation</h5>
+<form class="row g-3" #simulationUploadForm="ngForm" >
+
+  <div class="col-md-4">
+    <label for="filePathSimulation" class="form-label">Choose a simulation file</label>
+    <input class="form-control" type="file" id="filePathSimulation" name="filePathSimulation" (change)="onSimulationFileChange($event)">
+  </div>
+  <div class="col-md-4">
+    <label for="uploadTime" class="form-label">Time</label>
+    <input type="text" class="form-control" id="uploadTime" name="time" [(ngModel)]="simulationToUpload!.time!" [value]="simulationToUpload?.time!" >
+  </div>
+  <div class="col-md-4">
+  </div>
+
+  <div class="col-md-3">
+    <button type="submit" class="btn btn-primary" id="submit" (click)="uploadSimulation()">Upload simulation</button>
+  </div>
+</form>
+<br/>
+
+<h5>Remove object</h5>
 <form class="row g-3">
   <div class="col-12" *ngIf="isRemovalAllowed == false">
     <button type="submit" class="btn btn-danger" (click)="allowRemoval()">Delete object</button>
   </div>
   <div class="col-12" *ngIf="isRemovalAllowed == true">
-    <button type="submit" class="btn btn-warning" (click)="deleteObject()" disabled>Click here to confirm delete object</button>&nbsp;
+    <button type="submit" class="btn btn-warning" (click)="deleteObject()">Click here to confirm delete object</button>&nbsp;
     <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
   </div>
 </form>

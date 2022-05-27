@@ -4,13 +4,13 @@ import {Message} from "../message";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 export interface Simulation {
-  id: string;
+  id: string | null;
   time: number;
-  size: number;
-  checksum: string;
-  creationTime: string;
-  modificationTime: string;
-  url: string;
+  size: number | null;
+  checksum: string | null;
+  creationTime: string | null;
+  modificationTime: string | null;
+  url: string | null;
 }
 
 export interface ObjectUrls {
