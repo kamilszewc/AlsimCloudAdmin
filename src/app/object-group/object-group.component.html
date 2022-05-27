@@ -16,7 +16,7 @@
   </div>
   <div class="col-md-2">
     <label for="owner" class="form-label">Owner</label>
-    <input type="text" class="form-control" id="owner" name="owner" [(ngModel)]="group!.owner" [value]="group?.owner" [disabled]="!isEditAllowed">
+    <input type="text" class="form-control" id="owner" name="owner" [(ngModel)]="group!.owner" [value]="group?.owner" disabled>
   </div>
   <div class="col-md-3">
     <label for="creationTime" class="form-label">Creation time</label>
@@ -34,7 +34,7 @@
 
   <div class="col-md-12">
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="isPublic" name="isPublic" [(ngModel)]="group!.isPublic" [checked]="group?.isPublic" disabled>
+      <input class="form-check-input" type="checkbox" id="isPublic" name="isPublic" [(ngModel)]="group!.isPublic" [checked]="group?.isPublic" [disabled]="!isEditAllowed">
       <label class="form-check-label" for="isPublic">
         Is public
       </label>
@@ -43,7 +43,7 @@
 
   <div class="col-md-8">
     <div class="col-12" *ngIf="isEditAllowed == false">
-      <button type="submit" class="btn btn-primary" (click)="allowEdit()" disabled>Edit</button>
+      <button type="submit" class="btn btn-primary" (click)="allowEdit()">Edit</button>
     </div>
     <div class="col-12" *ngIf="isEditAllowed == true">
       <button type="submit" class="btn btn-warning" (click)="editGroup()">Submit</button>&nbsp;
@@ -121,6 +121,59 @@
 </div>
 <br/>
 
+<!-- Myfile upload -->
+<h5>Myfile upload</h5>
+<form class="row g-3" #uploadForm="ngForm" >
+
+  <div class="col-md-4">
+    <label for="filePathObject" class="form-label">Choose an object file (eg. stl)</label>
+    <input class="form-control" type="file" id="filePathObject" name="filePathObject" (change)="onObjectFileChange($event)">
+  </div>
+  <div class="col-md-4">
+    <label for="filePathThumbnail" class="form-label">Choose a thumbnail</label>
+    <input class="form-control" type="file" id="filePathThumbnail" name="filePathThumbnail" (change)="onThumbnailFileChange($event)">
+  </div>
+  <div class="col-md-4">
+    <label for="filePathIcon" class="form-label">Choose an icon</label>
+    <input class="form-control" type="file" id="filePathIcon" name="filePathIcon" (change)="onIconFileChange($event)">
+  </div>
+
+  <div class="col-md-3">
+    <label for="uploadName" class="form-label">Name</label>
+    <input type="text" class="form-control" id="uploadName" name="name" [(ngModel)]="objectToUpload!.name!" [value]="objectToUpload?.name!" >
+  </div>
+  <div class="col-md-5">
+    <label for="uploadDescription" class="form-label">Description</label>
+    <input type="text" class="form-control" id="uploadDescription" name="description" [(ngModel)]="objectToUpload!.description!" [value]="objectToUpload?.description!" >
+  </div>
+  <div class="col-md-4">
+    <label for="filePathSource" class="form-label">Choose a source</label>
+    <input class="form-control" type="file" id="filePathSource" name="filePathSource" (change)="onSourceFileChange($event)">
+  </div>
+
+  <div class="col-md-12">
+    <label for="uploadPermission" class="form-label">Permission</label>
+    <input type="text" class="form-control" id="uploadPermission" name="permission" [(ngModel)]="objectToUpload!.permission" [value]="objectToUpload?.permission!" >
+  </div>
+
+  <div class="col-md-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="uploadIsPublic" name="isPublic" [(ngModel)]="objectToUpload!.isPublic" [checked]="objectToUpload?.isPublic">
+      <label class="form-check-label" for="isPublic">
+        Is public
+      </label>
+    </div>
+  </div>
+
+
+  <div class="col-2">
+    <button type="submit" class="btn btn-primary" (click)="uploadObject()">Upload object</button>
+  </div>
+</form>
+<br/>
+
+
+<h5>Remove group</h5>
 <form class="row g-3">
   <div class="col-12" *ngIf="isRemovalAllowed == false">
     <button type="submit" class="btn btn-danger" (click)="allowRemoval()">Delete object group</button>

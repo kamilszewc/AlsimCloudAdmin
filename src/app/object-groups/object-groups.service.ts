@@ -21,24 +21,24 @@ export interface ObjectUrls {
 }
 
 export interface Object {
-  id: string;
+  id: string | null;
   name: string;
-  group: string;
+  group: string | null;
   description: string;
-  extension: string;
-  extensionIcon: string;
-  extensionThumbnail: string;
-  extensionSource: string;
-  hasSource: boolean;
-  hasSimulations: boolean;
-  owner: string;
-  permission: string;
-  isPublic: string;
-  size: number;
-  checksum: string;
-  creationTime: string;
-  modificationTime: string;
-  objectUrls: ObjectUrls;
+  extension: string | null;
+  extensionIcon: string | null;
+  extensionThumbnail: string | null;
+  extensionSource: string | null;
+  hasSource: string | null;
+  hasSimulations: string | null;
+  owner: string | null;
+  permission: string | null;
+  isPublic: boolean;
+  size: string | null;
+  checksum: string | null;
+  creationTime: string | null;
+  modificationTime: string | null;
+  objectUrls: ObjectUrls | null;
   simulations: Simulation[] | null;
 }
 
@@ -87,8 +87,6 @@ export class ObjectGroupsService {
         Authorization: 'Bearer ' + token
       })
     };
-
-    console.log(token);
 
     return this.http.post<ObjectGroup>(this.apiUrl + "/api/v1/objectsrepository/groups/" + newGroup.id
       + "?isPublic=" + newGroup.isPublic + "&description=" + newGroup.description + "&permission=" + newGroup.permission

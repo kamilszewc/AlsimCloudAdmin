@@ -1,13 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ObjectGroupService} from "./object-group.service";
-import {Object, ObjectGroup} from "../object-groups/object-groups.service";
+import {Object, ObjectGroup, ObjectUrls, Simulation} from "../object-groups/object-groups.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {NgForm} from "@angular/forms";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {AlarmDialogMessage, AlarmDialogService} from "../alarm-dialog/alarm-dialog.service";
 import {group} from "@angular/animations";
+import {Myfile} from "../myfile";
 
 @Component({
   selector: 'app-object-group',
@@ -27,6 +28,35 @@ export class ObjectGroupComponent implements OnInit {
   @ViewChild('objectsTable', {read: MatSort}) objectsSort!: MatSort;
   displayedColumns: string[] = ['id', 'name', 'size', 'isPublic', 'hasSource', 'hasSimulation', 'details'];
   isRemovalAllowed = false;
+
+
+  filePathToObjectUpload: File | undefined;
+  filePathToIconUpload: File | undefined;
+  filePathToThumbnailUpload: File | undefined;
+  filePathToSourceUpload: File | undefined;
+  @ViewChild('uploadForm') uploadForm! : NgForm;
+  objectToUpload: Object = new class implements Object {
+    id = null;
+    name = "";
+    group = null;
+    description = "";
+    extension = null;
+    extensionIcon = null;
+    extensionThumbnail = null;
+    extensionSource = null;
+    hasSource = null;
+    hasSimulations = null;
+    owner = null;
+    permission = null;
+    isPublic = false;
+    size = null;
+    checksum = null;
+    creationTime = null;
+    modificationTime = null;
+    objectUrls = null;
+    simulations = null;
+  };
+
 
   constructor(private router: Router,
               private objectGroupService: ObjectGroupService,
@@ -57,11 +87,7 @@ export class ObjectGroupComponent implements OnInit {
   }
 
   allowEdit() {
-
-  }
-
-  editGroup() {
-
+    this.isEditAllowed = true;
   }
 
   reload() {
@@ -74,6 +100,26 @@ export class ObjectGroupComponent implements OnInit {
 
   allowRemoval() {
     this.isRemovalAllowed = true;
+  }
+
+  editGroup() {
+    console.log(this.group);
+    this.objectGroupService.generateObjectsRepositoryToken().subscribe(message => {
+      // Get token
+      let token = message.message;
+
+      this.objectGroupService.editGroup(this.group, token).subscribe(
+        group => {
+          window.location.reload();
+        },
+        error => {
+          const dialogMessage = new class implements AlarmDialogMessage {
+            title = "Error"
+            message = error.error.message
+          };
+          this.alarmDialogService.open(dialogMessage);
+        });
+    });
   }
 
   deleteGroup() {
@@ -94,5 +140,26 @@ export class ObjectGroupComponent implements OnInit {
           this.alarmDialogService.open(dialogMessage);
         });
     });
+  }
+
+  uploadObject() {
+
+  }
+
+
+  onObjectFileChange(event: any) {
+    this.filePathToObjectUpload = event.target.files[0];
+  }
+
+  onThumbnailFileChange(event: any) {
+    this.filePathToThumbnailUpload = event.target.files[0];
+  }
+
+  onIconFileChange(event: any) {
+    this.filePathToIconUpload = event.target.files[0];
+  }
+
+  onSourceFileChange(event: any) {
+    this.filePathToSourceUpload = event.target.files[0];
   }
 }

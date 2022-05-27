@@ -55,15 +55,16 @@ export class ObjectComponent implements OnInit {
     window.location.reload();
   }
 
-  removeSimulation(objectId: string, simulationId: string) {
-
-  }
 
   allowRemoval() {
     this.isRemovalAllowed = true;
   }
 
   deleteObject() {
+
+  }
+
+  removeSimulation(id: string | null, id2: string | null) {
 
   }
 }
