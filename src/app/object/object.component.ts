@@ -58,11 +58,26 @@ export class ObjectComponent implements OnInit {
 
 
   allowEdit() {
-
+    this.isEditAllowed = true;
   }
 
   editObject() {
+    this.objectService.generateObjectsRepositoryToken().subscribe(message => {
+      // Get token
+      let token = message.message;
 
+      this.objectService.editObject(this.object, token).subscribe(
+        object => {
+          window.location.reload();
+        },
+        error => {
+          const dialogMessage = new class implements AlarmDialogMessage {
+            title = "Error"
+            message = error.error.message
+          };
+          this.alarmDialogService.open(dialogMessage);
+        });
+    });
   }
 
   reload() {

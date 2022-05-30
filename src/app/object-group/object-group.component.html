@@ -167,7 +167,7 @@
 
 
   <div class="col-2">
-    <button type="submit" class="btn btn-primary" (click)="uploadObject()">Upload object</button>
+    <button type="submit" class="btn btn-primary" (click)="uploadObject()" [disabled]="isUploading">Upload object</button>
   </div>
 </form>
 <br/>

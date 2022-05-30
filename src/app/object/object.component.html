@@ -85,7 +85,7 @@
 
   <div class="col-md-1">
     <div class="col-12" *ngIf="isEditAllowed == false">
-      <button type="submit" class="btn btn-primary" (click)="allowEdit()" disabled>Edit</button>
+      <button type="submit" class="btn btn-primary" (click)="allowEdit()">Edit</button>
     </div>
     <div class="col-12" *ngIf="isEditAllowed == true">
       <button type="submit" class="btn btn-warning" (click)="editObject()">Submit</button>&nbsp;

@@ -7,8 +7,6 @@ import {NgForm} from "@angular/forms";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {AlarmDialogMessage, AlarmDialogService} from "../alarm-dialog/alarm-dialog.service";
-import {group} from "@angular/animations";
-import {Myfile} from "../myfile";
 
 @Component({
   selector: 'app-object-group',
@@ -30,6 +28,7 @@ export class ObjectGroupComponent implements OnInit {
   isRemovalAllowed = false;
 
 
+  isUploading = false;
   filePathToObjectUpload: File | undefined;
   filePathToIconUpload: File | undefined;
   filePathToThumbnailUpload: File | undefined;
@@ -144,6 +143,7 @@ export class ObjectGroupComponent implements OnInit {
 
   uploadObject() {
     console.log("Trying to upload...")
+    this.isUploading = true;
 
     const formData = new FormData();
     formData.append('object',  this.filePathToObjectUpload!, this.filePathToObjectUpload!.name)
@@ -172,6 +172,7 @@ export class ObjectGroupComponent implements OnInit {
             message = error.error.message
           };
           this.alarmDialogService.open(dialogMessage);
+          this.isUploading = false;
         });
     });
   }

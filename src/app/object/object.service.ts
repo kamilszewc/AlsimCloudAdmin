@@ -63,4 +63,22 @@ export class ObjectService {
     return this.http.delete<Simulation>(this.apiUrl + "/api/v1/objectsrepository/objects/" + id + '/simulation/' + time, httpOptions);
   }
 
+  editObject(object: Object, token: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        Authorization: 'Bearer ' + token
+      })
+    };
+
+    let url = this.apiUrl + "/api/v1/objectsrepository/objects/" + object.id + "/description"
+      + "?filename=" + object.name + "&description=" + object.description + "&isPublic=" + object.isPublic
+      + "&group=" + object.group;
+
+    if (object.permission != null) {
+      url += '&permission=' + object.permission;
+    }
+
+    return this.http.put<Object>(url, null, httpOptions);
+  }
 }
