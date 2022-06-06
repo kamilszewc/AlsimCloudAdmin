@@ -9,6 +9,15 @@ import {HistoricalTask} from "../historicalTask";
 import {Message} from "../message";
 import {Group} from "../group";
 import {UserSchemaInfo} from "../schema";
+import {ErrorCode} from "@angular/compiler-cli/src/ngtsc/diagnostics";
+
+
+export interface ECubes {
+  id: string;
+  amount: number;
+  startTime: string;
+  expirationTime: string;
+};
 
 @Injectable({
   providedIn: 'root'
@@ -86,5 +95,13 @@ export class UserService {
 
   disallowSchema(userId: number, schemaId: number) {
     return this.http.post<Message<string>>(this.apiUrl + "/api/v1/schema/disallow/" + schemaId + "/" + userId, null);
+  }
+
+  getECubes(userId: number) {
+    return this.http.get<ECubes[]>(this.apiUrl + "/api/v1/userECubes/getUserECubes/" + userId);
+  }
+
+  removeECubes(poolId: number) {
+    return this.http.delete<Message<string>>(this.apiUrl + "/api/v1/userECubes/remove/" + poolId);
   }
 }

@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {User} from "../user";
-import {UserService} from "./user.service";
+import {ECubes, UserService} from "./user.service";
 import {Task} from "../task";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
@@ -52,6 +52,11 @@ export class UserComponent implements OnInit {
   @ViewChild('notPermittedSchemasTable', {read: MatSort}) notPermittedSchemasSort!: MatSort;
   displayedNotPermittedSchemasColumns: string[] = ['id', 'name', 'paymentMethod', 'solverGroup', 'details', 'allow'];
 
+  eCubes = new MatTableDataSource<ECubes>([])
+  @ViewChild('eCubesPaginator') eCubesPaginator!: MatPaginator;
+  @ViewChild('eCubesTable', {read: MatSort}) eCubesSort!: MatSort;
+  displayedECubesColumns: string[] = ['id', 'amount', 'startTime', 'expirationTime', 'removeECubes'];
+  areECubesLoading = true;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -74,6 +79,13 @@ export class UserComponent implements OnInit {
 
     this.userService.getUserTypes().subscribe(userTypes => {
       this.userTypes = userTypes;
+    })
+
+    this.userService.getECubes(this.id).subscribe(eCubes => {
+      this.eCubes = new MatTableDataSource<ECubes>(eCubes);
+      this.eCubes.sort = this.eCubesSort;
+      this.eCubes.paginator = this.eCubesPaginator;
+      this.areECubesLoading = false;
     })
 
     this.userService.getUserTasks(this.id).subscribe(userTasks => {
@@ -193,5 +205,13 @@ export class UserComponent implements OnInit {
 
   goToSchema(id: number) {
     this.router.navigate(['schema', id]);
+  }
+
+  removeECubes(id: number) {
+    this.userService.removeECubes(this.id!)
+      .subscribe(message => {
+
+        this.router.navigate(['users'])
+      })
   }
 }
