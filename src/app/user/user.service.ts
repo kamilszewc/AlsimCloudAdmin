@@ -13,11 +13,16 @@ import {ErrorCode} from "@angular/compiler-cli/src/ngtsc/diagnostics";
 
 
 export interface ECubes {
-  id: string;
-  amount: number;
-  startTime: string;
-  expirationTime: string;
+  id: string | null;
+  amount: number | null;
+  startTime: string | null;
+  expirationTime: string | null;
 };
+
+export interface ECubesCreation {
+  amount: number | null;
+  numberOfDays: number | null;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -65,22 +70,6 @@ export class UserService {
     return this.http.post<User>(this.apiUrl + "/api/v1/user/edit/" + id, user);
   }
 
-  addUserTokens(id: number, value: number) {
-    return this.http.post<any>(this.apiUrl + "/api/v1/user/tokens/addUserTokens/" + id + "/" + value, null);
-  }
-
-  delUserTokens(id: number, value: number) {
-    return this.http.post<any>(this.apiUrl + "/api/v1/user/tokens/delUserTokens/" + id + "/" + value, null);
-  }
-
-  addGroupTokens(id: number, value: number) {
-    return this.http.post<any>(this.apiUrl + "/api/v1/user/tokens/addGroupTokens/" + id + "/" + value, null);
-  }
-
-  delGroupTokens(id: number, value: number) {
-    return this.http.post<any>(this.apiUrl + "/api/v1/user/tokens/delGroupTokens/" + id + "/" + value, null);
-  }
-
   deleteUser(id: number) {
     return this.http.delete<Message<string>>(this.apiUrl + "/api/v1/user/remove/" + id);
   }
@@ -99,6 +88,10 @@ export class UserService {
 
   getECubes(userId: number) {
     return this.http.get<ECubes[]>(this.apiUrl + "/api/v1/userECubes/getUserECubes/" + userId);
+  }
+
+  addECubes(ecubes: ECubesCreation, userId: number) {
+    return this.http.post<ECubes>(this.apiUrl + "/api/v1/userECubes/new/" + userId, ecubes);
   }
 
   removeECubes(poolId: number) {

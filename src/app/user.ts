@@ -17,6 +17,7 @@ export interface User {
   loggedFromDynairix: boolean | null;
   userType: string | null;
   consumerGroup: string | null;
+  consumerGroupId: number | null;
   isEnabled: boolean | null;
   isBlocked: boolean | null;
   isUsing2FA: boolean | null;

@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {User} from "../user";
-import {ECubes, UserService} from "./user.service";
+import {ECubes, ECubesCreation, UserService} from "./user.service";
 import {Task} from "../task";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
@@ -11,6 +11,7 @@ import {NgForm} from "@angular/forms";
 import {catchError} from "rxjs";
 import {Group} from "../group";
 import {Schema} from "../schema";
+import {AlarmDialogMessage, AlarmDialogService} from "../alarm-dialog/alarm-dialog.service";
 
 @Component({
   selector: 'app-user',
@@ -58,16 +59,22 @@ export class UserComponent implements OnInit {
   displayedECubesColumns: string[] = ['id', 'amount', 'startTime', 'expirationTime', 'removeECubes'];
   areECubesLoading = true;
 
+  @ViewChild('eCubesRechargeForm') eCubesRechargeForm! : NgForm;
+  newECubePool: ECubesCreation = new class implements ECubesCreation {
+    amount = 0;
+    numberOfDays = 366;
+  }
+
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private userService: UserService) {
+              private userService: UserService,
+              private alarmDialogService: AlarmDialogService) {
   }
 
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-    this.userService.getUser(this.id).subscribe((user: User) => {
-      this.user = user;
-    })
+
+    this.getUser();
 
     this.userService.getCountries().subscribe(countries => {
       this.countries = countries;
@@ -81,12 +88,7 @@ export class UserComponent implements OnInit {
       this.userTypes = userTypes;
     })
 
-    this.userService.getECubes(this.id).subscribe(eCubes => {
-      this.eCubes = new MatTableDataSource<ECubes>(eCubes);
-      this.eCubes.sort = this.eCubesSort;
-      this.eCubes.paginator = this.eCubesPaginator;
-      this.areECubesLoading = false;
-    })
+    this.getECubes()
 
     this.userService.getUserTasks(this.id).subscribe(userTasks => {
       this.userTasks = new MatTableDataSource<Task>(userTasks);
@@ -102,6 +104,21 @@ export class UserComponent implements OnInit {
     })
 
     this.getUserSchemas();
+  }
+
+  getUser() {
+    this.userService.getUser(this.id!).subscribe((user: User) => {
+      this.user = user;
+    })
+  }
+
+  getECubes() {
+    this.userService.getECubes(this.id!).subscribe(eCubes => {
+      this.eCubes = new MatTableDataSource<ECubes>(eCubes);
+      this.eCubes.sort = this.eCubesSort;
+      this.eCubes.paginator = this.eCubesPaginator;
+      this.areECubesLoading = false;
+    })
   }
 
   allowEdit() {
@@ -129,26 +146,6 @@ export class UserComponent implements OnInit {
           console.info(error.error.message)
         }
       );
-  }
-
-  giveUserTokens() {
-    this.userService.addUserTokens(this.id!, this.userTokensRechargeForm.value.tokensToBeAddedRemoved)
-      .subscribe(user => this.user = user);
-  }
-
-  takeUserTokens() {
-    this.userService.delUserTokens(this.id!, this.userTokensRechargeForm.value.tokensToBeAddedRemoved)
-      .subscribe(user => this.user = user);
-  }
-
-  giveGroupTokens() {
-    this.userService.addGroupTokens(this.id!, this.groupTokensRechargeForm.value.tokensToBeAddedRemoved)
-      .subscribe(user => this.user = user);
-  }
-
-  takeGroupTokens() {
-    this.userService.delGroupTokens(this.id!, this.groupTokensRechargeForm.value.tokensToBeAddedRemoved)
-      .subscribe(user => this.user = user);
   }
 
   getUserSchemas() {
@@ -207,11 +204,38 @@ export class UserComponent implements OnInit {
     this.router.navigate(['schema', id]);
   }
 
-  removeECubes(id: number) {
-    this.userService.removeECubes(this.id!)
-      .subscribe(message => {
+  addECubes() {
 
-        this.router.navigate(['users'])
+    this.userService.addECubes(this.newECubePool, this.id!).subscribe(
+      message => {
+        this.getUser()
+        this.getECubes()
+      },
+      error => {
+        const dialogMessage = new class implements AlarmDialogMessage {
+          title = "Error"
+          message = error.error.message
+        };
+        this.alarmDialogService.open(dialogMessage);
       })
+  }
+
+  removeECubes(id: number) {
+    this.userService.removeECubes(id).subscribe(
+      message => {
+        this.getUser()
+        this.getECubes()
+      },
+      error => {
+        const dialogMessage = new class implements AlarmDialogMessage {
+          title = "Error"
+          message = error.error.message
+        };
+        this.alarmDialogService.open(dialogMessage);
+      })
+  }
+
+  goToGroupInfo() {
+    this.router.navigate(['group', this.user?.consumerGroupId])
   }
 }

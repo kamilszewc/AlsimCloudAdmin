@@ -148,41 +148,33 @@
 
 <h5>eCubes balance</h5>
 
-<form class="row g-3" #userTokensRechargeForm="ngForm">
-  <div class="col-md-4">
+<form class="row g-3" #eCubesRechargeForm="ngForm">
+  <div class="col-md-3">
     <label for="tokenBalance" class="form-label">Current eCubes balance</label>
     <input type="string" class="form-control" id="tokenBalance"  value="{{user?.tokenBalance}}" disabled>
   </div>
-  <div class="col-md-4">
-    <label for="tokensToBeAddedRemoved" class="form-label">eCubes to add/remove</label>
-    <input type="number" min="0" class="form-control" id="tokensToBeAddedRemoved" name="tokensToBeAddedRemoved" ngModel>
+  <div class="col-md-3">
+    <label for="amount" class="form-label">Amount</label>
+    <input type="number" min="0" class="form-control" id="amount" name="amount" [(ngModel)]="newECubePool.amount" [value]="newECubePool.amount">
   </div>
-  <div class="col-md-2">
-    <label class="form-label">&nbsp;</label>
-    <button type="submit" class="btn btn-primary form-control" (click)="giveUserTokens()">Give</button>
+  <div class="col-md-3">
+    <label for="numberOfDays" class="form-label">Validity length</label>
+    <input type="number" min="0" class="form-control" id="numberOfDays" name="numberOfDays" [(ngModel)]="newECubePool.numberOfDays" [value]="newECubePool.numberOfDays">
   </div>
-  <div class="col-md-2">
+  <div class="col-md-3">
     <label class="form-label">&nbsp;</label>
-    <button type="submit" class="btn btn-primary form-control" (click)="takeUserTokens()">Take</button>
+    <button type="submit" class="btn btn-primary form-control" (click)="addECubes()">Add</button>
   </div>
 </form>
 
-<form class="row g-3" #groupTokensRechargeForm="ngForm">
+<form class="row g-3">
   <div class="col-md-4">
     <label for="groupTokenBalance" class="form-label">Current group token balance</label>
     <input type="string" class="form-control" id="groupTokenBalance" value="{{user?.groupTokenBalance}}" disabled="true">
   </div>
-  <div class="col-md-4">
-    <label for="groupTokensToBeAddedRemoved" class="form-label">eCubes to add/remove</label>
-    <input type="number" min="0" class="form-control" id="groupTokensToBeAddedRemoved" name="tokensToBeAddedRemoved" ngModel [disabled]="user?.consumerGroup == null">
-  </div>
   <div class="col-md-2">
     <label class="form-label">&nbsp;</label>
-    <button type="submit" class="btn btn-primary form-control" (click)="giveGroupTokens()" [disabled]="user?.consumerGroup == null">Give</button>
-  </div>
-  <div class="col-md-2">
-    <label class="form-label">&nbsp;</label>
-    <button type="submit" class="btn btn-primary form-control" (click)="takeGroupTokens()" [disabled]="user?.consumerGroup == null">Take</button>
+    <button type="submit" class="btn btn-primary form-control" (click)="goToGroupInfo()">Go to group info</button>
   </div>
 </form>
 
