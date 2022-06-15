@@ -1,1 +1,36 @@
-<p>license-type works!</p>
+<form class="row g-3" #licenseTypeForm="ngForm" >
+  <div class="col-md-6">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="licenseType!.name" [value]="licenseType?.name" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-3">
+    <label for="maxNumberOfLicensesPerUser" class="form-label">Max number of licenses per user</label>
+    <input type="text" class="form-control" id="maxNumberOfLicensesPerUser" name="maxNumberOfLicensesPerUser" [(ngModel)]="licenseType!.maxNumberOfLicensesPerUser" [value]="licenseType?.maxNumberOfLicensesPerUser" [disabled]="!isEditAllowed">
+  </div>
+  <div class="col-md-3">
+    <label for="numberOfTrialDays" class="form-label">Number of trial days</label>
+    <input type="text" class="form-control" id="numberOfTrialDays" name="numberOfTrialDays" [(ngModel)]="licenseType!.numberOfTrialDays" [value]="licenseType?.numberOfTrialDays" [disabled]="!isEditAllowed">
+  </div>
+
+  <div class="col-2" *ngIf="isEditAllowed == false">
+    <button type="submit" class="btn btn-primary" (click)="allowEdit()">Edit</button>
+  </div>
+  <div class="col-2" *ngIf="isEditAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="editLicenseType()">Submit</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+</form>
+<br/>
+
+<h3>License type removal</h3>
+<form class="row g-3">
+  <div class="col-12" *ngIf="isRemovalAllowed == false">
+    <button type="submit" class="btn btn-danger" (click)="allowRemoval()">Delete license type</button>
+  </div>
+  <div class="col-12" *ngIf="isRemovalAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="deleteLicenseType()" #deleteButton>Click here to confirm license type delete</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+</form>
+
+<br/>
