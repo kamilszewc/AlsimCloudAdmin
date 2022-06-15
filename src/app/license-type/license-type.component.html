@@ -1,3 +1,4 @@
+<h3>License type</h3>
 <form class="row g-3" #licenseTypeForm="ngForm" >
   <div class="col-md-6">
     <label for="name" class="form-label">Name</label>
@@ -22,6 +23,119 @@
 </form>
 <br/>
 
+
+<!-- LicenseOptions -->
+<h3>License options</h3>
+<div class="mat-elevation-z8">
+  <table mat-table #licenseOptionsTable [dataSource]="licenseOptions" matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element?.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element?.name}} </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="tokens">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tokens </th>
+      <td mat-cell *matCellDef="let element"> {{element?.tokens}} </td>
+    </ng-container>
+
+    <!-- ClientType Column -->
+    <ng-container matColumnDef="clientType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Client type </th>
+      <td mat-cell *matCellDef="let element"> {{element?.clientType}} </td>
+    </ng-container>
+
+    <!-- ClientType Column -->
+    <ng-container matColumnDef="numberOfDays">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Number of days </th>
+      <td mat-cell *matCellDef="let element"> {{element?.numberOfDays}} </td>
+    </ng-container>
+
+    <!-- IsEducational Column -->
+    <ng-container matColumnDef="isEducational">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Is educational </th>
+      <td mat-cell *matCellDef="let element"> {{element?.isEducational}} </td>
+    </ng-container>
+
+    <!-- Details Column -->
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <button type="button" class="btn btn-primary btn-sm" (click)="goTo(element.id)">Details</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white; margin-top: 20px">
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+      diameter="50">
+    </mat-progress-spinner>
+  </div>
+
+  <mat-paginator #licenseOptionsPaginator [pageSizeOptions]="[10, 30, 100]" showFirstLastButtons></mat-paginator>
+</div>
+<br/>
+
+<!-- New license option -->
+<h3>New license option</h3>
+<form class="row g-3 was-validated" #newLicenseOptionForm="ngForm" >
+
+  <div class="col-md-3">
+    <label for="newName" class="form-label">Name</label>
+    <input type="text" pattern=".{4,255}" class="form-control" id="newName" name="name" [(ngModel)]="newLicenseOption!.name" [value]="newLicenseOption?.name" required>
+  </div>
+  <div class="col-md-3">
+    <label for="newTokens" class="form-label">Tokens</label>
+    <input type="number" class="form-control" id="newTokens" name="tokens" [(ngModel)]="newLicenseOption!.tokens" [value]="newLicenseOption?.tokens" required>
+  </div>
+  <div class="col-md-3">
+    <label for="newNumberOfDays" class="form-label">Number of days</label>
+    <input type="number" class="form-control" id="newNumberOfDays" name="numberOfDays" [(ngModel)]="newLicenseOption!.numberOfDays" [value]="newLicenseOption?.numberOfDays" required>
+  </div>
+  <div class="col-md-3">
+    <label for="newClientType" class="form-label">Client type</label>
+    <select id="newClientType" class="form-select" name="clientType" [(ngModel)]="newLicenseOption!.clientType">
+      <option *ngFor="let type of clientTypes" [ngValue]="type">{{type}}</option>
+    </select>
+  </div>
+
+  <div class="col-md-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="newIsEducational" name="isEducational" [(ngModel)]="newLicenseOption!.isEducational" [checked]="newLicenseOption?.isEducational">
+      <label class="form-check-label" for="newIsEducational">
+        Is educational
+      </label>
+    </div>
+  </div>
+
+<!--  licenseType: LicenseType | null;-->
+<!--  licenseTypeId: number | null;-->
+<!--  numberOfDays: number | null;-->
+<!--  isEducational: boolean | null;-->
+<!--  tokens: number | null;-->
+<!--  clientType: string | null;-->
+
+  <div class="col-2">
+    <button type="submit" class="btn btn-primary" (click)="addNewLicenseOption()">Add new license option</button>
+  </div>
+
+</form>
+<br/>
+
 <h3>License type removal</h3>
 <form class="row g-3">
   <div class="col-12" *ngIf="isRemovalAllowed == false">
@@ -32,5 +146,4 @@
     <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
   </div>
 </form>
-
 <br/>

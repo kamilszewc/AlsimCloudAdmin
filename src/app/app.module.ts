@@ -49,6 +49,7 @@ import { LicenseTypesComponent } from './license-types/license-types.component';
 import { LicenseTypeComponent } from './license-type/license-type.component';
 import { LicenseComponent } from './license/license.component';
 import { LicensesComponent } from './licenses/licenses.component';
+import { LicenseOptionComponent } from './license-option/license-option.component';
 
 const routes: Routes = [
   { path: '', component: UsersComponent, canActivate: [LoginGuard, TwoFaGuard] },
@@ -79,6 +80,7 @@ const routes: Routes = [
   { path: 'object/:id', component: ObjectComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'license-types', component: LicenseTypesComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'license-type/:id', component: LicenseTypeComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'license-option/:id', component: LicenseOptionComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'licenses', component: LicensesComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'license/:id', component: LicenseComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'twoFA', component: TwoFAComponent, canActivate: [LoginGuard] },
@@ -122,6 +124,7 @@ const HttpInterceptorProviders = [
     LicenseTypeComponent,
     LicenseComponent,
     LicensesComponent,
+    LicenseOptionComponent,
   ],
     imports: [
         BrowserModule,
