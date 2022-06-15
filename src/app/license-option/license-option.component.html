@@ -1,1 +1,55 @@
-<p>license-option works!</p>
+<h3>License option {{id}}</h3>
+
+<form class="row g-3 was-validated" #licenseOptionForm="ngForm" >
+
+  <div class="col-md-3">
+    <label for="newName" class="form-label">Name</label>
+    <input type="text" pattern=".{4,255}" class="form-control" id="newName" name="name" [disabled]="!isEditAllowed" [(ngModel)]="licenseOption!.name" [value]="licenseOption?.name" required>
+  </div>
+  <div class="col-md-3">
+    <label for="newTokens" class="form-label">Tokens</label>
+    <input type="number" class="form-control" id="newTokens" name="tokens" [disabled]="!isEditAllowed" [(ngModel)]="licenseOption!.tokens" [value]="licenseOption?.tokens" required>
+  </div>
+  <div class="col-md-3">
+    <label for="newNumberOfDays" class="form-label">Number of days</label>
+    <input type="number" class="form-control" id="newNumberOfDays" name="numberOfDays" [disabled]="!isEditAllowed" [(ngModel)]="licenseOption!.numberOfDays" [value]="licenseOption?.numberOfDays" required>
+  </div>
+  <div class="col-md-3">
+    <label for="newClientType" class="form-label">Client type</label>
+    <select id="newClientType" class="form-select" name="clientType" [disabled]="!isEditAllowed" [(ngModel)]="licenseOption!.clientType">
+      <option *ngFor="let type of clientTypes" [ngValue]="type">{{type}}</option>
+    </select>
+  </div>
+
+  <div class="col-md-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="newIsEducational" name="isEducational" [disabled]="!isEditAllowed" [(ngModel)]="licenseOption!.isEducational" [checked]="licenseOption?.isEducational">
+      <label class="form-check-label" for="newIsEducational">
+        Is educational
+      </label>
+    </div>
+  </div>
+
+  <div class="col-2" *ngIf="isEditAllowed == false">
+    <button type="submit" class="btn btn-primary" (click)="allowEdit()">Edit</button>
+  </div>
+  <div class="col-2" *ngIf="isEditAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="editLicenseOption()">Submit</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+
+</form>
+<br/>
+
+
+<h3>License type removal</h3>
+<form class="row g-3">
+  <div class="col-12" *ngIf="isRemovalAllowed == false">
+    <button type="submit" class="btn btn-danger" (click)="allowRemoval()">Delete license type</button>
+  </div>
+  <div class="col-12" *ngIf="isRemovalAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="deleteLicenseType()" #deleteButton>Click here to confirm license option delete</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+</form>
+<br/>
