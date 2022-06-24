@@ -1,1 +1,53 @@
-<p>license works!</p>
+<h3>License {{license!.id}}</h3>
+<form class="row g-3" #licenseForm="ngForm" >
+  <div class="col-md-3">
+    <label for="licenseType" class="form-label">License type</label>
+    <input type="text" class="form-control" id="licenseType" name="licenseType" [value]="license?.licenseType?.name" disabled>
+  </div>
+  <div class="col-md-3">
+    <label for="expirationTime" class="form-label">Expiration time</label>
+    <input type="text" class="form-control" id="expirationTime" name="expirationTime"  [value]="license?.expirationTime" disabled>
+  </div>
+  <div class="col-md-3">
+    <label for="name" class="form-label">Username</label>
+    <input type="text" class="form-control" id="name" name="name" [value]="license?.user?.username" disabled>
+  </div>
+  <div class="col-md-3">
+    <label for="tokens" class="form-label">ECubes cost</label>
+    <input type="text" class="form-control" id="tokens" name="tokens" [value]="license?.tokens" disabled>
+  </div>
+
+  <div class="col-md-3">
+    <label for="startTime" class="form-label">Start time</label>
+    <input type="text" class="form-control" id="startTime" name="startTime"  [value]="license?.startTime" disabled>
+  </div>
+  <div class="col-md-9">
+  </div>
+
+  <div class="col-md-3">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="isValid" name="isValid"  [checked]="license?.isValid" disabled>
+      <label class="form-check-label" for="isValid">
+        Is valid ?
+      </label>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="isEducational" name="isEducational"  [checked]="license?.isEducational" disabled>
+      <label class="form-check-label" for="isEducational">
+        Is educational ?
+      </label>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="isTrialPeriod" name="isTrialPeriod"  [checked]="license?.isEducational" disabled>
+      <label class="form-check-label" for="isTrialPeriod">
+        Is trial period ?
+      </label>
+    </div>
+  </div>
+
+</form>
+<br/>
