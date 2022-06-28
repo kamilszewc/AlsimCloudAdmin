@@ -17,6 +17,7 @@ export class LicenseComponent implements OnInit {
   @ViewChild('licenseForm') licenseForm!: NgForm;
   license!: License;
   isEditAllowed = false;
+  isRemovalAllowed = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -40,5 +41,22 @@ export class LicenseComponent implements OnInit {
 
   reload() {
     window.location.reload();
+  }
+
+  allowRemoval() {
+    this.isRemovalAllowed = true;
+  }
+
+  @ViewChild('deleteButton') deleteButton!: HTMLButtonElement;
+  deleteLicense() {
+    this.deleteButton.disabled = true;
+    this.licenseService.deleteLicense(this.id!).subscribe(
+      message => {
+        this.router.navigate(['licenses']);
+      },
+      error => {
+        this.deleteButton.disabled = false;
+      }
+    )
   }
 }

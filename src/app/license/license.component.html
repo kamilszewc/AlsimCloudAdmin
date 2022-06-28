@@ -51,3 +51,15 @@
 
 </form>
 <br/>
+
+<h3>License removal</h3>
+<form class="row g-3">
+  <div class="col-12" *ngIf="isRemovalAllowed == false">
+    <button type="submit" class="btn btn-danger" (click)="allowRemoval()">Delete license type</button>
+  </div>
+  <div class="col-12" *ngIf="isRemovalAllowed == true">
+    <button type="submit" class="btn btn-warning" (click)="deleteLicense()" #deleteButton>Click here to confirm license delete</button>&nbsp;
+    <button type="submit" class="btn btn-primary" (click)="reload()">Cancel</button>
+  </div>
+</form>
+<br/>
