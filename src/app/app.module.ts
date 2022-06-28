@@ -50,6 +50,7 @@ import { LicenseTypeComponent } from './license-type/license-type.component';
 import { LicenseComponent } from './license/license.component';
 import { LicensesComponent } from './licenses/licenses.component';
 import { LicenseOptionComponent } from './license-option/license-option.component';
+import { BonusCodesComponent } from './bonus-codes/bonus-codes.component';
 
 const routes: Routes = [
   { path: '', component: UsersComponent, canActivate: [LoginGuard, TwoFaGuard] },
@@ -83,6 +84,7 @@ const routes: Routes = [
   { path: 'license-option/:id', component: LicenseOptionComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'licenses', component: LicensesComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'license/:id', component: LicenseComponent, canActivate: [LoginGuard, TwoFaGuard] },
+  { path: 'bonus-codes', component: BonusCodesComponent, canActivate: [LoginGuard, TwoFaGuard] },
   { path: 'twoFA', component: TwoFAComponent, canActivate: [LoginGuard] },
   { path: 'login', component: LoginComponent }
 ]
@@ -125,6 +127,7 @@ const HttpInterceptorProviders = [
     LicenseComponent,
     LicensesComponent,
     LicenseOptionComponent,
+    BonusCodesComponent,
   ],
     imports: [
         BrowserModule,
