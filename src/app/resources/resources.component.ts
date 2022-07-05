@@ -95,7 +95,7 @@ export class ResourcesComponent implements OnInit {
 
     this.getAwsAvailableInstances();
     this.getGenesisAvailableInstances();
-    this.getExoscaleAvailableInstances();
+    //this.getExoscaleAvailableInstances();
   }
 
   getResources() {
